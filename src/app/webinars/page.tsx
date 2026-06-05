@@ -1,0 +1,426 @@
+'use client';
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+
+/* ─── Data ─────────────────────────────────────────────────────────────── */
+
+type Status = 'upcoming' | 'recorded';
+type Filter = 'all' | 'upcoming' | 'recorded';
+
+interface Webinar {
+  id: number;
+  status: Status;
+  title: string;
+  desc: string;
+  duration: string;
+  date: string;
+  host: string;
+  hostRole: string;
+  hostEmoji: string;
+  views?: string;
+  featured?: boolean;
+  registered?: number;
+}
+
+const WEBINARS: Webinar[] = [
+  {
+    id: 1,
+    status: 'upcoming',
+    title: 'Digital Denture Masterclass',
+    desc: 'An in-depth, live, interactive session on the complete digital denture workflow — from IOS scan to try-in to final delivery — with live Q&A with our removable prosthetics team.',
+    duration: '90 minutes',
+    date: 'June 10, 2026 · 7:00 PM EST',
+    host: 'Erik Morales',
+    hostRole: 'VP of Removable Prosthetics',
+    hostEmoji: '🔬',
+    featured: true,
+    registered: 127,
+  },
+  {
+    id: 2,
+    status: 'upcoming',
+    title: 'Zirconia Selection: Making the Right Choice Every Time',
+    desc: 'A practical decision framework for selecting among monolithic zirconia grades, with case examples from our lab.',
+    duration: '60 min',
+    date: 'June 24, 2026',
+    host: 'Kelli Trainor',
+    hostRole: 'Crown & Bridge Team Leader',
+    hostEmoji: '👩‍🔬',
+  },
+  {
+    id: 3,
+    status: 'upcoming',
+    title: 'Full-Arch Implant Workflow: From CBCT to Delivery',
+    desc: "Step-by-step walkthrough of Synergy 3D's complete All-on-X case protocol, including surgical guide, try-in, and hybrid delivery.",
+    duration: '75 min',
+    date: 'July 8, 2026',
+    host: 'Milos Markovic',
+    hostRole: 'VP of CAD/CAM & Implantology',
+    hostEmoji: '🦷',
+  },
+  {
+    id: 4,
+    status: 'recorded',
+    title: 'The Digital Smile Design Workflow Explained',
+    desc: 'How to incorporate digital smile design into your anterior restoration workflow and how the lab interprets your design.',
+    duration: '55 min',
+    date: 'May 15, 2026',
+    host: 'Enrico Romano',
+    hostRole: 'CEO & Owner',
+    hostEmoji: '👨‍⚕️',
+    views: '1.2k',
+  },
+  {
+    id: 5,
+    status: 'recorded',
+    title: 'Scanner Masterclass: Getting Perfect Impressions Every Time',
+    desc: "Live scanner demonstration with tips and common mistakes from Synergy 3D's customer integration team.",
+    duration: '45 min',
+    date: 'Apr 22, 2026',
+    host: 'Ashley Lezon',
+    hostRole: 'VP of Customer Integration',
+    hostEmoji: '🤝',
+    views: '2.4k',
+  },
+  {
+    id: 6,
+    status: 'recorded',
+    title: 'Night Guards & Occlusal Splints: The Digital Advantage',
+    desc: 'Why CAD/CAM milled occlusal appliances outperform thermoformed guards — and how to prescribe them correctly.',
+    duration: '40 min',
+    date: 'Apr 8, 2026',
+    host: 'Erik Morales',
+    hostRole: 'VP of Removable Prosthetics',
+    hostEmoji: '🔬',
+    views: '890',
+  },
+  {
+    id: 7,
+    status: 'recorded',
+    title: 'Understanding Shade: From Scanning to Final Crown',
+    desc: 'How shade information travels from your scanner to our lab, and how we use it to characterize every crown for maximum natural aesthetics.',
+    duration: '35 min',
+    date: 'Mar 25, 2026',
+    host: 'Kelli Trainor',
+    hostRole: 'Crown & Bridge Team Leader',
+    hostEmoji: '👩‍🔬',
+    views: '1.5k',
+  },
+  {
+    id: 8,
+    status: 'recorded',
+    title: 'Rx Form Deep Dive: Avoiding the Most Common Errors',
+    desc: 'A live walkthrough of the Synergy 3D Rx form — every field explained, with real examples of what goes wrong and how to avoid remakes.',
+    duration: '30 min',
+    date: 'Mar 11, 2026',
+    host: 'Davie Carino',
+    hostRole: 'C.O.O',
+    hostEmoji: '👨‍💼',
+    views: '3.1k',
+  },
+];
+
+/* ─── Page ──────────────────────────────────────────────────────────────── */
+
+export default function WebinarsPage() {
+  const [filter, setFilter] = useState<Filter>('all');
+
+  const featured = WEBINARS.find(w => w.featured);
+  const sessions  = WEBINARS.filter(w => !w.featured);
+
+  const filtered = sessions.filter(w =>
+    filter === 'all' || w.status === filter
+  );
+
+  const total = sessions.filter(w => filter === 'all' || w.status === filter).length;
+
+  return (
+    <div>
+
+      {/* ── Hero ──────────────────────────────────────────────────────────── */}
+      <section className="relative bg-navy pt-36 pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />
+
+        <div className="max-w-[1140px] mx-auto px-6 md:px-16 relative z-10">
+          {/* Breadcrumb */}
+          <div className="flex gap-2 text-[0.78rem] text-white/40 mb-6">
+            <Link href="/" className="hover:text-white/70 transition-colors">Home</Link>
+            <span className="text-white/20">›</span>
+            <span className="text-white/40">Learnings</span>
+            <span className="text-white/20">›</span>
+            <span className="text-white/70 font-medium">Webinars</span>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+            {/* Left */}
+            <div>
+              <span className="block text-[0.7rem] font-bold tracking-[0.2em] uppercase text-blue-glow mb-5">
+                Webinars
+              </span>
+              <h1 className="font-serif text-5xl sm:text-6xl font-extrabold text-white leading-[1.04] mb-6">
+                Live &amp; on-<br />demand<br />
+                <em className="italic text-blue-glow font-extrabold">expert<br />sessions.</em>
+              </h1>
+              <p className="text-[0.98rem] text-muted-dark leading-relaxed max-w-[400px] mb-10">
+                Join Synergy 3D&apos;s clinical team for interactive webinars on digital dentistry, materials, workflows, and the future of restorative practice.
+              </p>
+              {/* Stats */}
+              <div className="flex flex-wrap gap-10">
+                <div>
+                  <span className="font-serif text-3xl font-extrabold text-white block leading-none">30<em className="not-italic text-blue-glow">+</em></span>
+                  <span className="text-[0.68rem] text-muted-dark tracking-[0.14em] uppercase mt-1.5 block">Sessions</span>
+                </div>
+                <div>
+                  <span className="font-serif text-3xl font-extrabold text-white block leading-none">5<em className="not-italic text-blue-glow">k+</em></span>
+                  <span className="text-[0.68rem] text-muted-dark tracking-[0.14em] uppercase mt-1.5 block">Registered</span>
+                </div>
+                <div>
+                  <span className="font-serif text-3xl font-extrabold text-white block leading-none">Free</span>
+                  <span className="text-[0.68rem] text-muted-dark tracking-[0.14em] uppercase mt-1.5 block">Always</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: quick-link cards */}
+            <div className="flex flex-col gap-3">
+              {/* Next live session highlight */}
+              <Link
+                href="#featured"
+                className="flex items-center gap-4 bg-emerald-900/30 hover:bg-emerald-900/45 border border-emerald-500/30 hover:border-emerald-400/50 rounded-xl px-5 py-4 transition-all group"
+              >
+                <div className="w-10 h-10 rounded-lg bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center shrink-0">
+                  <span className="w-3 h-3 bg-emerald-400 rounded-full animate-pulse" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="block text-[0.92rem] font-bold text-white leading-snug">Next Live Session</span>
+                  <span className="block text-[0.78rem] text-emerald-300/70 mt-0.5">June 10 · Digital Denture Masterclass</span>
+                </div>
+                <svg className="text-white/30 group-hover:text-white/60 transition-colors shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </Link>
+
+              {[
+                {
+                  icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>,
+                  label: 'SynergyTalks Videos',
+                  sub: 'Short & long-form podcast episodes',
+                  href: '/talks',
+                },
+                {
+                  icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>,
+                  label: 'Education Resources',
+                  sub: 'Self-paced guides & courses',
+                  href: '/education',
+                },
+              ].map(item => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="flex items-center gap-4 bg-white/5 hover:bg-white/10 border border-white/8 hover:border-white/18 rounded-xl px-5 py-4 transition-all group"
+                >
+                  <div className="w-10 h-10 rounded-lg bg-blue-default/20 border border-blue-default/30 flex items-center justify-center text-blue-glow shrink-0 group-hover:bg-blue-default/30 transition-colors">
+                    {item.icon}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <span className="block text-[0.92rem] font-bold text-white leading-snug">{item.label}</span>
+                    <span className="block text-[0.78rem] text-muted-dark mt-0.5">{item.sub}</span>
+                  </div>
+                  <svg className="text-white/30 group-hover:text-white/60 transition-colors shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </Link>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ── Filter bar ─────────────────────────────────────────────────────── */}
+      <div className="bg-white border-b border-border-light py-3 md:py-4 text-navy-text md:sticky md:top-[60px] z-[20]">
+        <div className="max-w-[1140px] mx-auto px-4 md:px-16 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-1.5">
+            {([
+              { id: 'all',      label: 'All Webinars' },
+              { id: 'upcoming', label: 'Upcoming' },
+              { id: 'recorded', label: 'Recorded' },
+            ] as { id: Filter; label: string }[]).map(f => (
+              <button
+                key={f.id}
+                onClick={() => setFilter(f.id)}
+                className={`shrink-0 px-3.5 py-1.5 rounded-full border font-semibold text-[0.75rem] cursor-pointer transition-all ${
+                  filter === f.id
+                    ? 'bg-blue-default border-blue-default text-white'
+                    : 'bg-white border-border-light text-gray-500 hover:border-gray-300 hover:text-navy-text'
+                }`}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+          <span className="text-[0.78rem] text-gray-400 font-semibold whitespace-nowrap hidden sm:block">
+            {total + (filter === 'all' || filter === 'upcoming' ? 1 : 0)} sessions
+          </span>
+        </div>
+      </div>
+
+      {/* ── Featured webinar banner ─────────────────────────────────────── */}
+      {featured && (filter === 'all' || filter === 'upcoming') && (
+        <section className="bg-white pt-8 pb-4" id="featured">
+          <div className="max-w-[1140px] mx-auto px-4 md:px-16">
+            <div className="bg-[radial-gradient(ellipse_at_60%_40%,#1e40af_0%,#0a1045_100%)] rounded-2xl p-7 sm:p-9 grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
+              {/* Left content */}
+              <div className="sm:col-span-8">
+                <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-[0.68rem] font-bold tracking-[0.14em] uppercase px-3 py-1.5 rounded-full mb-5">
+                  <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+                  Next Up · June 10, 2026
+                </div>
+                <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-white mb-3 leading-snug">
+                  Digital Denture <em className="italic text-blue-300 font-extrabold">Masterclass</em>
+                </h2>
+                <p className="text-[0.88rem] text-white/65 leading-relaxed mb-5 max-w-[520px]">
+                  {featured.desc}
+                </p>
+                <div className="flex flex-wrap items-center gap-5 text-[0.75rem] text-white/50 mb-6">
+                  <span className="flex items-center gap-1.5">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    {featured.duration}
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    {featured.date}
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                    {featured.host}, {featured.hostRole}
+                  </span>
+                </div>
+                <button className="bg-blue-default hover:bg-blue-bright text-white font-bold py-2.5 px-7 rounded-lg text-[0.9rem] transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer border-none shadow-lg">
+                  Register Free →
+                </button>
+              </div>
+
+              {/* Right stats */}
+              <div className="sm:col-span-4 flex flex-row sm:flex-col gap-3">
+                <div className="flex-1 bg-white/8 border border-white/12 rounded-xl p-5 text-center">
+                  <span className="font-serif text-4xl font-extrabold text-white block leading-none mb-1">{featured.registered}</span>
+                  <span className="text-[0.66rem] font-bold tracking-[0.14em] uppercase text-white/40">Registered So Far</span>
+                </div>
+                <div className="flex-1 bg-white/8 border border-white/12 rounded-xl p-5 text-center">
+                  <span className="font-serif text-4xl font-extrabold text-white block leading-none mb-1">Free</span>
+                  <span className="text-[0.66rem] font-bold tracking-[0.14em] uppercase text-white/40">No Cost · CE Credit Pending</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── All sessions grid ───────────────────────────────────────────── */}
+      <section className="bg-white py-8 pb-20">
+        <div className="max-w-[1140px] mx-auto px-4 md:px-16">
+          <h2 className="font-serif text-2xl font-bold text-navy-text mb-6">All Sessions</h2>
+
+          {filtered.length === 0 ? (
+            <div className="text-center py-20 text-gray-400 font-semibold">No sessions found.</div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+              {filtered.map(w => (
+                <div
+                  key={w.id}
+                  className="reveal bg-white border border-border-light rounded-2xl p-5 flex flex-col hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group"
+                >
+                  {/* Status badge */}
+                  <div className="flex items-center gap-1.5 mb-3">
+                    {w.status === 'upcoming' ? (
+                      <div className='flex gap-1 items-center bg-emerald-200/20 py-1 px-2 rounded-full'>
+                        <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse mb-0.5" />
+                        <span className="text-[10px] font-semibold tracking-[0.14em] uppercase text-emerald-500">Upcoming</span>
+                      </div>
+                    ) : (
+                      <div className='flex gap-1 items-center bg-blue-200/20 py-1 px-2 rounded-full'>
+                        <span className="w-1.5 h-1.5 bg-blue-400 rounded-full mb-0.5" />
+                        <span className="text-[10px] font-semibold tracking-[0.14em] uppercase text-blue-500">Recorded</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Title & desc */}
+                  <h3 className="font-serif text-[1rem] font-bold text-navy-text mb-2 leading-snug group-hover:text-blue-600 transition-colors flex-1">
+                    {w.title}
+                  </h3>
+                  <p className="text-[0.78rem] text-gray-500 leading-relaxed mb-4 line-clamp-3">{w.desc}</p>
+
+                  {/* Meta */}
+                  <div className="flex flex-wrap items-center gap-3 text-[0.72rem] text-gray-400 mb-5">
+                    <span className="flex items-center gap-1">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                      {w.duration}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                      {w.date}
+                    </span>
+                    {w.views && (
+                      <span className="flex items-center gap-1">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        {w.views} views
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Footer: host + CTA */}
+                  <div className="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-full bg-blue-default/10 border border-blue-100 flex items-center justify-center text-sm shrink-0">
+                        {w.hostEmoji}
+                      </div>
+                      <span className="text-[0.75rem] font-semibold text-navy-text">{w.host}</span>
+                    </div>
+                    {w.status === 'upcoming' ? (
+                      <button className="bg-blue-default hover:bg-blue-bright text-white font-bold py-1.5 px-4 rounded-lg text-[0.75rem] transition-all cursor-pointer border-none">
+                        Register →
+                      </button>
+                    ) : (
+                      <button className="bg-transparent border border-border-light hover:border-blue-300 text-navy-text hover:text-blue-600 font-bold py-1.5 px-4 rounded-lg text-[0.75rem] transition-all cursor-pointer">
+                        Watch Now
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── CTA strip ─────────────────────────────────────────────────────── */}
+      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-14 text-white text-center sm:text-left">
+        <div className="max-w-[1140px] mx-auto px-6 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-8">
+          <div>
+            <h2 className="font-serif text-2xl sm:text-4xl font-bold leading-tight mb-2">
+              Suggest a <em className="italic font-normal">webinar topic.</em>
+            </h2>
+            <p className="text-white/70 text-md">
+              Tell us what you want to learn — we build our schedule around practitioner requests.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3 shrink-0 justify-center">
+            <Link
+              href="/callback"
+              className="inline-block bg-white hover:bg-gray-50 text-blue-700 font-bold py-3 px-7 rounded-lg text-sm shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+            >
+              Submit a Topic →
+            </Link>
+            <Link
+              href="/talks"
+              className="inline-block bg-transparent hover:bg-white/8 text-white font-medium py-3 px-6 rounded-lg text-sm border border-white/25 transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+            >
+              Watch SynergyTalks
+            </Link>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  );
+}
