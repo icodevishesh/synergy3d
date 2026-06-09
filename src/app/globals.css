@@ -4,6 +4,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
 :root {
   --navy: #07101f;
   --navy-mid: #0c1829;

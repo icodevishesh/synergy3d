@@ -1,0 +1,32 @@
+1. Build a shared YouTubeEmbed component
+components/YouTubeEmbed.tsx
+// Props
+interface YouTubeEmbedProps {
+  id: string          // YouTube video ID (not full URL)
+  title?: string      // for iframe accessibility
+  className?: string  // optional wrapper class override
+  autoplay?: boolean
+}
+
+2. Create /admin/* pages with forms to add/manage content
+3. Build REST API routes for each section
+4. Replace all hardcoded frontend data with dynamic fetches — without changing any existing design or layout
+
+/admin/talks
+- add youtube ids and publish video, add ep no., title description, category, doc name, video duration
+
+
+/admin/education
+- education page will be same as talks page: category, title, description,  duration
+- latest/current videos will show on top
+
+/admin/webinars
+- option to add youtube url; category: recorded, upcoming; title, description, date, time, duration, speaker name, speaker image
+- recoded session card show watch now option -> redirect to youtube
+- upcoming session show register -> opens a form ask name, email, whatsapp number, 
+- also option to edit the banner, session numbers, registered numbers
+
+/admin/customers
+- add yt id and publish video, title, description, category, customer name, customer img, location
+- add cards in from our partners card section
+- admin can select which 3 customer stories will shown/render on homepage

@@ -2,18 +2,40 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { EPISODES } from '@/data/episodes';
 
 export default function TalksPage() {
+  const [episodes, setEpisodes] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [featured, setFeatured] = useState<{
+    youtubeId: string; episodeNumber: number; title: string; guest: string; duration: string;
+  } | null>(null);
   const [filter, setFilter] = useState<'all' | 'clinical' | 'technology' | 'materials' | 'business'>('all');
   const [search, setSearch] = useState('');
   const [optinUnlocked, setOptinUnlocked] = useState(false);
 
   useEffect(() => {
-    const handleUnlock = () => {
-      setOptinUnlocked(true);
-    };
+    const handleUnlock = () => { setOptinUnlocked(true); };
     window.addEventListener('optin-unlocked', handleUnlock);
+
+    const fetchData = async () => {
+      try {
+        const [epsRes, featRes] = await Promise.all([
+          fetch('/api/talks'),
+          fetch('/api/talks/featured'),
+        ]);
+        if (epsRes.ok) setEpisodes(await epsRes.json());
+        if (featRes.ok) {
+          const f = await featRes.json();
+          if (f) setFeatured(f);
+        }
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
     return () => window.removeEventListener('optin-unlocked', handleUnlock);
   }, []);
 
@@ -37,13 +59,14 @@ export default function TalksPage() {
     { id: 'business', label: 'Business' }
   ];
 
-  const filteredEps = EPISODES.filter(ep => {
+  const filteredEps = episodes.filter(ep => {
     const mc = filter === 'all' || ep.cat === filter;
     const ms = !search || 
       ep.title.toLowerCase().includes(search.toLowerCase()) || 
       ep.guest.toLowerCase().includes(search.toLowerCase());
     return mc && ms;
   });
+
 
   return (
     <div>
@@ -73,6 +96,7 @@ export default function TalksPage() {
             </Link>
           </div>
 
+            {/* Featured ep */}
             <div className="flex md:flex-wrap gap-8">
               <div className="text-center md:text-left">
                 <span className="font-serif text-3xl md:text-4xl font-extrabold text-white block leading-none">40<em className="not-italic text-cyan-500">+</em></span>
@@ -91,24 +115,59 @@ export default function TalksPage() {
 
           {/* Featured Video Component */}
           <div className="lg:col-span-6">
-            <div className="bg-navy-card border border-white/8 rounded-2xl overflow-hidden shadow-2xl relative">
-              <div 
-                className="aspect-video bg-navy-mid relative overflow-hidden cursor-pointer flex items-center justify-center group"
-                onClick={() => playVideo('dQw4w9WgXcQ', 'Ep. 40', 'The Future of Full-Arch Implant Dentistry', 'Dr. James Patel, Implantologist')}
+            {featured ? (
+              <div
+                className="bg-[#0f1e5a] rounded-t-2xl overflow-hidden shadow-2xl cursor-pointer w-full max-w-[480px] mx-auto lg:mx-0 lg:ml-auto"
+                onClick={() => playVideo(featured.youtubeId, `Ep. ${featured.episodeNumber}`, featured.title, featured.guest)}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-navy-mid to-blue-default/40 group-hover:opacity-80 transition-opacity z-[1]" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_35%_65%,rgba(0,180,216,0.18)_0%,transparent_60%)] pointer-events-none" />
-                <div className="w-18 h-18 rounded-full bg-white/12 border border-white/25 backdrop-blur-md flex items-center justify-center group-hover:bg-cyan/50 group-hover:scale-105 transition-all z-[2]">
-                  <svg className="ml-1 text-white" width="20" height="22" viewBox="0 0 16 18" fill="none"><path d="M1 1.5L15 9L1 16.5V1.5Z" fill="currentColor"/></svg>
+                {/* Real YouTube thumbnail */}
+                <div className="aspect-video relative overflow-hidden group">
+                  <img
+                    src={`https://img.youtube.com/vi/${featured.youtubeId}/maxresdefault.jpg`}
+                    alt={featured.title}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    onError={(e) => {
+                      // fallback to hqdefault if maxres not available
+                      (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${featured.youtubeId}/hqdefault.jpg`;
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
+                  {/* Play button */}
+                  <div className="absolute inset-0 flex items-center justify-center z-10">
+                    <div className="w-16 h-16 rounded-full bg-white/15 border border-white/30 backdrop-blur-md flex items-center justify-center group-hover:bg-white/25 group-hover:scale-105 transition-all">
+                      <svg className="ml-1 text-white" width="20" height="22" viewBox="0 0 16 18" fill="none">
+                        <path d="M1 1.5L15 9L1 16.5V1.5Z" fill="currentColor" />
+                      </svg>
+                    </div>
+                  </div>
+                  <span className="absolute bottom-4 left-5 z-10 text-[0.78rem] text-white/60 font-semibold">
+                    Featured Episode — Ep. {featured.episodeNumber}
+                  </span>
                 </div>
-                <span className="absolute bottom-4 left-5 z-[3] text-xs text-white/60 tracking-wider font-normal">Featured Episode - Ep. 40</span>
+                {/* Card info */}
+                <div className="px-5 py-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[0.68rem] font-bold tracking-widest text-cyan-400 uppercase">Episode {featured.episodeNumber}</span>
+                    <span className="text-white/20">·</span>
+                    <span className="text-[0.68rem] font-bold tracking-widest text-cyan-400 uppercase">Latest</span>
+                  </div>
+                  <h3 className="font-serif text-[1.1rem] font-bold text-white mb-1 leading-snug">{featured.title}</h3>
+                  <p className="text-[0.8rem] text-muted-dark">
+                    {featured.guest}{featured.duration ? ` · ${featured.duration}` : ''}
+                  </p>
+                </div>
               </div>
-              <div className="p-5.5">
-                <span className="text-xs font-normal tracking-widest text-cyan-500 uppercase mb-1 block">Episode 40 · latest</span>
-                <h3 className="font-serif text-lg font-bold text-white mb-1 leading-snug">The Future of Full-Arch Implant Dentistry</h3>
-                <p className="text-[0.82rem] text-muted-dark leading-relaxed">Dr. James Patel, Implantologist ·  48 min</p>
+            ) : (
+              /* Skeleton while loading */
+              <div className="bg-[#0f1e5a] rounded-t-2xl overflow-hidden shadow-2xl w-full max-w-[480px] mx-auto lg:ml-auto animate-pulse">
+                <div className="aspect-video bg-white/5" />
+                <div className="px-5 py-4 space-y-2">
+                  <div className="h-3 bg-white/10 rounded w-1/3" />
+                  <div className="h-5 bg-white/10 rounded w-3/4" />
+                  <div className="h-3 bg-white/10 rounded w-1/2" />
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
         </div>
@@ -151,11 +210,16 @@ export default function TalksPage() {
       {/* Episodes Grid Section */}
       <section className="bg-white text-navy-text py-14">
         <div className="max-w-[1140px] mx-auto px-16">
-          {filteredEps.length === 0 ? (
+          {isLoading ? (
+            <div className="flex items-center justify-center py-20">
+              <span className="w-10 h-10 border-4 border-blue-default border-t-transparent rounded-full animate-spin" />
+            </div>
+          ) : filteredEps.length === 0 ? (
             <div className="text-center py-20 text-gray-500 font-semibold text-[1.1rem]">
               No episodes matched your search query.
             </div>
           ) : (
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
               {filteredEps.map((ep, i) => {
                 const locked = ep.locked && !optinUnlocked;
@@ -189,7 +253,15 @@ export default function TalksPage() {
                     )}
 
                     <div className="aspect-video bg-navy-mid relative overflow-hidden flex items-center justify-center shrink-0">
-                      <div className="absolute inset-0 bg-navy/20 z-[1] pointer-events-none" />
+                      {/* YouTube thumbnail for unlocked episodes */}
+                      {!locked && ep.videoId && (
+                        <img
+                          src={`https://img.youtube.com/vi/${ep.videoId}/hqdefault.jpg`}
+                          alt={ep.title}
+                          className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-navy/30 z-[1] pointer-events-none" />
                       <div className="absolute bottom-2 right-2 z-[3] bg-black/65 px-2 py-0.5 rounded text-[0.68rem] font-semibold text-white">
                         {ep.duration}
                       </div>

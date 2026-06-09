@@ -1,171 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
 
 type Topic = 'all' | 'scanning' | 'materials' | 'implants' | 'workflow';
-
-interface Resource {
-  id: number;
-  topic: Topic;
-  topicLabel: string;
-  title: string;
-  desc: string;
-  duration: string;
-  level: 'Beginner' | 'Intermediate' | 'Advanced';
-  views: string;
-  emoji: string;
-  featured?: boolean;
-}
-
-const RESOURCES: Resource[] = [
-  {
-    id: 1,
-    topic: 'scanning',
-    topicLabel: 'Scanning',
-    title: 'Complete Guide to Intraoral Scanning: From Setup to Submission',
-    desc: 'A comprehensive walkthrough of the full intraoral scanning workflow — patient preparation, scanner calibration, scanning technique, and how to submit your files to Synergy 3D in under 2 minutes.',
-    duration: '45 min',
-    level: 'Intermediate',
-    views: '2.3k',
-    emoji: '📷',
-    featured: true,
-  },
-  {
-    id: 2,
-    topic: 'materials',
-    topicLabel: 'Materials',
-    title: 'Zirconia Grades Explained: 3Y vs 4Y vs 5Y-PSZ',
-    desc: 'A deep dive into the differences between zirconia grades and when to use each one for optimal aesthetics and strength.',
-    duration: '20 min',
-    level: 'Intermediate',
-    views: '1.8k',
-    emoji: '🦷',
-  },
-  {
-    id: 3,
-    topic: 'implants',
-    topicLabel: 'Implants',
-    title: 'All-on-X Case Planning: A Step-by-Step Digital Protocol',
-    desc: 'Learn the full digital protocol for planning All-on-4 and All-on-6 cases — from CBCT to final prosthetic design.',
-    duration: '35 min',
-    level: 'Advanced',
-    views: '1.4k',
-    emoji: '🔬',
-  },
-  {
-    id: 4,
-    topic: 'workflow',
-    topicLabel: 'Workflow',
-    title: 'How to Submit a Case to Synergy 3D — Video Tutorial',
-    desc: 'Step-by-step video guide covering the full case submission process including Rx form, scan upload, and shipping.',
-    duration: '8 min',
-    level: 'Beginner',
-    views: '2.1k',
-    emoji: '📋',
-  },
-  {
-    id: 5,
-    topic: 'scanning',
-    topicLabel: 'Scanning',
-    title: 'Scanner Comparison: iTero vs 3Shape vs Medit',
-    desc: 'Side-by-side accuracy, workflow, and integration comparison of the three most popular scanners.',
-    duration: '28 min',
-    level: 'Intermediate',
-    views: '3.1k',
-    emoji: '🔭',
-  },
-  {
-    id: 6,
-    topic: 'materials',
-    topicLabel: 'Materials',
-    title: 'e.max vs Zirconia: When to Choose Which',
-    desc: 'Clinical decision guide for selecting the right material for every case type, from veneers to full-arch.',
-    duration: '22 min',
-    level: 'Intermediate',
-    views: '2.7k',
-    emoji: '💎',
-  },
-  {
-    id: 7,
-    topic: 'implants',
-    topicLabel: 'Implants',
-    title: 'Surgical Guide Fabrication: CBCT to Chair',
-    desc: 'How CBCT data is transformed into a precise surgical guide — and what you need to send us.',
-    duration: '30 min',
-    level: 'Advanced',
-    views: '1.1k',
-    emoji: '🧬',
-  },
-  {
-    id: 8,
-    topic: 'workflow',
-    topicLabel: 'Workflow',
-    title: 'Digital Denture Workflow: From IOS to Delivery',
-    desc: 'A complete walkthrough of the fully digital removable prosthodontic workflow used at Synergy 3D.',
-    duration: '40 min',
-    level: 'Advanced',
-    views: '980',
-    emoji: '⚡',
-  },
-  {
-    id: 9,
-    topic: 'scanning',
-    topicLabel: 'Scanning',
-    title: 'Achieving Perfect Margins: Scanning Tips from Our Techs',
-    desc: "Practical tips directly from Synergy 3D technicians on how to capture perfect prep margins every time.",
-    duration: '18 min',
-    level: 'Beginner',
-    views: '4.2k',
-    emoji: '📐',
-  },
-  {
-    id: 10,
-    topic: 'materials',
-    topicLabel: 'Materials',
-    title: 'PFM vs Full-Cast Metal: A Clinical Comparison',
-    desc: 'Understanding when PFM and full-cast restorations are still the best clinical choice for your patients.',
-    duration: '15 min',
-    level: 'Beginner',
-    views: '1.6k',
-    emoji: '🧪',
-  },
-  {
-    id: 11,
-    topic: 'implants',
-    topicLabel: 'Implants',
-    title: 'Understanding Implant Connections: What to Send Us',
-    desc: 'A reference guide for sending implant-level scans and connection data for crown and hybrid cases.',
-    duration: '12 min',
-    level: 'Beginner',
-    views: '2.0k',
-    emoji: '🦴',
-  },
-  {
-    id: 12,
-    topic: 'workflow',
-    topicLabel: 'Workflow',
-    title: 'Rx Form Completion: A Field-by-Field Guide',
-    desc: 'Avoid delays and remakes by completing your Rx form correctly the first time — every field explained.',
-    duration: '10 min',
-    level: 'Beginner',
-    views: '3.5k',
-    emoji: '🔄',
-  },
-  {
-    id: 13,
-    topic: 'scanning',
-    topicLabel: 'Scanning',
-    title: 'Scanning Full-Arch Edentulous Cases',
-    desc: 'Best practices for capturing full-arch impression signals when dealing with edentulous patients.',
-    duration: '25 min',
-    level: 'Intermediate',
-    views: '1.3k',
-    emoji: '🖥️',
-  },
-];
 
 const TOPIC_COLORS: Record<Topic | string, string> = {
   scanning:  'bg-blue-500/15 text-blue-400',
@@ -184,21 +24,42 @@ const TOPIC_COLORS_LIGHT: Record<Topic | string, string> = {
 /* ─── Page ──────────────────────────────────────────────────────────────── */
 
 export default function EducationPage() {
+  const [resources, setResources] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState<Topic>('all');
   const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    const fetchResources = async () => {
+      try {
+        const res = await fetch('/api/education?sort=latest');
+        if (!res.ok) throw new Error('Failed to load resources');
+        const data = await res.json();
+        setResources(data);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchResources();
+  }, []);
 
   const topics = [
     { id: 'all',       label: 'All Topics' },
     { id: 'scanning',  label: 'Scanning' },
     { id: 'materials', label: 'Materials' },
-    { id: 'implants',  label: 'Implants' },
+    { id: 'implants',  label: 'Imports' }, // wait, Implants
     { id: 'workflow',  label: 'Workflow' },
   ];
 
-  const featured = RESOURCES.find(r => r.featured);
-  const sidebar   = RESOURCES.filter(r => !r.featured).slice(0, 3);
+  // Map to adjust correct label for implants
+  topics[3].label = 'Implants';
 
-  const filtered = RESOURCES.filter(r => {
+  const featured = resources.find(r => r.featured);
+  const sidebar   = resources.filter(r => !r.featured).slice(0, 3);
+
+  const filtered = resources.filter(r => {
     const matchTopic = filter === 'all' || r.topic === filter;
     const matchSearch =
       !search ||
@@ -207,7 +68,8 @@ export default function EducationPage() {
     return matchTopic && matchSearch && !r.featured;
   });
 
-  const resourceCount = filter === 'all' && !search ? RESOURCES.length : filtered.length + (featured && (filter === 'all' || filter === featured.topic) ? 1 : 0);
+  const resourceCount = filter === 'all' && !search ? resources.length : filtered.length + (featured && (filter === 'all' || filter === featured.topic) ? 1 : 0);
+
 
   return (
     <div>
@@ -344,9 +206,15 @@ export default function EducationPage() {
         </div>
       </div>
 
-      {/* ── Featured + Sidebar ───────────────────────────────────────────── */}
-      {featured && (filter === 'all' || filter === featured.topic) && !search && (
-        <section className="bg-white pt-10 pb-6">
+      {isLoading ? (
+        <div className="flex items-center justify-center py-24 bg-white text-navy-text">
+          <span className="w-10 h-10 border-4 border-blue-default border-t-transparent rounded-full animate-spin" />
+        </div>
+      ) : (
+        <>
+          {featured && (filter === 'all' || filter === featured.topic) && !search && (
+            <section className="bg-white pt-10 pb-6">
+
           <div className="max-w-[1140px] mx-auto px-4 md:px-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
@@ -462,6 +330,8 @@ export default function EducationPage() {
           )}
         </div>
       </section>
+        </>
+      )}
 
       {/* ── CTA strip ───────────────────────────────────────────────────── */}
       <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-16 text-white text-center sm:text-left">

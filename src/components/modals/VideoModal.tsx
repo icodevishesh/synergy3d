@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import YouTubeEmbed from '@/components/YouTubeEmbed';
 
 interface VideoDetail {
   videoId: string;
@@ -53,15 +54,10 @@ export const VideoModal: React.FC = () => {
           ✕
         </button>
 
-        <div className="relative aspect-video w-full bg-black">
-          <iframe 
-            src={`https://www.youtube.com/embed/${video.videoId}?autoplay=1&rel=0`}
-            allowFullScreen 
-            allow="autoplay; encrypted-media"
-            className="absolute inset-0 w-full h-full border-none"
-            title={video.title}
-          />
+        <div className="relative w-full bg-black">
+          <YouTubeEmbed id={video.videoId} title={video.title} autoplay={true} />
         </div>
+
 
         <div className="p-6 bg-white">
           <div className="flex items-center gap-2 mb-2">
@@ -85,3 +81,4 @@ export const VideoModal: React.FC = () => {
   );
 };
 export default VideoModal;
+

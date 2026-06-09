@@ -1,14 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-
-/* ─── Data ─────────────────────────────────────────────────────────────── */
 
 type PracticeType = 'all' | 'private' | 'group' | 'dso';
 
-interface VideoTestimonial {
-  id: number;
+interface Testimonial {
+  id: string;
   quote: string;
   name: string;
   title: string;
@@ -16,139 +14,65 @@ interface VideoTestimonial {
   location: string;
   tag: string;
   tagColor: string;
+  rawTagColor: string;
   stars: number;
   practiceType: PracticeType;
-}
-
-interface TextTestimonial {
-  id: number;
-  stat: string;
-  statColor: string;
-  quote: string;
-  name: string;
-  title: string;
-  practice: string;
+  youtubeId?: string;
   emoji: string;
-  practiceType: PracticeType;
 }
 
-const VIDEO_TESTIMONIALS: VideoTestimonial[] = [
-  {
-    id: 1,
-    quote: '"Switching to Synergy 3D was the single best decision I\'ve made for my practice in the last decade."',
-    name: 'Dr. Sarah Chen',
-    title: 'General Dentist',
-    practice: 'Park Avenue',
-    location: 'General, NYC',
-    tag: '↑ 80% chair time',
-    tagColor: 'bg-emerald-50 text-emerald-600',
-    stars: 5,
-    practiceType: 'private',
-  },
-  {
-    id: 2,
-    quote: '"We consolidated to locations onto Synergy 3D. Fewer remakes, faster delivery, happier patients across the board."',
-    name: 'Dr. Michael Torres, DMD',
-    title: 'Owner',
-    practice: 'Bright Smiles',
-    location: 'DSO · 12 Locations',
-    tag: '↑ 92% remakes',
-    tagColor: 'bg-blue-50 text-blue-600',
-    stars: 5,
-    practiceType: 'dso',
-  },
-  {
-    id: 3,
-    quote: '"The all-on-X hybrids are the best I\'ve placed in 20 years of implant dentistry. Framework fit is extraordinary."',
-    name: 'Dr. Amir Patel',
-    title: 'Prosthodontist',
-    practice: 'Precision Implant',
-    location: 'Canton, OH',
-    tag: 'Best outcomes',
-    tagColor: 'bg-violet-50 text-violet-600',
-    stars: 5,
-    practiceType: 'private',
-  },
-];
-
-const TEXT_TESTIMONIALS: TextTestimonial[] = [
-  {
-    id: 1,
-    stat: '↑ 79% adjustment time',
-    statColor: 'text-emerald-500',
-    quote: '"In dentistry 25 years, Synergy 3D is the most reliable lab partner I\'ve ever had — full stop."',
-    name: 'Dr. Ray Park',
-    title: 'Family Dentist',
-    practice: 'Family Dental Care, NJ',
-    emoji: '👨‍⚕️',
-    practiceType: 'private',
-  },
-  {
-    id: 2,
-    stat: '↑ 40% case volume',
-    statColor: 'text-blue-500',
-    quote: '"Since switching, our crown and bridge volume is up 40%. Faster turnaround means more cases and happier patients."',
-    name: 'Dr. Elena Marsh',
-    title: 'Owner',
-    practice: 'Pinnacle Dental Group, CT · 3 Locations',
-    emoji: '👩‍💼',
-    practiceType: 'group',
-  },
-  {
-    id: 3,
-    stat: '0 remakes · 6 months',
-    statColor: 'text-violet-500',
-    quote: '"Six months in and not a single remake. The e.max restorations are beautiful and the zirconia fit is perfect every time."',
-    name: 'Dr. James Wu',
-    title: 'Owner',
-    practice: 'Aesthetic Dental Studio, CA',
-    emoji: '🦷',
-    practiceType: 'private',
-  },
-  {
-    id: 4,
-    stat: '↓ 30% lab spend',
-    statColor: 'text-amber-500',
-    quote: '"Consolidating 8 locations onto one lab partner reduced our lab spend by 30% while improving quality across the board."',
-    name: 'Jessica Hart',
-    title: 'COO',
-    practice: 'Summit Dental Partners · 8 Locations',
-    emoji: '📊',
-    practiceType: 'dso',
-  },
-  {
-    id: 5,
-    stat: '5-day turnaround, always',
-    statColor: 'text-emerald-500',
-    quote: '"The 5-day turnaround is real — not a marketing promise. In 3 years they\'ve never missed a single delivery date."',
-    name: 'Dr. Priya Singh',
-    title: 'Owner',
-    practice: 'Smile Design Raleigh, FL · 4 Locations',
-    emoji: '⚡',
-    practiceType: 'group',
-  },
-  {
-    id: 6,
-    stat: 'Best lab we\'ve used',
-    statColor: 'text-blue-500',
-    quote: '"We\'ve tried four different labs over the years. Nothing comes close to Synergy 3D in fit, aesthetics, and communication."',
-    name: 'Dr. Kevin Nash',
-    title: 'Owner',
-    practice: 'Nash Family Dentistry, GO',
-    emoji: '🏆',
-    practiceType: 'private',
-  },
-];
-
-/* ─── Page ──────────────────────────────────────────────────────────────── */
+interface Partner {
+  id: string;
+  name: string;
+  logoUrl: string;
+  websiteUrl: string;
+}
 
 export default function CustomerStoriesPage() {
   const [filter, setFilter] = useState<PracticeType>('all');
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [partners, setPartners] = useState<Partner[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const filteredVideos = VIDEO_TESTIMONIALS.filter(
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [storiesRes, partnersRes] = await Promise.all([
+          fetch('/api/customers'),
+          fetch('/api/admin/customers/partners'),
+        ]);
+        if (storiesRes.ok) {
+          const storiesData = await storiesRes.json();
+          setTestimonials(storiesData);
+        }
+        if (partnersRes.ok) {
+          const partnersData = await partnersRes.json();
+          setPartners(partnersData);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const playVideo = (videoId: string, title: string, host: string) => {
+    window.dispatchEvent(
+      new CustomEvent('open-video-modal', {
+        detail: { videoId, ep: 'Testimonial', title, guest: host },
+      })
+    );
+  };
+
+  const videoStories = testimonials.filter(t => t.youtubeId);
+  const textStories = testimonials.filter(t => !t.youtubeId);
+
+  const filteredVideos = videoStories.filter(
     v => filter === 'all' || v.practiceType === filter
   );
-  const filteredText = TEXT_TESTIMONIALS.filter(
+  const filteredText = textStories.filter(
     t => filter === 'all' || t.practiceType === filter
   );
 
@@ -164,7 +88,7 @@ export default function CustomerStoriesPage() {
   return (
     <div>
 
-      {/* ── Hero ──────────────────────────────────────────────────────────── */}
+      {/* Hero */}
       <section className="relative bg-navy pt-36 pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />
 
@@ -263,7 +187,7 @@ export default function CustomerStoriesPage() {
         </div>
       </section>
 
-      {/* ── Filter bar ─────────────────────────────────────────────────────── */}
+      {/* Filter bar */}
       <div className="bg-white border-b border-border-light py-3 md:py-4 text-navy-text md:sticky md:top-[60px] z-[20]">
         <div className="max-w-[1140px] mx-auto px-4 md:px-16 flex items-center justify-between gap-3">
           <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide flex-nowrap pb-0.5 sm:pb-0">
@@ -287,7 +211,7 @@ export default function CustomerStoriesPage() {
         </div>
       </div>
 
-      {/* ── Video Testimonials ─────────────────────────────────────────────── */}
+      {/* Video Testimonials */}
       {filteredVideos.length > 0 && (
         <section className="bg-white pt-12 pb-4">
           <div className="max-w-[1140px] mx-auto px-4 md:px-16">
@@ -303,11 +227,19 @@ export default function CustomerStoriesPage() {
               {filteredVideos.map(v => (
                 <div
                   key={v.id}
+                  onClick={() => playVideo(v.youtubeId || '', v.title, v.name)}
                   className="reveal bg-white border border-border-light rounded-2xl overflow-hidden hover:shadow-premium hover:-translate-y-1 transition-all duration-300 cursor-pointer group"
                 >
-                  {/* Fake video thumbnail */}
-                  <div className="aspect-video bg-[radial-gradient(ellipse_at_50%_40%,#1e3a8a_0%,#080f35_100%)] relative flex items-center justify-center overflow-hidden">
-                    <div className="absolute inset-0 bg-black/20" />
+                  {/* YouTube thumbnail */}
+                  <div className="aspect-video relative flex items-center justify-center overflow-hidden bg-[#080f35]">
+                    {v.youtubeId ? (
+                      <img
+                        src={`https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`}
+                        alt={v.title}
+                        className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                      />
+                    ) : null}
+                    <div className="absolute inset-0 bg-black/30" />
                     <div className="w-12 h-12 rounded-full bg-white/15 border border-white/30 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/25 group-hover:scale-105 transition-all z-10">
                       <svg className="ml-0.5 text-white" width="16" height="18" viewBox="0 0 16 18" fill="none">
                         <path d="M1 1.5L15 9L1 16.5V1.5Z" fill="currentColor"/>
@@ -315,13 +247,13 @@ export default function CustomerStoriesPage() {
                     </div>
                     {/* Stars */}
                     <div className="absolute top-3 left-3 flex gap-0.5 z-10">
-                      {Array.from({ length: v.stars }).map((_, i) => (
+                      {Array.from({ length: v.stars || 5 }).map((_, i) => (
                         <svg key={i} width="12" height="12" viewBox="0 0 24 24" fill="#f59e0b" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                       ))}
                     </div>
                     {/* Duration badge */}
                     <div className="absolute bottom-2 right-2 z-10 bg-black/60 text-white text-[0.65rem] font-semibold px-2 py-0.5 rounded">1:30</div>
-                    <span className="absolute bottom-3 left-3 z-10 text-[0.7rem] text-white/50 font-medium">Watch on YouTube</span>
+                    <span className="absolute bottom-3 left-3 z-10 text-[0.7rem] text-white/70 font-medium">Watch on YouTube</span>
                   </div>
 
                   {/* Info */}
@@ -347,7 +279,7 @@ export default function CustomerStoriesPage() {
         </section>
       )}
 
-      {/* ── Text testimonials ──────────────────────────────────────────────── */}
+      {/* More from our parners */}
       {filteredText.length > 0 && (
         <section className="bg-white py-10 pb-8">
           <div className="max-w-[1140px] mx-auto px-4 md:px-16">
@@ -361,8 +293,8 @@ export default function CustomerStoriesPage() {
                   key={t.id}
                   className="reveal bg-white border border-border-light rounded-2xl p-5 flex flex-col hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group"
                 >
-                  <span className={`text-[0.7rem] font-extrabold tracking-[0.1em] uppercase mb-3 block ${t.statColor}`}>
-                    {t.stat}
+                  <span className={`text-[0.7rem] font-extrabold tracking-[0.1em] uppercase mb-3 block text-${t.rawTagColor || 'blue'}-500`}>
+                    {t.tag}
                   </span>
                   <p className="text-[0.88rem] text-gray-700 leading-relaxed italic flex-1 mb-5 line-clamp-4">{t.quote}</p>
                   <div className="flex items-center gap-2.5 mt-auto pt-3 border-t border-gray-100">
@@ -381,7 +313,7 @@ export default function CustomerStoriesPage() {
         </section>
       )}
 
-      {/* ── Stats ribbon ───────────────────────────────────────────────────── */}
+      {/* Stats ribbon */}
       <section className="bg-navy-mid border-t border-border-dark py-12 text-white mx-4 md:mx-16 rounded-2xl mb-12">
         <div className="max-w-[900px] mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
@@ -398,7 +330,7 @@ export default function CustomerStoriesPage() {
         </div>
       </section>
 
-      {/* ── CTA strip ─────────────────────────────────────────────────────── */}
+      {/* CTA strip */}
       <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-14 text-white text-center sm:text-left">
         <div className="max-w-[1140px] mx-auto px-6 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-8">
           <div>

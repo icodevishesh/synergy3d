@@ -58,24 +58,25 @@ export const ShippingLabelModal: React.FC = () => {
       className="fixed inset-0 z-[3000] bg-black/45 backdrop-blur-[6px] flex items-center justify-center p-6 transition-opacity duration-250"
       onClick={handleOverlayClick}
     >
-      <div className="bg-white rounded-2xl max-w-[560px] w-full max-h-[90vh] overflow-y-auto shadow-modal relative transition-transform duration-250 text-navy-text">
+      <div className="bg-white rounded-xl max-w-[450px] w-full max-h-[90vh] overflow-y-auto shadow-modal relative transition-transform duration-250 text-navy-text">
         <button 
-          className="absolute top-5 right-5 w-7 h-7 rounded-full bg-gray-100 border-none cursor-pointer flex items-center justify-center text-[0.9rem] text-gray-500 hover:bg-gray-200 transition-colors"
+          className="absolute top-4 right-4 w-5 h-5 rounded-full bg-gray-100 border-none cursor-pointer flex items-center justify-center text-xs text-gray-500 hover:bg-gray-200 transition-colors"
           onClick={handleClose}
         >
           ✕
         </button>
 
         <div className="p-6 pb-0">
-          <h3 className="text-[1.1rem] font-bold text-navy-text mb-1">Create Shipping Label</h3>
-          <p className="text-[0.85rem] text-gray-500 leading-relaxed">
-            Generate a complimentary shipping label to send your physical impressions or models to our New York laboratory.
+          <img src="https://www.ups.com/webassets/icons/logo.svg" alt="UPS" className='w-7 h-7'/>
+          <h3 className="text-sm font-semibold text-navy-text">Generate a Shipping Label</h3>
+          <p className="text-xs text-gray-500 leading-relaxed">
+           Pick a carrier and tell us where to send the case. We'll email you a prepaid label.
           </p>
         </div>
 
         {!isSubmitted ? (
           <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-6">
-            <div className="grid grid-cols-2 gap-2">
+            {/* <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
                 className={`py-3 rounded-lg border-2 font-semibold transition-all duration-200 ${
@@ -98,59 +99,113 @@ export const ShippingLabelModal: React.FC = () => {
               >
                 FedEx
               </button>
-            </div>
+            </div> */}
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[0.68rem] font-bold tracking-widest uppercase text-gray-500">Practice Name *</label>
+          <div className='grid grid-cols-2 gap-2'>
+            <div className="flex flex-col gap-1">
+              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">Practice Name *</label>
               <input
                 type="text"
                 required
-                placeholder="e.g. Park Avenue Family Dentistry"
-                className="bg-gray-50 border border-border-light rounded-lg p-2.5 text-[0.9rem] outline-none focus:border-blue-default transition-colors w-full"
+                // placeholder="e.g. Park Avenue Family Dentistry"
+                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[11px] outline-none focus:border-blue-default transition-colors w-full"
                 value={practice}
                 onChange={e => setPractice(e.target.value)}
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[0.68rem] font-bold tracking-widest uppercase text-gray-500">Doctor Email *</label>
-                <input
-                  type="email"
-                  required
-                  placeholder="doctor@practice.com"
-                  className="bg-gray-50 border border-border-light rounded-lg p-2.5 text-[0.9rem] outline-none focus:border-blue-default transition-colors w-full"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[0.68rem] font-bold tracking-widest uppercase text-gray-500">Suite / Room #</label>
-                <input
-                  type="text"
-                  placeholder="e.g. Suite 402"
-                  className="bg-gray-50 border border-border-light rounded-lg p-2.5 text-[0.9rem] outline-none focus:border-blue-default transition-colors w-full"
-                />
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[0.68rem] font-bold tracking-widest uppercase text-gray-500">Pickup Address *</label>
+            <div className="flex flex-col gap-1">
+              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">Contact Name</label>
               <input
                 type="text"
                 required
-                placeholder="Full address, City, State, ZIP"
-                className="bg-gray-50 border border-border-light rounded-lg p-2.5 text-[0.9rem] outline-none focus:border-blue-default transition-colors w-full"
+                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[11px] outline-none focus:border-blue-default transition-colors w-full"
+                onChange={e => setPractice(e.target.value)}
+              />
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">Email</label>
+              <input
+                type="email"
+                required
+                // placeholder="doctor@practice.com"
+                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[11px] outline-none focus:border-blue-default transition-colors w-full"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">Phone</label>
+              <input
+                type="text"
+                // placeholder="e.g. Suite 402"
+                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[11px] outline-none focus:border-blue-default transition-colors w-full"
+              />
+            </div>
+          </div>
+
+            <div className="flex flex-col gap-1">
+              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">Pickup Address</label>
+              <input
+                type="text"
+                required
+                // placeholder="Full address, City, State, ZIP"
+                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[11px] outline-none focus:border-blue-default transition-colors w-full"
                 value={address}
                 onChange={e => setAddress(e.target.value)}
               />
+            </div>
+
+            <div className='grid grid-cols-2 gap-2'>
+              <div className="flex flex-col gap-1">
+              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">City</label>
+              <input
+                type="text"
+                required
+                // placeholder="e.g. Park Avenue Family Dentistry"
+                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[11px] outline-none focus:border-blue-default transition-colors w-full"
+                value={practice}
+                onChange={e => setPractice(e.target.value)}
+              />
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">State / ZIP</label>
+              <input
+                type="text"
+                required
+                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[0.9rem] outline-none focus:border-blue-default transition-colors w-full"
+                value={practice}
+                onChange={e => setPractice(e.target.value)}
+              />
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">Package Weight (lbs)</label>
+              <input
+                type="text"
+                required
+                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[0.9rem] outline-none focus:border-blue-default transition-colors w-full"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">Cases Enclosed</label>
+              <input
+                type="text"
+                // placeholder="e.g. Suite 402"
+                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[0.9rem] outline-none focus:border-blue-default transition-colors w-full"
+              />
+            </div>
             </div>
 
             <div className="pt-2">
               <button 
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-blue-default hover:bg-blue-bright text-white font-bold py-3.5 px-5 rounded-lg text-[0.95rem] transition-all duration-200 active:translate-y-0 hover:-translate-y-0.5 w-full flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                className="bg-blue-default hover:bg-blue-bright text-white font-bold py-3 px-4 rounded-lg text-xs transition-all duration-200 active:translate-y-0 hover:-translate-y-0.5 w-full flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 {isSubmitting ? 'Requesting...' : `Email me a ${carrier} label`}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -159,9 +214,9 @@ export const ShippingLabelModal: React.FC = () => {
                 </svg>
               </button>
             </div>
-            <p className="text-[0.74rem] text-[#aab4ce] text-center leading-relaxed">
+            {/* <p className="text-[10px] text-[#aab4ce] text-center leading-relaxed">
               Live carrier integration with UPS & FedEx coming soon. Until then we'll email a hand-generated label within 10 minutes.
-            </p>
+            </p> */}
           </form>
         ) : (
           <div className="p-8 text-center flex flex-col items-center gap-4 bg-gray-50 rounded-b-2xl border-t border-border-light">

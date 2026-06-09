@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Clock, Target, RefreshCw, Users, Activity, ShieldCheck, Play, ArrowRight, ArrowUpRight, MapPin, Star, ArrowDown, User, Home as HomeIcon, Building2, Globe } from 'lucide-react';
@@ -28,6 +28,60 @@ const renderIcon = (type: string, className = "w-5 h-5") => {
 export default function Home() {
   // FAQ accordion state
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  // Dynamic featured testimonials state
+  const [featuredTestimonials, setFeaturedTestimonials] = useState<any[]>([
+    { 
+      videoId: 'dQw4w9WgXcQ', 
+      name: 'Dr. Sarah Chen', 
+      role1: 'Park Avenue', 
+      role2: 'Dental, NYC', 
+      quote: '"The fit accuracy is unreal. I’ve cut my chair-time adjustments by 80% since switching."', 
+      result: '80% chair time', 
+      resultType: 'down',
+      duration: '1:24', 
+      imgPath: '/images/stats-turnaround.png'
+    },
+    { 
+      videoId: 'dQw4w9WgXcQ', 
+      name: 'Dr. Michael Torres, DMD', 
+      role1: 'Bright Smiles DSO', 
+      role2: '12 Locations', 
+      quote: '"12 locations, all on Synergy 3D. Their digital workflow is miles ahead of any traditional lab."', 
+      result: '94% remakes', 
+      resultType: 'down',
+      duration: '2:08', 
+      imgPath: '/images/stats-accuracy.png'
+    },
+    { 
+      videoId: 'dQw4w9WgXcQ', 
+      name: 'Dr. Roy Park', 
+      role1: 'Family Dental', 
+      role2: 'Care, NJ', 
+      quote: '"22 years in dentistry — this is the most reliable lab partner I’ve ever had. Under 1% remakes."', 
+      result: '0 remakes · 6 mo', 
+      resultType: 'check',
+      duration: '1:52', 
+      imgPath: '/images/stats-remake.png'
+    }
+  ]);
+
+  useEffect(() => {
+    const fetchFeatured = async () => {
+      try {
+        const res = await fetch('/api/customers/featured');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.length > 0) {
+            setFeaturedTestimonials(data);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching featured testimonials:', error);
+      }
+    };
+    fetchFeatured();
+  }, []);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -682,41 +736,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { 
-                videoId: 'dQw4w9WgXcQ', 
-                name: 'Dr. Sarah Chen', 
-                role1: 'Park Avenue', 
-                role2: 'Dental, NYC', 
-                quote: '"The fit accuracy is unreal. I’ve cut my chair-time adjustments by 80% since switching."', 
-                result: '80% chair time', 
-                resultType: 'down',
-                duration: '1:24', 
-                imgPath: '/images/stats-turnaround.png'
-              },
-              { 
-                videoId: 'dQw4w9WgXcQ', 
-                name: 'Dr. Michael Torres, DMD', 
-                role1: 'Bright Smiles DSO', 
-                role2: '12 Locations', 
-                quote: '"12 locations, all on Synergy 3D. Their digital workflow is miles ahead of any traditional lab."', 
-                result: '94% remakes', 
-                resultType: 'down',
-                duration: '2:08', 
-                imgPath: '/images/stats-accuracy.png'
-              },
-              { 
-                videoId: 'dQw4w9WgXcQ', 
-                name: 'Dr. Roy Park', 
-                role1: 'Family Dental', 
-                role2: 'Care, NJ', 
-                quote: '"22 years in dentistry — this is the most reliable lab partner I’ve ever had. Under 1% remakes."', 
-                result: '0 remakes · 6 mo', 
-                resultType: 'check',
-                duration: '1:52', 
-                imgPath: '/images/stats-remake.png'
-              }
-            ].map((ts, i) => (
+            {featuredTestimonials.map((ts, i) => (
               <div
                 key={i}
                 className="bg-navy-card border border-border-dark hover:border-blue-glow/20 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col"
