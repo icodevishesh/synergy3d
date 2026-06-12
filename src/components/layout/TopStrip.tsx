@@ -22,7 +22,7 @@ export const TopStrip: React.FC = () => {
   };
 
   return (
-    <div className={`fixed top-0 left-0 right-0 z-[301] bg-[#0a0a0a] border-b border-white/8 h-9 hidden lg:flex items-center justify-between px-15 transition-transform duration-350 ${isScrolled ? '-translate-y-full' : 'translate-y-0'}`} id="top-strip">
+    <div className={`fixed top-0 left-0 right-0 z-[301] bg-[#0a0a0a] border-b border-white/8 h-9 hidden lg:flex items-center justify-between px-6 lg:px-17 transition-transform duration-350 ${isScrolled ? '-translate-y-full' : 'translate-y-0'}`} id="top-strip">
       <div className="flex items-center gap-0">
         <div className="flex items-center gap-1.5 text-[11px] font-medium text-white/50 pr-4">
           <svg className="text-white/30" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -45,7 +45,7 @@ export const TopStrip: React.FC = () => {
         </div>
       </div>
       <div className="flex items-center gap-0">
-        <a className="inline-flex items-center gap-1.5 text-[11px] font-medium text-white/65 hover:text-white px-4.5 transition-colors duration-200 cursor-pointer">
+        <a href='https://synergy3d.net/wp-content/uploads/2025/03/synegy-script.pdf' target='_blank' rel='noopener noreferrer' className="inline-flex items-center gap-1.5 text-[11px] font-medium text-white/65 hover:text-white px-4.5 transition-colors duration-200 cursor-pointer">
           <span className="flex items-center text-white/40 group-hover:text-white/80">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -59,7 +59,7 @@ export const TopStrip: React.FC = () => {
         <div className="w-px h-3.5 bg-white/15 shrink-0" />
         <button
           onClick={triggerShipping}
-          className="inline-flex items-center gap-1.5 text-[11px] font-medium text-white/65 hover:text-white px-4.5 transition-colors duration-200 cursor-pointer bg-transparent border-none outline-none"
+          className="inline-flex items-center gap-1.5 text-[11px] font-medium text-white/65 hover:text-white pl-4.5 pr-0 transition-colors duration-200 cursor-pointer bg-transparent border-none outline-none"
         >
           <span className="flex items-center text-white/40 group-hover:text-white/80">
             <svg width="14" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -71,10 +71,10 @@ export const TopStrip: React.FC = () => {
           </span>
           Shipping Label
         </button>
-        <div className="w-px h-3.5 bg-white/15 shrink-0" />
-        <a className="inline-flex items-center gap-1.5 text-[11px] font-medium text-white/65 hover:text-white px-4.5 transition-colors duration-200 cursor-pointer">
+        {/* <div className="w-px h-3.5 bg-white/15 shrink-0" /> */}
+        {/* <a className="inline-flex items-center gap-1.5 text-[11px] font-medium text-white/65 hover:text-white px-4.5 transition-colors duration-200 cursor-pointer">
           Track Case
-        </a>
+        </a> */}
       </div>
     </div>
   );

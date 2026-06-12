@@ -45,6 +45,14 @@ export default function EducationPage() {
     fetchResources();
   }, []);
 
+  const playVideo = (videoId: string, category: string, title: string) => {
+    window.dispatchEvent(
+      new CustomEvent('open-video-modal', {
+        detail: { videoId, ep: category, title, guest: 'Synergy 3D Education' },
+      })
+    );
+  };
+
   const topics = [
     { id: 'all',       label: 'All Topics' },
     { id: 'scanning',  label: 'Scanning' },
@@ -219,7 +227,10 @@ export default function EducationPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
               {/* Featured card */}
-              <div className="lg:col-span-7 rounded-2xl overflow-hidden relative group cursor-pointer bg-[radial-gradient(ellipse_at_40%_40%,#1e3a8a_0%,#0a1045_100%)] min-h-[340px] flex flex-col justify-end">
+              <div 
+                 onClick={() => playVideo(featured.youtubeId, featured.topicLabel, featured.title)}
+                 className="lg:col-span-7 rounded-2xl overflow-hidden relative group cursor-pointer bg-[radial-gradient(ellipse_at_40%_40%,#1e3a8a_0%,#0a1045_100%)] min-h-[340px] flex flex-col justify-end"
+              >
                 {/* Emoji illustration */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
                   <span className="text-[6rem] opacity-60">{featured.emoji}</span>
@@ -253,7 +264,11 @@ export default function EducationPage() {
               {/* Sidebar cards */}
               <div className="lg:col-span-5 flex flex-col gap-4">
                 {sidebar.map(r => (
-                  <div key={r.id} className="bg-white border border-border-light hover:border-blue-200 rounded-xl p-4 flex items-start gap-4 cursor-pointer hover:shadow-md transition-all group">
+                  <div 
+                    key={r.id} 
+                    onClick={() => playVideo(r.youtubeId, r.topicLabel, r.title)}
+                    className="bg-white border border-border-light hover:border-blue-200 rounded-xl p-4 flex items-start gap-4 cursor-pointer hover:shadow-md transition-all group"
+                  >
                     <div className="w-12 h-12 rounded-lg bg-gray-50 border border-border-light flex items-center justify-center text-2xl shrink-0 group-hover:scale-105 transition-transform">
                       {r.emoji}
                     </div>
@@ -299,6 +314,7 @@ export default function EducationPage() {
               {filtered.map(r => (
                 <div
                   key={r.id}
+                  onClick={() => playVideo(r.youtubeId, r.topicLabel, r.title)}
                   className="reveal bg-white border border-border-light rounded-2xl overflow-hidden hover:shadow-premium hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer group"
                 >
                   {/* Thumbnail */}

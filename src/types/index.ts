@@ -1,3 +1,5 @@
+import { StaticImageData } from 'next/image';
+
 export type CategoryType = 'Crown & Bridge' | 'Implant Solutions' | 'Ceramics' | 'Appliances' | 'Models & Dies';
 
 export interface ProductSpec {
@@ -21,7 +23,7 @@ export interface TeamMember {
   id: string;
   name: string;
   role: string;
-  emoji: string;
+  image: StaticImageData;
   title: string;
   bio: string[];
   skills: string[];

@@ -2,11 +2,16 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { PRODUCTS } from '@/data/products';
-import { 
-  ZirconiaSvg, AllOnXSvg, EmaxSvg, PfmSvg, SurgicalSvg, NightguardSvg, ModelsSvg 
-} from '@/components/product-svgs';
+import imgZirconia from '@/app/assets/products/zirconia-crown.png';
+import imgAllOnX from '@/app/assets/products/all-on-x-hybrid.png';
+import imgEmax from '@/app/assets/products/emax-restoration.png';
+import imgPFM from '@/app/assets/products/pmf.png';
+import imgSurgical from '@/app/assets/products/surgical-guides.png';
+import imgNightGuard from '@/app/assets/products/night-gaurds.png';
+import imgModels from '@/app/assets/products/printed-models.png';
 
 export default function ProductsPage() {
   const [filter, setFilter] = useState<'all' | 'crowns' | 'implants' | 'appliances'>('all');
@@ -19,13 +24,13 @@ export default function ProductsPage() {
   ];
 
   const productCards = [
-    { id: 'zirconia', filterCat: 'crowns', label: 'Crown & Bridge', desc: 'High-strength zirconia crowns milled to sub-30µm precision. Delivered in 5 days.', Svg: ZirconiaSvg },
-    { id: 'allonx', filterCat: 'implants', label: 'Implant Solutions', desc: 'Full-arch implant restorations — All-on-4, All-on-6, and custom hybrid frameworks.', Svg: AllOnXSvg },
-    { id: 'emax', filterCat: 'crowns', label: 'Ceramics', desc: 'Lithium disilicate for unmatched translucency and strength in anterior and posterior cases.', Svg: EmaxSvg },
-    { id: 'pfm', filterCat: 'crowns', label: 'Ceramics', desc: 'Porcelain-fused-to-metal crowns offering durable strength with excellent aesthetics.', Svg: PfmSvg },
-    { id: 'surgical', filterCat: 'implants', label: 'Implant Solutions', desc: 'CBCT-based digitally planned implant surgical guides for precise, predictable placement.', Svg: SurgicalSvg },
-    { id: 'nightguard', filterCat: 'appliances', label: 'Appliances', desc: 'Custom-milled hard and soft night guards for bruxism and TMJ protection.', Svg: NightguardSvg },
-    { id: 'models', filterCat: 'appliances', label: 'Models & Dies', desc: 'High-accuracy 3D-printed study models and working dies for planning and fabrication.', Svg: ModelsSvg }
+    { id: 'zirconia', filterCat: 'crowns', label: 'Crown & Bridge', desc: 'High-strength zirconia crowns milled to sub-30µm precision. Delivered in 5 days.', img: imgZirconia },
+    { id: 'allonx', filterCat: 'implants', label: 'Implant Solutions', desc: 'Full-arch implant restorations — All-on-4, All-on-6, and custom hybrid frameworks.', img: imgAllOnX },
+    { id: 'emax', filterCat: 'crowns', label: 'Ceramics', desc: 'Lithium disilicate for unmatched translucency and strength in anterior and posterior cases.', img: imgEmax },
+    { id: 'pfm', filterCat: 'crowns', label: 'Ceramics', desc: 'Porcelain-fused-to-metal crowns offering durable strength with excellent aesthetics.', img: imgPFM },
+    { id: 'surgical', filterCat: 'implants', label: 'Implant Solutions', desc: 'CBCT-based digitally planned implant surgical guides for precise, predictable placement.', img: imgSurgical },
+    { id: 'nightguard', filterCat: 'appliances', label: 'Appliances', desc: 'Custom-milled hard and soft night guards for bruxism and TMJ protection.', img: imgNightGuard },
+    { id: 'models', filterCat: 'appliances', label: 'Models & Dies', desc: 'High-accuracy 3D-printed study models and working dies for planning and fabrication.', img: imgModels }
   ];
 
   const filteredCards = productCards.filter(
@@ -86,17 +91,16 @@ export default function ProductsPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
             {filteredCards.map((card, i) => {
               const prod = PRODUCTS[card.id];
-              const Svg = card.Svg;
               return (
-                <div 
-                  key={card.id} 
+                <div
+                  key={card.id}
                   className="reveal bg-white border-2 border-blue-200/40 hover:border-blue-700/30 rounded-2xl overflow-hidden hover:shadow-premium hover:-translate-y-1.5 transition-all duration-300 relative cursor-pointer flex flex-col group"
                 >
                   <Link href={`/products/${card.id}`} className="absolute inset-0 z-[5]" />
                   <div className="aspect-[4/3] bg-white border-b border-gray-200 flex items-center justify-center p-8 relative overflow-hidden shrink-0">
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_70%_at_50%_50%,rgba(224,234,255,0.5)_0%,transparent_75%)]" />
-                    <div className="w-[120px] h-[130px] flex items-center justify-center relative z-10 transition-transform group-hover:scale-105 duration-300">
-                      <Svg />
+                    <div className="w-full h-full absolute inset-0 transition-transform group-hover:scale-105 duration-300 p-8">
+                      <Image src={card.img} alt={prod.name} fill className="object-contain p-8" sizes="(max-width: 768px) 100vw, 33vw" />
                     </div>
                   </div>
                   <div className="p-6 flex flex-col flex-grow">

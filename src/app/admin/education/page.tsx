@@ -147,7 +147,7 @@ export default function AdminEducationPage() {
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h2 className="text-xl font-bold text-white">Manage Education Resources</h2>
+          <h2 className="text-xl font-semibold text-white">Manage Education Resources</h2>
           <p className="text-xs text-muted-dark">Add, update, or remove training guides and scanning tutorials.</p>
         </div>
         <button
@@ -183,7 +183,7 @@ export default function AdminEducationPage() {
               {resources.map((res) => (
                 <tr key={res._id} className="hover:bg-white/2 transition-colors">
                   <td className="py-3.5 px-4">
-                    <div className="font-bold text-white leading-tight">{res.title}</div>
+                    <div className="font-semibold text-white leading-tight">{res.title}</div>
                     <div className="text-xs text-gray-500 mt-1 line-clamp-1">{res.description}</div>
                   </td>
                   <td className="py-3.5 px-4">
@@ -241,7 +241,7 @@ export default function AdminEducationPage() {
         <div className="fixed inset-0 z-[5000] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-navy border border-white/10 rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl relative flex flex-col max-h-[90vh]">
             <div className="flex items-center justify-between border-b border-white/10 p-5">
-              <h3 className="text-lg font-bold text-white">
+              <h3 className="text-lg font-semibold text-white">
                 {editingResource ? 'Edit Education Resource' : 'Add New Resource'}
               </h3>
               <button

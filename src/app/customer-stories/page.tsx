@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { UserRound } from 'lucide-react';
 
 type PracticeType = 'all' | 'private' | 'group' | 'dso';
 
@@ -31,23 +32,23 @@ interface Partner {
 export default function CustomerStoriesPage() {
   const [filter, setFilter] = useState<PracticeType>('all');
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-  const [partners, setPartners] = useState<Partner[]>([]);
+  const [textTestimonials, setTextTestimonials] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [storiesRes, partnersRes] = await Promise.all([
-          fetch('/api/customers'),
-          fetch('/api/admin/customers/partners'),
+        const [storiesRes, testimonialsRes] = await Promise.all([
+          fetch(`/api/customers?t=${Date.now()}`),
+          fetch(`/api/partners/testimonials?t=${Date.now()}`),
         ]);
         if (storiesRes.ok) {
           const storiesData = await storiesRes.json();
           setTestimonials(storiesData);
         }
-        if (partnersRes.ok) {
-          const partnersData = await partnersRes.json();
-          setPartners(partnersData);
+        if (testimonialsRes.ok) {
+          const testimonialsData = await testimonialsRes.json();
+          setTextTestimonials(testimonialsData);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -66,8 +67,8 @@ export default function CustomerStoriesPage() {
     );
   };
 
-  const videoStories = testimonials.filter(t => t.youtubeId);
-  const textStories = testimonials.filter(t => !t.youtubeId);
+  const videoStories = testimonials;
+  const textStories = textTestimonials;
 
   const filteredVideos = videoStories.filter(
     v => filter === 'all' || v.practiceType === filter
@@ -262,7 +263,7 @@ export default function CustomerStoriesPage() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2.5">
                         <div className="w-8 h-8 rounded-full bg-blue-default/10 border border-blue-100 flex items-center justify-center text-sm shrink-0">
-                          👤
+                          <UserRound className='w-4 h-4 text-blue-default' />
                         </div>
                         <div>
                           <span className="block text-[0.82rem] font-bold text-navy-text leading-tight">{v.name}</span>
@@ -293,13 +294,13 @@ export default function CustomerStoriesPage() {
                   key={t.id}
                   className="reveal bg-white border border-border-light rounded-2xl p-5 flex flex-col hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 cursor-pointer group"
                 >
-                  <span className={`text-[0.7rem] font-extrabold tracking-[0.1em] uppercase mb-3 block text-${t.rawTagColor || 'blue'}-500`}>
+                  <span className={`text-[0.7rem] font-semibold mb-3 block text-${t.rawTagColor || 'blue'}-500`}>
                     {t.tag}
                   </span>
-                  <p className="text-[0.88rem] text-gray-700 leading-relaxed italic flex-1 mb-5 line-clamp-4">{t.quote}</p>
+                  <p className="text-md text-gray-900 leading-relaxed font-serif italic flex-1 mb-5 line-clamp-4">"{t.quote}"</p>
                   <div className="flex items-center gap-2.5 mt-auto pt-3 border-t border-gray-100">
                     <div className="w-8 h-8 rounded-full bg-blue-default/10 border border-blue-100 flex items-center justify-center text-sm shrink-0">
-                      {t.emoji}
+                      <UserRound className='w-4 h-4 text-blue-default' />
                     </div>
                     <div>
                       <span className="block text-[0.82rem] font-bold text-navy-text leading-tight">{t.name}</span>
@@ -314,8 +315,9 @@ export default function CustomerStoriesPage() {
       )}
 
       {/* Stats ribbon */}
-      <section className="bg-navy-mid border-t border-border-dark py-12 text-white mx-4 md:mx-16 rounded-2xl mb-12">
-        <div className="max-w-[900px] mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <section className="bg-white py-20 px-4">
+        <div className="bg-navy-mid border-t border-border-dark py-12 text-white max-w-5xl mx-auto rounded-2xl">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
             { n: '500+',  l: 'Partner Practices' },
             { n: '4.9★',  l: 'Average Rating' },
@@ -327,6 +329,7 @@ export default function CustomerStoriesPage() {
               <span className="text-[0.68rem] text-muted-dark tracking-[0.12em] uppercase mt-2 block">{s.l}</span>
             </div>
           ))}
+        </div>
         </div>
       </section>
 

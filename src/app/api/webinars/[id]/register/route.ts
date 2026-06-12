@@ -21,24 +21,29 @@ export async function POST(req: Request, props: { params: Promise<{ id: string }
     if (!webinar) {
       const settings = await WebinarSettings.findById(id);
       if (settings) {
-        await WebinarRegistration.create({
-          webinarId: id,
-          name,
-          email,
-          whatsAppNumber,
-        });
-        settings.totalRegistrations = (settings.totalRegistrations || 0) + 1;
-        await settings.save();
-        return NextResponse.json({ success: true, registeredCount: settings.totalRegistrations });
+        // Avoid duplicate registrations for same email + webinar
+        const existing = await WebinarRegistration.findOne({ webinarId: id, email: email.toLowerCase() });
+        if (!existing) {
+          await WebinarRegistration.create({ webinarId: id, name, email: email.toLowerCase(), whatsAppNumber });
+          settings.totalRegistrations = (settings.totalRegistrations || 0) + 1;
+          await settings.save();
+        }
+        return NextResponse.json({ success: true, registeredCount: settings.totalRegistrations, alreadyRegistered: !!existing });
       }
       return NextResponse.json({ error: 'Webinar not found' }, { status: 404 });
+    }
+
+    // Avoid duplicate registrations for same email + webinar
+    const existing = await WebinarRegistration.findOne({ webinarId: id, email: email.toLowerCase() });
+    if (existing) {
+      return NextResponse.json({ success: true, registeredCount: webinar.registeredCount, alreadyRegistered: true });
     }
 
     // Save registration
     await WebinarRegistration.create({
       webinarId: id,
       name,
-      email,
+      email: email.toLowerCase(),
       whatsAppNumber,
     });
 

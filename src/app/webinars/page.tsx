@@ -52,12 +52,13 @@ export default function WebinarsPage() {
   const [regEmail, setRegEmail] = useState('');
   const [regPhone, setRegPhone] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
+  const [alreadyRegistered, setAlreadyRegistered] = useState(false);
 
   const fetchData = async () => {
     try {
       const [webinarsRes, settingsRes] = await Promise.all([
-        fetch('/api/webinars'),
-        fetch('/api/admin/webinars/settings'),
+        fetch(`/api/webinars?t=${Date.now()}`),
+        fetch(`/api/admin/webinars/settings?t=${Date.now()}`),
       ]);
       if (!webinarsRes.ok) throw new Error('Failed to load webinars');
       if (!settingsRes.ok) throw new Error('Failed to load settings');
@@ -80,9 +81,21 @@ export default function WebinarsPage() {
 
   const openRegisterModal = (webinar: Webinar) => {
     setSelectedWebinar(webinar);
-    setRegName('');
-    setRegEmail('');
-    setRegPhone('');
+    setAlreadyRegistered(false);
+    // Auto-fill from localStorage if user registered before
+    const saved = localStorage.getItem('synergy_webinar_user');
+    if (saved) {
+      try {
+        const { name, email, phone } = JSON.parse(saved);
+        setRegName(name || '');
+        setRegEmail(email || '');
+        setRegPhone(phone || '');
+      } catch {
+        setRegName(''); setRegEmail(''); setRegPhone('');
+      }
+    } else {
+      setRegName(''); setRegEmail(''); setRegPhone('');
+    }
     setIsRegisterModalOpen(true);
   };
 
@@ -109,9 +122,16 @@ export default function WebinarsPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Registration failed');
 
-      toast.success('Successfully registered for webinar!');
-      setIsRegisterModalOpen(false);
-      fetchData(); // Refresh list to increment registration counter
+      // Persist user details so revisits auto-fill the form
+      localStorage.setItem('synergy_webinar_user', JSON.stringify({ name: regName, email: regEmail, phone: regPhone }));
+
+      if (data.alreadyRegistered) {
+        setAlreadyRegistered(true);
+      } else {
+        toast.success('Successfully registered for webinar!');
+        setIsRegisterModalOpen(false);
+        fetchData();
+      }
     } catch (err: any) {
       toast.error(err.message || 'Error registering');
     } finally {
@@ -515,6 +535,21 @@ export default function WebinarsPage() {
             </div>
 
             <div className="px-7 py-6">
+              {alreadyRegistered ? (
+                <div className="text-center py-4 flex flex-col items-center gap-3">
+                  <div className="text-4xl">✅</div>
+                  <h4 className="font-serif text-xl font-bold text-navy-text">Already Registered!</h4>
+                  <p className="text-[0.86rem] text-gray-500 max-w-[280px] leading-relaxed">
+                    You&apos;re already signed up for <span className="font-semibold text-navy-text">{selectedWebinar?.title}</span>. We&apos;ll send a reminder before the session.
+                  </p>
+                  <button
+                    onClick={() => setIsRegisterModalOpen(false)}
+                    className="bg-blue-default hover:bg-blue-bright text-white font-bold py-3 px-8 rounded-lg text-[0.9rem] transition-all w-full cursor-pointer mt-1 border-none"
+                  >
+                    Got it →
+                  </button>
+                </div>
+              ) : (
               <form onSubmit={handleRegisterSubmit} className="flex flex-col gap-4">
                 <div>
                   <label className="block text-[0.72rem] font-bold text-gray-500 uppercase tracking-wider mb-1">Full Name</label>
@@ -570,6 +605,7 @@ export default function WebinarsPage() {
                   We will send a reminder and link via Email and WhatsApp before the session.
                 </p>
               </form>
+              )}
             </div>
           </div>
         </div>

@@ -1,35 +1,110 @@
-'use client';
+"use client";
+// components/UPSShippingModal.tsx
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import upsLogo from "../../../src/app/assets/ups-logo.svg";
 
-import React, { useState, useEffect } from 'react';
+interface UPSShippingModalProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
 
-export const ShippingLabelModal: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [carrier, setCarrier] = useState<'UPS' | 'FedEx'>('UPS');
-  const [practice, setPractice] = useState('');
-  const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+interface FormData {
+  practiceName: string;
+  contactName: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  weight: string;
+  casesEnclosed: string;
+}
+
+const initialForm: FormData = {
+  practiceName: "",
+  contactName: "",
+  email: "",
+  phone: "",
+  address: "",
+  city: "",
+  state: "",
+  zip: "",
+  weight: "",
+  casesEnclosed: "",
+};
+
+export default function UPSShippingModal({ isOpen: controlledIsOpen, onClose: controlledOnClose }: UPSShippingModalProps) {
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const [form, setForm] = useState<FormData>(initialForm);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const handleOpen = () => {
-      setIsOpen(true);
-      document.body.style.overflow = 'hidden';
+      setInternalIsOpen(true);
+      document.body.style.overflow = "hidden";
     };
-    window.addEventListener('open-shipping-modal', handleOpen);
-    return () => window.removeEventListener('open-shipping-modal', handleOpen);
+    window.addEventListener("open-shipping-modal", handleOpen);
+    return () => {
+      window.removeEventListener("open-shipping-modal", handleOpen);
+    };
   }, []);
 
+  const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
+
+  if (!isOpen) return null;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    setError(null);
+    setSuccess(null);
+
+    // Basic validation
+    if (!form.practiceName || !form.email || !form.address || 
+        !form.city || !form.state || !form.zip || !form.weight) {
+      setError("Please fill in all required fields.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/ups/create-label", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Something went wrong");
+      }
+
+      setSuccess(`Label sent! Tracking #${data.trackingNumber}`);
+      setForm(initialForm);
+    } catch (err: any) {
+      setError(err.message || "Failed to generate label. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleClose = () => {
-    setIsOpen(false);
-    document.body.style.overflow = '';
-    // Reset forms after close transitions
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setPractice('');
-      setEmail('');
-      setAddress('');
-    }, 300);
+    setForm(initialForm);
+    setSuccess(null);
+    setError(null);
+    setInternalIsOpen(false);
+    document.body.style.overflow = "";
+    if (controlledOnClose) {
+      controlledOnClose();
+    }
   };
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -38,203 +113,235 @@ export const ShippingLabelModal: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!practice || !email || !address) {
-      alert('Please fill in all required fields.');
-      return;
-    }
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 1500);
-  };
-
-  if (!isOpen) return null;
-
   return (
     <div 
-      className="fixed inset-0 z-[3000] bg-black/45 backdrop-blur-[6px] flex items-center justify-center p-6 transition-opacity duration-250"
+      className="fixed inset-0 z-[5000] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
       onClick={handleOverlayClick}
     >
-      <div className="bg-white rounded-xl max-w-[450px] w-full max-h-[90vh] overflow-y-auto shadow-modal relative transition-transform duration-250 text-navy-text">
-        <button 
-          className="absolute top-4 right-4 w-5 h-5 rounded-full bg-gray-100 border-none cursor-pointer flex items-center justify-center text-xs text-gray-500 hover:bg-gray-200 transition-colors"
-          onClick={handleClose}
-        >
-          ✕
-        </button>
-
-        <div className="p-6 pb-0">
-          <img src="https://www.ups.com/webassets/icons/logo.svg" alt="UPS" className='w-7 h-7'/>
-          <h3 className="text-sm font-semibold text-navy-text">Generate a Shipping Label</h3>
-          <p className="text-xs text-gray-500 leading-relaxed">
-           Pick a carrier and tell us where to send the case. We'll email you a prepaid label.
-          </p>
-        </div>
-
-        {!isSubmitted ? (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-6">
-            {/* <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                className={`py-3 rounded-lg border-2 font-semibold transition-all duration-200 ${
-                  carrier === 'UPS'
-                    ? 'border-blue-default bg-blue-default/5 text-blue-default'
-                    : 'border-border-light bg-white text-gray-700 hover:border-gray-200 hover:bg-gray-50'
-                }`}
-                onClick={() => setCarrier('UPS')}
-              >
-                UPS
-              </button>
-              <button
-                type="button"
-                className={`py-3 rounded-lg border-2 font-semibold transition-all duration-200 ${
-                  carrier === 'FedEx'
-                    ? 'border-blue-default bg-blue-default/5 text-blue-default'
-                    : 'border-border-light bg-white text-gray-700 hover:border-gray-200 hover:bg-gray-50'
-                }`}
-                onClick={() => setCarrier('FedEx')}
-              >
-                FedEx
-              </button>
-            </div> */}
-
-          <div className='grid grid-cols-2 gap-2'>
-            <div className="flex flex-col gap-1">
-              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">Practice Name *</label>
-              <input
-                type="text"
-                required
-                // placeholder="e.g. Park Avenue Family Dentistry"
-                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[11px] outline-none focus:border-blue-default transition-colors w-full"
-                value={practice}
-                onChange={e => setPractice(e.target.value)}
-              />
+      <div className="bg-white rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl">
+        {/* Header */}
+        <div className="flex items-start justify-between p-6 pb-4">
+          <div className="flex items-center gap-3">
+            {/* UPS Logo SVG */}
+            <div>
+              <Image src={upsLogo} alt="UPS Logo" width={50} height={50} />
             </div>
-
-            <div className="flex flex-col gap-1">
-              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">Contact Name</label>
-              <input
-                type="text"
-                required
-                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[11px] outline-none focus:border-blue-default transition-colors w-full"
-                onChange={e => setPractice(e.target.value)}
-              />
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">Email</label>
-              <input
-                type="email"
-                required
-                // placeholder="doctor@practice.com"
-                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[11px] outline-none focus:border-blue-default transition-colors w-full"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-              />
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">Phone</label>
-              <input
-                type="text"
-                // placeholder="e.g. Suite 402"
-                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[11px] outline-none focus:border-blue-default transition-colors w-full"
-              />
+            <div>
+              <h2 className="text-sm font-bold text-gray-900">Generate a Shipping Label</h2>
+              <p className="text-xs text-gray-500 mt-0.5">
+                Pick a carrier and tell us where to send the case. We'll email you a prepaid label.
+              </p>
             </div>
           </div>
+          <button
+            onClick={handleClose}
+            className="text-gray-400 hover:text-gray-600 transition-colors ml-4 mt-1"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
 
-            <div className="flex flex-col gap-1">
-              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">Pickup Address</label>
-              <input
-                type="text"
-                required
-                // placeholder="Full address, City, State, ZIP"
-                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[11px] outline-none focus:border-blue-default transition-colors w-full"
-                value={address}
-                onChange={e => setAddress(e.target.value)}
-              />
-            </div>
-
-            <div className='grid grid-cols-2 gap-2'>
-              <div className="flex flex-col gap-1">
-              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">City</label>
-              <input
-                type="text"
-                required
-                // placeholder="e.g. Park Avenue Family Dentistry"
-                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[11px] outline-none focus:border-blue-default transition-colors w-full"
-                value={practice}
-                onChange={e => setPractice(e.target.value)}
-              />
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">State / ZIP</label>
-              <input
-                type="text"
-                required
-                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[0.9rem] outline-none focus:border-blue-default transition-colors w-full"
-                value={practice}
-                onChange={e => setPractice(e.target.value)}
-              />
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">Package Weight (lbs)</label>
-              <input
-                type="text"
-                required
-                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[0.9rem] outline-none focus:border-blue-default transition-colors w-full"
-              />
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <label className="text-[10px] font-normal tracking-wider uppercase text-gray-500">Cases Enclosed</label>
-              <input
-                type="text"
-                // placeholder="e.g. Suite 402"
-                className="bg-gray-50 border border-border-light rounded-lg p-2 text-[0.9rem] outline-none focus:border-blue-default transition-colors w-full"
-              />
-            </div>
-            </div>
-
-            <div className="pt-2">
-              <button 
-                type="submit"
-                disabled={isSubmitting}
-                className="bg-blue-default hover:bg-blue-bright text-white font-bold py-3 px-4 rounded-lg text-xs transition-all duration-200 active:translate-y-0 hover:-translate-y-0.5 w-full flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-              >
-                {isSubmitting ? 'Requesting...' : `Email me a ${carrier} label`}
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M7 17L17 7" />
-                  <path d="M7 7h10v10" />
+        {/* Success State */}
+        {success ? (
+          <div className="px-6 pb-6">
+            <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
+              </div>
+              <h3 className="text-green-800 font-semibold text-lg mb-1">Label Sent!</h3>
+              <p className="text-green-700 text-sm mb-1">{success}</p>
+              <p className="text-green-600 text-xs">Check your email for the prepaid UPS label PDF.</p>
+              <button
+                onClick={handleClose}
+                className="mt-4 px-6 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 transition-colors"
+              >
+                Done
               </button>
             </div>
-            {/* <p className="text-[10px] text-[#aab4ce] text-center leading-relaxed">
-              Live carrier integration with UPS & FedEx coming soon. Until then we'll email a hand-generated label within 10 minutes.
-            </p> */}
-          </form>
+          </div>
         ) : (
-          <div className="p-8 text-center flex flex-col items-center gap-4 bg-gray-50 rounded-b-2xl border-t border-border-light">
-            <div className="text-[3.5rem] animate-bounce">✓</div>
-            <h4 className="font-serif text-2xl font-bold text-navy-text">Label Request Sent!</h4>
-            <p className="text-[0.95rem] text-gray-500 leading-relaxed max-w-[360px]">
-              We have received your pickup details for <strong>{practice}</strong>. Check your inbox at <strong>{email}</strong> for your pre-paid {carrier} shipping label within 10 minutes.
-            </p>
-            <button 
-              onClick={handleClose}
-              className="bg-blue-default hover:bg-blue-bright text-white font-bold py-2.5 px-6 rounded-lg text-[0.9rem] transition-colors cursor-pointer"
+          <div className="px-6 pb-6 space-y-4">
+            {/* Row 1 */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                  Practice Name <span className="text-red-500">*</span>
+                </label>
+                <input
+                  name="practiceName"
+                  value={form.practiceName}
+                  onChange={handleChange}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-[10px] text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Practice name"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                  Contact Name
+                </label>
+                <input
+                  name="contactName"
+                  value={form.contactName}
+                  onChange={handleChange}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-[10px] text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Contact name"
+                />
+              </div>
+            </div>
+
+            {/* Row 2 */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                  Email <span className="text-red-500">*</span>
+                </label>
+                <input
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-[10px] text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="email@example.com"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                  Phone
+                </label>
+                <input
+                  name="phone"
+                  type="tel"
+                  value={form.phone}
+                  onChange={handleChange}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-[10px] text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="(555) 000-0000"
+                />
+              </div>
+            </div>
+
+            {/* Row 3 - Full width */}
+            <div>
+              <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                Pickup Address <span className="text-red-500">*</span>
+              </label>
+              <input
+                name="address"
+                value={form.address}
+                onChange={handleChange}
+                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-[10px] text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Street address"
+              />
+            </div>
+
+            {/* Row 4 */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                  City <span className="text-red-500">*</span>
+                </label>
+                <input
+                  name="city"
+                  value={form.city}
+                  onChange={handleChange}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-[10px] text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="City"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                  State / ZIP <span className="text-red-500">*</span>
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  <input
+                    name="state"
+                    value={form.state}
+                    onChange={handleChange}
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-[10px] text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="NY"
+                    maxLength={2}
+                  />
+                  <input
+                    name="zip"
+                    value={form.zip}
+                    onChange={handleChange}
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-[10px] text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="10001"
+                    maxLength={5}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Row 5 */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                  Package Weight (lbs) <span className="text-red-500">*</span>
+                </label>
+                <input
+                  name="weight"
+                  type="number"
+                  min="0.1"
+                  step="0.1"
+                  value={form.weight}
+                  onChange={handleChange}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-[10px] text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="0.0"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                  Cases Enclosed
+                </label>
+                <input
+                  name="casesEnclosed"
+                  type="number"
+                  min="1"
+                  value={form.casesEnclosed}
+                  onChange={handleChange}
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-[10px] text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="1"
+                />
+              </div>
+            </div>
+
+            {/* Error */}
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-sm text-red-700">
+                {error}
+              </div>
+            )}
+
+            {/* Submit */}
+            <button
+              onClick={handleSubmit}
+              disabled={loading}
+              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-3.5 rounded-xl flex items-center justify-center gap-2 transition-colors mt-2"
             >
-              Done
+              {loading ? (
+                <>
+                  <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  <span className="text-xs">Generating Label...</span>
+                </>
+              ) : (
+                <>
+                  <span className="text-xs">Email me a UPS label</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </>
+              )}
             </button>
           </div>
         )}
       </div>
     </div>
   );
-};
-export default ShippingLabelModal;
+}

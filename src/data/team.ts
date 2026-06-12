@@ -1,11 +1,18 @@
 import { TeamMember } from '@/types';
+import enrico from '@/app/assets/Enrico-Romano-CEO-Owner-scaled.jpg';
+import davie from '@/app/assets/Davie-Carino-C.O.O-scaled.jpg';
+import gina from '@/app/assets/GIna-Romano-CMO-Owner-scaled.jpg';
+import milos from '@/app/assets/Milos-Markovic-VP-of-CADCAM-and-Implantology-scaled.jpg';
+import erik from '@/app/assets/Erik-Morales-VP-of-Removable-Prosthetics-scaled.jpg';
+import ashley from '@/app/assets/Ashley-Sgaramella-VP-of-Customer-Integration-scaled.jpg';
+import kelli from '@/app/assets/Kelli-Trainor-scaled.jpg';
 
 export const TEAM: Record<string, TeamMember> = {
   enrico: {
     id: 'enrico',
     name: 'Enrico Romano',
     role: 'CEO & Owner',
-    emoji: '👨‍⚕️',
+    image: enrico,
     title: 'Chief Executive Officer & Owner',
     bio: [
       'Enrico Romano is the founder and CEO of Synergy 3D, bringing over two decades of deep expertise in dental technology and laboratory science. Enrico established Synergy 3D in November 2014 with a singular vision: to build a fully digital dental lab at a time when the rest of the industry was still relying on analog workflows.',
@@ -19,7 +26,7 @@ export const TEAM: Record<string, TeamMember> = {
     id: 'davie',
     name: 'Davie Carino',
     role: 'C.O.O',
-    emoji: '👨‍💼',
+    image: davie,
     title: 'Chief Operating Officer',
     bio: [
       'Davie Carino serves as Chief Operating Officer at Synergy 3D, overseeing all day-to-day operations, production workflows, and quality control systems. His operational expertise ensures that every restoration leaving the lab meets the exacting standards that Synergy 3D is known for.',
@@ -33,7 +40,7 @@ export const TEAM: Record<string, TeamMember> = {
     id: 'gina',
     name: 'Gina Romano',
     role: 'CMO & Owner',
-    emoji: '👩‍💼',
+    image: gina,
     title: 'Chief Marketing Officer & Owner',
     bio: [
       'Gina Romano is the Co-Owner and Chief Marketing Officer of Synergy 3D, responsible for brand strategy, customer relationships, and the overall growth of the Synergy 3D community across the United States.',
@@ -47,7 +54,7 @@ export const TEAM: Record<string, TeamMember> = {
     id: 'milos',
     name: 'Milos Markovic',
     role: 'VP of CAD/CAM & Implantology',
-    emoji: '🦷',
+    image: milos,
     title: 'VP of CAD/CAM and Implantology',
     bio: [
       'Milos Markovic leads Synergy 3D\'s CAD/CAM and Implantology division, bringing deep technical expertise in digital design, milling, and full-arch implant prosthetics. He is responsible for the design and production of some of the lab\'s most complex restorative cases.',
@@ -61,7 +68,7 @@ export const TEAM: Record<string, TeamMember> = {
     id: 'erik',
     name: 'Erik Morales',
     role: 'VP of Removable Prosthetics',
-    emoji: '🔬',
+    image: erik,
     title: 'VP of Removable Prosthetics',
     bio: [
       'Erik Morales leads Synergy 3D\'s removable prosthetics division, bringing specialized expertise in full and partial dentures, flexible prosthetics, and precision-milled removable appliances. His team is responsible for producing restorations that restore both function and quality of life.',
@@ -75,7 +82,7 @@ export const TEAM: Record<string, TeamMember> = {
     id: 'ashley',
     name: 'Ashley Lezon',
     role: 'VP of Customer Integration',
-    emoji: '🤝',
+    image: ashley,
     title: 'VP of Customer Integration',
     bio: [
       'Ashley Lezon serves as VP of Customer Integration at Synergy 3D, serving as the primary bridge between the lab and its growing network of dental practice partners. She ensures that every practice has a seamless onboarding experience and the ongoing support they need to succeed.',
@@ -89,7 +96,7 @@ export const TEAM: Record<string, TeamMember> = {
     id: 'kelli',
     name: 'Kelli Trainor',
     role: 'Crown & Bridge Team Leader',
-    emoji: '👩‍🔬',
+    image: kelli,
     title: 'Crown and Bridge Team Leader',
     bio: [
       'Kelli Trainor leads Synergy 3D\'s Crown and Bridge team, overseeing the production of the lab\'s highest-volume restoration category with the meticulous precision the lab is known for. Her team produces thousands of zirconia, e.max, and PFM restorations every month.',

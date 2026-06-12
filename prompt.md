@@ -1,213 +1,41 @@
-1. Build a shared `YouTubeEmbed` component
-2. Create `/admin/*` pages with forms to add/manage content
-3. Build REST API routes for each section
-4. Replace all hardcoded frontend data with dynamic fetches — without changing any existing design or layout
+create a blog page on admin/articles
 
----
+action: create, edit, delete
 
-### Shared Component — `YouTubeEmbed`
+same card format as /articles page
 
-Create `components/YouTubeEmbed.tsx`:
+give a form to write blogs: title, description, date, readDuration, writer
 
-```ts
-// Props
-interface YouTubeEmbedProps {
-  id: string; // YouTube video ID (not full URL)
-  title?: string; // for iframe accessibility
-  className?: string; // optional wrapper class override
-  autoplay?: boolean;
-}
-```
+give predefined templates to use for blogs, also admin can add html in templates so it will format in te blog page.
 
-- Renders a responsive 16:9 iframe embed using `https://www.youtube.com/embed/{id}`
-- Used across Talks, Education, Webinars (recorded), and Customers pages
-- Support lazy loading (`loading="lazy"`)
+article pages will be at /articles/[slug]
 
----
+and the article url should be its title but removing all the special characters and spaces and in lowercase, hypenated.
 
-### `/admin/talks` — Talks Management
+example blog title: Monolithic Zirconia in 2026: A Complete Material Review
+example url: /articles/monolithic-zirconia-in-2026-a-complete-material-review
 
-**Admin form fields:**
+- need to fix
 
-| Field           | Type    | Notes                                                               |
-| --------------- | ------- | ------------------------------------------------------------------- |
-| `youtubeId`     | string  | YouTube video ID only (not full URL)                                |
-| `episodeNumber` | number  | e.g. EP 01                                                          |
-| `title`         | string  |                                                                     |
-| `description`   | string  | textarea                                                            |
-| `category`      | select  | e.g. "Strategy", "Branding", "Growth" — admin can define categories |
-| `docName`       | string  | Referenced document name (optional)                                 |
-| `duration`      | string  | e.g. "12:34"                                                        |
-| `published`     | boolean | Toggle to show/hide on frontend                                     |
+/talks: Users need to manually refresh to see the video cards.
 
-**API routes:**
+/admin/talks:
 
-- `GET /api/talks` — returns all published talks (sorted by episodeNumber desc)
-- `POST /api/admin/talks` — create
-- `PUT /api/admin/talks/:id` — update
-- `DELETE /api/admin/talks/:id` — delete
-- `PATCH /api/admin/talks/:id/publish` — toggle published
+- Please add an option to lock a talk. On the user side, it should show as locked. To unlock it, the user needs to provide their name, email, and phone number, similar to the existing UI.
 
-**Frontend update:** Replace hardcoded talks cards/grid with data fetched from `GET /api/talks`. Map each item to the existing card component, passing `youtubeId` to `YouTubeEmbed`. Do not change card design.
+/education: The video does not play when clicking on the card.
 
----
+/webinars: Users need to manually refresh to see the webinar cards.
 
-### `/admin/education` — Education Management
+/admin/customers:
 
-Same schema as Talks **except**: no `episodeNumber`, no `docName`.
+- Do not use the same data from the Customer Stories and Reviews section.
+- "More from our Partners" (Text Testimonials) is a separate section and has its own data. Please add an option to include partners separately.
 
-| Field         | Type      | Notes         |
-| ------------- | --------- | ------------- |
-| `youtubeId`   | string    |               |
-| `title`       | string    |               |
-| `description` | string    |               |
-| `category`    | select    | admin-defined |
-| `duration`    | string    | e.g. "08:45"  |
-| `published`   | boolean   |               |
-| `createdAt`   | timestamp | auto-set      |
+Need to refactor the /admin/article page to create blogs. Create 3 predefined templates for blogs, and the admin will only use those 3 templates to create blogs. Use the Cloudinary API to upload images. The admin will upload the image, which will be stored in Cloudinary, and we will use the URL of the image in the blog. Use these environment variables to upload images.
+CLOUDINARY_API_SECRET=8aubEf8rZACe_CBOwiIZ3oUjf38
+CLOUDINARY_API_KEY=197418241346434
 
-**API routes:** Same pattern as Talks (`/api/education`, `/api/admin/education`).
+check the public\blog-page.png image and make the page /article/[slug] like that.
 
-**Frontend update:** Fetch from `GET /api/education?sort=latest`. Render latest/newest videos first (sort by `createdAt` desc). Replace hardcoded data only — keep existing card/grid layout intact.
-
----
-
-### `/admin/webinars` — Webinars Management
-
-**Admin form fields:**
-
-| Field          | Type     | Notes                                    |
-| -------------- | -------- | ---------------------------------------- |
-| `youtubeUrl`   | string   | Full YouTube URL (for recorded sessions) |
-| `category`     | select   | `"recorded"` or `"upcoming"`             |
-| `title`        | string   |                                          |
-| `description`  | string   |                                          |
-| `date`         | date     |                                          |
-| `time`         | time     |                                          |
-| `duration`     | string   | e.g. "1hr 30min"                         |
-| `speakerName`  | string   |                                          |
-| `speakerImage` | file/url | Upload or URL                            |
-| `published`    | boolean  |                                          |
-
-**Banner & stats (editable from admin):**
-
-Store these as a single settings document:
-
-```ts
-{
-  bannerTitle: string;
-  bannerSubtitle: string;
-  bannerImageUrl: string;
-  totalSessions: number; // shown as stat
-  totalRegistrations: number; // shown as stat (auto-incremented or manual override)
-}
-```
-
-Admin `/admin/webinars` page has a separate "Edit Banner & Stats" section at the top.
-
-**Registration flow (upcoming sessions):**
-
-- Card CTA: "Register" button
-- Opens a modal/drawer with form:
-  - Name (required)
-  - Email (required)
-  - WhatsApp Number (required)
-- On submit: `POST /api/webinars/:id/register` — saves registration, increments `totalRegistrations`
-
-**API routes:**
-
-- `GET /api/webinars` — all published (recorded + upcoming)
-- `GET /api/webinars?category=upcoming`
-- `GET /api/webinars?category=recorded`
-- `POST /api/admin/webinars` — create
-- `PUT /api/admin/webinars/:id` — update
-- `DELETE /api/admin/webinars/:id` — delete
-- `POST /api/webinars/:id/register` — register for upcoming session
-- `GET/PUT /api/admin/webinars/settings` — banner & stats
-
-**Frontend update:**
-
-- Recorded cards: show "Watch Now" → opens YouTube URL in new tab
-- Upcoming cards: show "Register" → opens registration modal
-- Banner section: fetch from `/api/admin/webinars/settings`
-- Session count & registration count: fetched from settings document
-
----
-
-### `/admin/customers` — Customer Stories Management
-
-**Admin form fields:**
-
-| Field                | Type     | Notes                                     |
-| -------------------- | -------- | ----------------------------------------- |
-| `youtubeId`          | string   | YouTube video ID                          |
-| `title`              | string   |                                           |
-| `description`        | string   |                                           |
-| `category`           | select   | admin-defined (e.g. "E-commerce", "SaaS") |
-| `customerName`       | string   |                                           |
-| `customerImage`      | file/url |                                           |
-| `location`           | string   | e.g. "Mumbai, India"                      |
-| `published`          | boolean  |                                           |
-| `featuredOnHomepage` | boolean  | Max 3 allowed simultaneously              |
-
-**Partners section:**
-
-Separate sub-section in `/admin/customers`:
-
-- Add partner: `name`, `logoUrl`, `websiteUrl`
-- List/reorder/delete partners
-- All active partners render in the "From Our Partners" section on frontend
-
-**Homepage featured logic:**
-
-- Admin can toggle `featuredOnHomepage` on any customer story
-- Enforce max 3: if a 4th is toggled on, show an error — "Deselect another story first"
-- `GET /api/customers/featured` returns exactly 3 featured stories for homepage
-
-**API routes:**
-
-- `GET /api/customers` — all published customer stories
-- `GET /api/customers/featured` — the 3 homepage-featured stories
-- `POST/PUT/DELETE /api/admin/customers/:id`
-- `PATCH /api/admin/customers/:id/feature` — toggle featuredOnHomepage
-- `GET /api/admin/customers/partners` — all partners
-- `POST /api/admin/customers/partners` — add partner
-- `DELETE /api/admin/customers/partners/:id` — remove partner
-
-**Frontend update:**
-
-- Customer story cards: fetch from `GET /api/customers`
-- Homepage customer section: fetch from `GET /api/customers/featured`
-- Partners section: fetch from `GET /api/admin/customers/partners`
-- Pass `youtubeId` to `YouTubeEmbed` in story cards
-
----
-
-### General Admin UI Requirements
-
-- All admin pages sit under `/admin/*` and are protected (redirect to `/login` if unauthenticated)
-- Each admin page has: a data table listing existing entries + an "Add New" button that opens a form (modal or side panel)
-- Table rows have Edit and Delete actions
-- Show loading/error states on all fetches
-- Use `react-hook-form` + `zod` for form validation
-- Image uploads: use a URL input field (or integrate with an existing storage solution like Cloudinary/S3 — specify which)
-- Toast notifications on success/error (e.g. `react-hot-toast`)
-
----
-
-### Implementation Order
-
-1. Database models / schema for all 4 sections + settings
-2. `YouTubeEmbed` component
-3. API routes (CRUD for each section)
-4. Admin UI pages
-5. Frontend data fetching (replace hardcoded data section by section)
-
----
-
-- **Data schemas defined explicitly** so there's no guessing what fields mean
-- **API routes fully named** with HTTP methods and filter params
-- **Edge cases handled** (max 3 featured, registration counter, category filtering)
-- **Implementation order** to avoid blocking dependencies
-- **Tech stack anchored** (react-hook-form, zod, toast, next-auth)
-- **YouTubeEmbed props typed** so it's built once and used correctly everywhere
+find product images from here src\app\assets\products and add the product images by there name to the correct product cards. Dont change anything else just add the product images correctly

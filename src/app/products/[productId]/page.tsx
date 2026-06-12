@@ -1,9 +1,24 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image, { StaticImageData } from 'next/image';
 import { PRODUCTS } from '@/data/products';
-import { 
-  ZirconiaSvg, AllOnXSvg, EmaxSvg, PfmSvg, SurgicalSvg, NightguardSvg, ModelsSvg 
-} from '@/components/product-svgs';
+import imgZirconia from '@/app/assets/products/zirconia-crown.png';
+import imgAllOnX from '@/app/assets/products/all-on-x-hybrid.png';
+import imgEmax from '@/app/assets/products/emax-restoration.png';
+import imgPFM from '@/app/assets/products/pmf.png';
+import imgSurgical from '@/app/assets/products/surgical-guides.png';
+import imgNightGuard from '@/app/assets/products/night-gaurds.png';
+import imgModels from '@/app/assets/products/printed-models.png';
+
+const PRODUCT_IMAGES: Record<string, StaticImageData> = {
+  zirconia: imgZirconia,
+  allonx: imgAllOnX,
+  emax: imgEmax,
+  pfm: imgPFM,
+  surgical: imgSurgical,
+  nightguard: imgNightGuard,
+  models: imgModels,
+};
 
 interface ProductPageProps {
   params: Promise<{
@@ -26,29 +41,15 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   }
 
   const renderVisual = () => {
-    switch (product.id) {
-      case 'zirconia': return <ZirconiaSvg className="w-[120px] h-[130px] sm:w-[200px] sm:h-[230px]" />;
-      case 'allonx': return <AllOnXSvg className="w-[150px] h-[100px] sm:w-[300px] sm:h-[200px]" />;
-      case 'emax': return <EmaxSvg className="w-[120px] h-[130px] sm:w-[200px] sm:h-[230px]" />;
-      case 'pfm': return <PfmSvg className="w-[120px] h-[130px] sm:w-[200px] sm:h-[230px]" />;
-      case 'surgical': return <SurgicalSvg className="w-[140px] h-[100px] sm:w-[280px] sm:h-[200px]" />;
-      case 'nightguard': return <NightguardSvg className="w-[130px] h-[90px] sm:w-[260px] sm:h-[180px]" />;
-      case 'models': return <ModelsSvg className="w-[130px] h-[90px] sm:w-[260px] sm:h-[180px]" />;
-      default: return null;
-    }
+    const img = PRODUCT_IMAGES[product.id];
+    if (!img) return null;
+    return <Image src={img} alt={product.name} fill className="object-contain p-12 z-10" sizes="(max-width: 1024px) 100vw, 50vw" />;
   };
 
   const getSmallVisual = (rid: string) => {
-    switch (rid) {
-      case 'zirconia': return <ZirconiaSvg className="w-8 h-9" />;
-      case 'allonx': return <AllOnXSvg className="w-9 h-7" />;
-      case 'emax': return <EmaxSvg className="w-8 h-9" />;
-      case 'pfm': return <PfmSvg className="w-8 h-9" />;
-      case 'surgical': return <SurgicalSvg className="w-9 h-7" />;
-      case 'nightguard': return <NightguardSvg className="w-9 h-7" />;
-      case 'models': return <ModelsSvg className="w-9 h-7" />;
-      default: return null;
-    }
+    const img = PRODUCT_IMAGES[rid];
+    if (!img) return null;
+    return <Image src={img} alt={rid} fill className="object-contain p-2" sizes="56px" />;
   };
   const renderTagline = (text: string) => {
     const parts = text.split(/(<em>|<\/em>)/g);
@@ -102,7 +103,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           {/* Dynamic SVG Blueprint */}
           <div className="block md:sticky top-28 bg-gray-50 border border-border-light rounded-[24px] aspect-square flex items-center justify-center p-12 overflow-hidden relative shadow-sm shrink-0 w-full">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_70%_at_50%_50%,rgba(224,234,255,0.6)_0%,transparent_70%)] pointer-events-none" />
-            <div className="relative z-10">{renderVisual()}</div>
+            <div className="relative z-10 w-full h-full">{renderVisual()}</div>
           </div>
 
           {/* Description Content */}
@@ -187,7 +188,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                   href={`/products/${rid}`}
                   className="bg-white border-1.5 border-border-light rounded-2xl p-6 hover:shadow-premium hover:-translate-y-1 hover:border-blue/25 transition-all flex gap-4 items-center cursor-pointer group"
                 >
-                  <div className="w-14 h-14 bg-gray-50 border border-border-light rounded-xl flex items-center justify-center shrink-0">
+                  <div className="w-14 h-14 bg-gray-50 border border-border-light rounded-xl flex items-center justify-center shrink-0 relative overflow-hidden">
                     {getSmallVisual(rid)}
                   </div>
                   <div>

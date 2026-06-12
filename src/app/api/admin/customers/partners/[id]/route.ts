@@ -9,6 +9,29 @@ async function isAuthorized() {
   return !!session;
 }
 
+export async function PUT(req: Request, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+  const id = params.id;
+  
+  if (!(await isAuthorized())) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    const body = await req.json();
+    await connectToDatabase();
+
+    const updated = await Partner.findByIdAndUpdate(id, body, { new: true });
+    if (!updated) {
+      return NextResponse.json({ error: 'Partner not found' }, { status: 404 });
+    }
+
+    return NextResponse.json(updated);
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
 export async function DELETE(req: Request, props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;

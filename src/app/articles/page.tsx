@@ -1,147 +1,24 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-
-/* ─── Data ─────────────────────────────────────────────────────────────── */
+import Image from 'next/image';
 
 type Category = 'all' | 'clinical' | 'materials' | 'technology' | 'business';
 
 interface Article {
-  id: number;
-  cat: Category;
-  catLabel: string;
+  _id: string;
   title: string;
-  desc: string;
+  slug: string;
+  description: string;
   date: string;
-  readTime: string;
-  author: string;
-  views: string;
-  emoji: string;
+  readDuration: string;
+  writer: string;
+  category: string;
+  imageUrl: string;
+  published: boolean;
+  views: number;
 }
-
-const ARTICLES: Article[] = [
-  {
-    id: 1,
-    cat: 'clinical',
-    catLabel: 'Clinical',
-    title: 'Why Sub-30µm Fit Accuracy Is the New Standard in Crown Delivery',
-    desc: 'As digital workflows mature, sub-30µm precision is no longer exceptional — it\'s the baseline expectation. Here\'s what it means clinically and why it matters for your patients.',
-    date: 'May 12, 2026',
-    readTime: '6 min read',
-    author: 'Milos Markovic',
-    views: '4.2k',
-    emoji: '🦷',
-  },
-  {
-    id: 2,
-    cat: 'materials',
-    catLabel: 'Materials',
-    title: 'Monolithic Zirconia in 2026: A Complete Material Review',
-    desc: 'From 3Y to 5Y-PSZ, the zirconia landscape has evolved dramatically. We break down every grade, its clinical indications, and how to choose the right one for each case.',
-    date: 'May 5, 2026',
-    readTime: '8 min read',
-    author: 'Kelli Trainor',
-    views: '3.8k',
-    emoji: '💎',
-  },
-  {
-    id: 3,
-    cat: 'technology',
-    catLabel: 'Technology',
-    title: 'The State of Intraoral Scanning in 2026: What\'s Changed',
-    desc: 'A comprehensive look at how intraoral scanner technology has evolved and what today\'s best-in-class scanners mean for lab workflows and restoration quality.',
-    date: 'Apr 28, 2026',
-    readTime: '7 min read',
-    author: 'Enrico Romano',
-    views: '3.5k',
-    emoji: '📷',
-  },
-  {
-    id: 4,
-    cat: 'clinical',
-    catLabel: 'Clinical',
-    title: 'Occlusal Design in Full-Arch Implant Cases: Our Lab Protocol',
-    desc: 'How Synergy 3D approaches occlusal design in full-arch implant prosthetics — from planning to final delivery — and what clinicians can do to set every case up for success.',
-    date: 'Apr 20, 2026',
-    readTime: '9 min read',
-    author: 'Milos Markovic',
-    views: '3.1k',
-    emoji: '🧬',
-  },
-  {
-    id: 5,
-    cat: 'business',
-    catLabel: 'Business',
-    title: 'How to Price Digital Restorations Without Losing Margin',
-    desc: 'A practical framework for restorative dentists navigating the shift from analog to digital fee structures — including what to charge, what labs charge, and how to stay profitable.',
-    date: 'Apr 14, 2026',
-    readTime: '5 min read',
-    author: 'Gina Romano',
-    views: '2.9k',
-    emoji: '💰',
-  },
-  {
-    id: 6,
-    cat: 'materials',
-    catLabel: 'Materials',
-    title: 'e.max Pressable vs CAD/CAM Milled: Which Wins?',
-    desc: 'We compare the two fabrication methods for lithium disilicate restorations on fit accuracy, aesthetics, and turnaround time — with data from our own lab.',
-    date: 'Apr 7, 2026',
-    readTime: '6 min read',
-    author: 'Kelli Trainor',
-    views: '2.6k',
-    emoji: '🧪',
-  },
-  {
-    id: 7,
-    cat: 'technology',
-    catLabel: 'Technology',
-    title: 'AI in Dental Lab Workflows: Hype vs. Reality',
-    desc: "We examine AI's current role in dental lab production — what it can genuinely do today, what's still overpromised, and where the technology is actually headed.",
-    date: 'Mar 31, 2026',
-    readTime: '7 min read',
-    author: 'Enrico Romano',
-    views: '2.2k',
-    emoji: '🤖',
-  },
-  {
-    id: 8,
-    cat: 'business',
-    catLabel: 'Business',
-    title: 'Switching from Analog to Digital Lab Workflow: A Practical Checklist',
-    desc: 'Everything you need to transition your practice from traditional impressions to a fully digital submission workflow — with a downloadable checklist.',
-    date: 'Mar 24, 2026',
-    readTime: '4 min read',
-    author: 'Ashley Lezon',
-    views: '1.9k',
-    emoji: '📋',
-  },
-  {
-    id: 9,
-    cat: 'clinical',
-    catLabel: 'Clinical',
-    title: 'Managing Shade Matching Remotely: A Technician\'s Guide',
-    desc: 'The challenges and solutions for achieving accurate shade matching when you never meet the patient — how to communicate, what photos to take, and which tools help most.',
-    date: 'Mar 17, 2026',
-    readTime: '6 min read',
-    author: 'Kelli Trainor',
-    views: '1.7k',
-    emoji: '🎨',
-  },
-  {
-    id: 10,
-    cat: 'technology',
-    catLabel: 'Technology',
-    title: 'Understanding DICOM and STL: File Formats Every Dentist Should Know',
-    desc: 'A plain-English breakdown of the file formats used in digital dentistry — and why sending the right file type to your lab matters more than you think.',
-    date: 'Mar 10, 2026',
-    readTime: '5 min read',
-    author: 'Davie Carino',
-    views: '1.5k',
-    emoji: '🖥️',
-  },
-];
 
 const CAT_COLORS: Record<string, string> = {
   clinical:   'bg-blue-50 text-blue-600',
@@ -150,12 +27,19 @@ const CAT_COLORS: Record<string, string> = {
   business:   'bg-amber-50 text-amber-600',
 };
 
-/* ─── Page ──────────────────────────────────────────────────────────────── */
+const CAT_LABELS: Record<string, string> = {
+  clinical:   'Clinical',
+  materials:  'Materials',
+  technology: 'Technology',
+  business:   'Business',
+};
 
 export default function ArticlesPage() {
-  const [filter, setFilter]   = useState<Category>('all');
-  const [search, setSearch]   = useState('');
-  const [email, setEmail]     = useState('');
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [filter, setFilter] = useState<Category>('all');
+  const [search, setSearch] = useState('');
+  const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
   const categories = [
@@ -166,20 +50,37 @@ export default function ArticlesPage() {
     { id: 'business',   label: 'Business' },
   ];
 
-  const filtered = ARTICLES.filter(a => {
-    const matchCat    = filter === 'all' || a.cat === filter;
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const res = await fetch('/api/articles');
+        if (!res.ok) throw new Error('Failed to fetch articles');
+        const data = await res.json();
+        setArticles(data);
+      } catch (err) {
+        console.error('Error fetching articles:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchArticles();
+  }, []);
+
+  const filtered = articles.filter(a => {
+    const matchCat    = filter === 'all' || a.category === filter;
     const matchSearch = !search ||
       a.title.toLowerCase().includes(search.toLowerCase()) ||
-      a.desc.toLowerCase().includes(search.toLowerCase()) ||
-      a.author.toLowerCase().includes(search.toLowerCase());
+      a.description.toLowerCase().includes(search.toLowerCase()) ||
+      a.writer.toLowerCase().includes(search.toLowerCase());
     return matchCat && matchSearch;
   });
 
-  const popular = [...ARTICLES].sort((a, b) => parseFloat(b.views) - parseFloat(a.views)).slice(0, 4);
+  const popular = [...articles]
+    .sort((a, b) => (b.views || 0) - (a.views || 0))
+    .slice(0, 4);
 
   return (
     <div>
-
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
       <section className="relative bg-navy pt-36 pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />
@@ -195,7 +96,6 @@ export default function ArticlesPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
             {/* Left */}
             <div>
               <span className="block text-[0.7rem] font-bold tracking-[0.2em] uppercase text-blue-glow mb-5">
@@ -269,7 +169,6 @@ export default function ArticlesPage() {
                 </Link>
               ))}
             </div>
-
           </div>
         </div>
       </section>
@@ -314,29 +213,33 @@ export default function ArticlesPage() {
       <section className="bg-white py-10 pb-20">
         <div className="max-w-[1140px] mx-auto px-4 md:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-
             {/* ── Article list ── */}
             <div className="lg:col-span-8 flex flex-col gap-5">
-              {filtered.length === 0 ? (
+              {isLoading ? (
+                <div className="flex items-center justify-center py-20">
+                  <span className="w-8 h-8 border-3 border-blue-default border-t-transparent rounded-full animate-spin" />
+                </div>
+              ) : filtered.length === 0 ? (
                 <div className="text-center py-20 text-gray-400 font-semibold text-[1rem]">
                   No articles matched your search.
                 </div>
               ) : (
                 filtered.map(a => (
-                  <article
-                    key={a.id}
-                    className="reveal bg-white border border-border-light hover:border-blue-200 rounded-2xl p-5 sm:p-6 flex gap-5 cursor-pointer hover:shadow-md transition-all group"
+                  <Link
+                    key={a._id}
+                    href={`/articles/${a.slug}`}
+                    className="reveal bg-white border border-border-light hover:border-blue-200 rounded-2xl p-5 sm:p-6 flex gap-5 cursor-pointer hover:shadow-md transition-all group block"
                   >
                     {/* Text */}
                     <div className="flex-1 min-w-0">
-                      <span className={`inline-block text-[10px] font-bold tracking-[0.14em] uppercase px-2.5 py-1 rounded-full mb-3 ${CAT_COLORS[a.cat]}`}>
-                        {a.catLabel}
+                      <span className={`inline-block text-[10px] font-bold tracking-[0.14em] uppercase px-2.5 py-1 rounded-full mb-3 ${CAT_COLORS[a.category] || 'bg-gray-100 text-gray-600'}`}>
+                        {CAT_LABELS[a.category] || a.category}
                       </span>
                       <h2 className="font-serif text-[1.05rem] sm:text-[1.1rem] font-bold text-navy-text mb-2 leading-snug group-hover:text-blue-600 transition-colors">
                         {a.title}
                       </h2>
                       <p className="text-[0.82rem] text-gray-500 leading-relaxed mb-4 line-clamp-2">
-                        {a.desc}
+                        {a.description}
                       </p>
                       <div className="flex flex-wrap items-center gap-4 text-[0.72rem] text-gray-400">
                         <span className="flex items-center gap-1.5">
@@ -345,26 +248,33 @@ export default function ArticlesPage() {
                         </span>
                         <span className="flex items-center gap-1.5">
                           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                          {a.readTime}
+                          {a.readDuration}
                         </span>
                         <span className="flex items-center gap-1.5">
                           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-                          {a.author}
+                          {a.writer}
                         </span>
                       </div>
                     </div>
-                    {/* Thumbnail */}
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-[radial-gradient(ellipse_at_50%_40%,#1e3a8a_0%,#080f35_100%)] flex items-center justify-center shrink-0 text-3xl sm:text-4xl group-hover:scale-105 transition-transform self-start">
-                      {a.emoji}
+                    {/* Thumbnail Image (Replacing Emoji) */}
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden shrink-0 group-hover:scale-105 transition-transform self-start relative bg-navy-light/10">
+                      {a.imageUrl && (
+                        <Image
+                          src={a.imageUrl}
+                          alt={a.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-w-768px) 80px, 96px"
+                        />
+                      )}
                     </div>
-                  </article>
+                  </Link>
                 ))
               )}
             </div>
 
             {/* ── Sidebar ── */}
             <aside className="lg:col-span-4 flex flex-col gap-5">
-
               {/* Browse by topic */}
               <div className="bg-gray-50 border border-border-light rounded-2xl p-5">
                 <span className="block text-[10px] font-medium tracking-[0.18em] uppercase text-gray-400 mb-3">Browse by Topic</span>
@@ -400,13 +310,17 @@ export default function ArticlesPage() {
                 <span className="block text-[10px] font-medium tracking-[0.18em] uppercase text-gray-400 mb-3">Most Popular</span>
                 <div className="flex flex-col gap-3">
                   {popular.map((a, i) => (
-                    <div key={a.id} className="flex items-start gap-3 cursor-pointer group">
+                    <Link
+                      key={a._id}
+                      href={`/articles/${a.slug}`}
+                      className="flex items-start gap-3 cursor-pointer group"
+                    >
                       <span className="font-serif text-xl font-medium text-gray-300 w-4 shrink-0 mt-0.5">{String(i + 1).padStart(2, '0')}</span>
                       <div className="flex-1 min-w-0">
                         <p className="text-[0.8rem] font-semibold text-navy-text leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">{a.title}</p>
-                        <span className="text-[0.7rem] text-gray-400 mt-0.5 block">{a.readTime} · {a.views} views</span>
+                        <span className="text-[0.7rem] text-gray-400 mt-0.5 block">{a.readDuration} · {a.views || 0} views</span>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -441,7 +355,6 @@ export default function ArticlesPage() {
                   <p className="text-[0.82rem] text-blue-glow font-semibold">✓ You&apos;re subscribed!</p>
                 )}
               </div>
-
             </aside>
           </div>
         </div>
@@ -474,7 +387,6 @@ export default function ArticlesPage() {
           </div>
         </div>
       </section>
-
     </div>
   );
 }

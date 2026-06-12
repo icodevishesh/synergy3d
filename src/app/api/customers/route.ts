@@ -6,7 +6,10 @@ export async function GET() {
   try {
     await connectToDatabase();
     
-    const items = await CustomerStory.find({ published: true }).sort({ createdAt: -1 });
+    const items = await CustomerStory.find({
+      published: true,
+      youtubeId: { $ne: '', $exists: true }
+    }).sort({ createdAt: -1 });
 
     const mapped = items.map(c => {
       // Determine emoji based on category

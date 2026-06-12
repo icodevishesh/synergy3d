@@ -7,6 +7,7 @@ export const EpisodeUnlockModal: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [practice, setPractice] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
@@ -26,27 +27,41 @@ export const EpisodeUnlockModal: React.FC = () => {
       setName('');
       setEmail('');
       setPractice('');
+      setIsSubmitting(false);
     }, 300);
   };
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      handleClose();
-    }
+    if (e.target === e.currentTarget) handleClose();
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !practice) {
       alert('Please fill in all fields.');
       return;
     }
-    // Simulate opt-in subscription success
-    setIsSuccess(true);
+
+    setIsSubmitting(true);
+    try {
+      const res = await fetch('/api/talks/unlock', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, practice }),
+      });
+      if (!res.ok) throw new Error('Failed to save');
+
+      // Persist email locally so future visits auto-unlock
+      localStorage.setItem('synergy_talks_email', email.toLowerCase().trim());
+      setIsSuccess(true);
+    } catch {
+      alert('Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleUnlockClick = () => {
-    // Notify all listeners that dynamic premium locks are unlocked!
     window.dispatchEvent(new Event('optin-unlocked'));
     handleClose();
   };
@@ -54,12 +69,12 @@ export const EpisodeUnlockModal: React.FC = () => {
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-[2000] bg-navy/88 backdrop-blur-[14px] flex items-center justify-center p-4 transition-opacity duration-300"
       onClick={handleOverlayClick}
     >
       <div className="bg-white rounded-xl w-full max-w-[460px] max-h-[calc(100vh-2rem)] overflow-y-auto shadow-2xl relative transition-transform duration-300">
-        <button 
+        <button
           className="absolute top-3.5 right-3.5 w-7 h-7 rounded-full bg-black/10 hover:bg-black/20 border-none cursor-pointer flex items-center justify-center text-white text-[0.85rem] z-[10] transition-colors"
           onClick={handleClose}
         >
@@ -96,35 +111,43 @@ export const EpisodeUnlockModal: React.FC = () => {
                 ))}
               </div>
 
-              <input 
-                type="text" 
+              <input
+                type="text"
                 required
-                placeholder="Your full name" 
+                placeholder="Your full name"
                 className="bg-gray-50 border border-border-light rounded-lg px-3.5 py-2.5 text-[0.88rem] outline-none focus:border-blue-default transition-colors w-full"
                 value={name}
                 onChange={e => setName(e.target.value)}
               />
-              <input 
-                type="email" 
+              <input
+                type="email"
                 required
-                placeholder="Work email address" 
+                placeholder="Work email address"
                 className="bg-gray-50 border border-border-light rounded-lg px-3.5 py-2.5 text-[0.88rem] outline-none focus:border-blue-default transition-colors w-full"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
               />
-              <input 
-                type="text" 
+              <input
+                type="text"
                 required
-                placeholder="Practice name" 
+                placeholder="Practice name"
                 className="bg-gray-50 border border-border-light rounded-lg px-3.5 py-2.5 text-[0.88rem] outline-none focus:border-blue-default transition-colors w-full"
                 value={practice}
                 onChange={e => setPractice(e.target.value)}
               />
-              <button 
+              <button
                 type="submit"
-                className="bg-blue-default hover:bg-blue-bright text-white font-bold py-3 px-5 rounded-lg text-[0.9rem] transition-all hover:-translate-y-0.5 w-full cursor-pointer mt-1"
+                disabled={isSubmitting}
+                className="bg-blue-default hover:bg-blue-bright disabled:opacity-60 text-white font-bold py-3 px-5 rounded-lg text-[0.9rem] transition-all hover:-translate-y-0.5 w-full cursor-pointer mt-1 flex items-center justify-center gap-2"
               >
-                Unlock Free Access →
+                {isSubmitting ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Saving...
+                  </>
+                ) : (
+                  'Unlock Free Access →'
+                )}
               </button>
               <p className="text-[0.72rem] text-[#aab4ce] text-center">
                 No spam. Unsubscribe anytime. Your info is never shared.
@@ -137,7 +160,7 @@ export const EpisodeUnlockModal: React.FC = () => {
               <p className="text-[0.86rem] text-gray-500 max-w-[260px] leading-relaxed">
                 All SynergyTalks episodes are now fully unlocked. Enjoy!
               </p>
-              <button 
+              <button
                 onClick={handleUnlockClick}
                 className="bg-blue-default hover:bg-blue-bright text-white font-bold py-3 px-8 rounded-lg text-[0.9rem] transition-all w-full cursor-pointer mt-1"
               >

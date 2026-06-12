@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { TEAM } from '@/data/team';
 import { MapPin } from 'lucide-react';
 import MuiTimeline from '@mui/lab/Timeline';
@@ -11,6 +11,8 @@ import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
+
+
 
 export default function AboutPage() {
   const teamMembers = Object.keys(TEAM).map(key => TEAM[key]);
@@ -173,9 +175,16 @@ export default function AboutPage() {
                 className="group relative rounded-2xl border border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer bg-white"
               >
                 <Link href={`/about/${m.id}`} className="absolute inset-0 z-10" aria-label={`View ${m.name}'s profile`} />
-                {/* Emoji image area */}
-                <div className="relative h-52 bg-[radial-gradient(ellipse_at_center,#1e40af_0%,#0f1e6b_100%)] flex items-center justify-center">
-                  <span className="text-6xl select-none">{m.emoji}</span>
+                {/* Image area */}
+                <div className="relative h-62 overflow-hidden bg-navy-light/10">
+                  <Image
+                    src={m.image}
+                    alt={m.name}
+                    fill
+                    sizes="(max-w-768px) 100vw, 250px"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    priority={m.id === 'enrico' || m.id === 'davie'}
+                  />
                 </div>
                 {/* Info area */}
                 <div className="px-5 pt-4 pb-5">
@@ -189,10 +198,8 @@ export default function AboutPage() {
             ))}
 
             {/* "This could be you" card */}
-            <a
-              href="https://synergy3d.net/job-application/"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/apply"
               className="group rounded-2xl border border-dashed border-gray-200 hover:border-blue-400 overflow-hidden transition-all duration-300 bg-gray-50 flex flex-col items-center justify-center px-6 py-10 text-center min-h-[280px]"
             >
               <div className="w-16 h-16 rounded-full border-2 border-dashed border-gray-300 group-hover:border-blue-400 flex items-center justify-center text-gray-300 group-hover:text-blue-400 transition-colors mb-5">
@@ -208,7 +215,7 @@ export default function AboutPage() {
               <span className="text-[0.8rem] font-bold text-blue-600 tracking-wide">
                 Apply now →
               </span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>

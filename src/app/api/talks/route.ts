@@ -41,7 +41,7 @@ export async function GET() {
       duration: t.duration,
       videoId: t.youtubeId,
       docName: t.docName || '',
-      locked: false, // all dynamic episodes default to unlocked or custom logic
+      locked: t.locked || false,
     }));
     
     return NextResponse.json(mapped);

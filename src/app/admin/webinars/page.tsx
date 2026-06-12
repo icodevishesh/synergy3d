@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import toast from 'react-hot-toast';
-import { Edit2, Trash2, Plus, X, Settings } from 'lucide-react';
+import { Edit2, Trash2, Plus, X, Settings, Users } from 'lucide-react';
 
 // Zod Schemas
 const webinarSchema = z.object({
@@ -63,6 +63,15 @@ interface WebinarBanner {
   totalRegistrations: number;
 }
 
+interface WebinarReg {
+  _id: string;
+  webinarId: string;
+  name: string;
+  email: string;
+  whatsAppNumber: string;
+  registeredAt: string;
+}
+
 export default function AdminWebinarsPage() {
   const [webinars, setWebinars] = useState<Webinar[]>([]);
   const [banner, setBanner] = useState<WebinarBanner | null>(null);
@@ -71,6 +80,9 @@ export default function AdminWebinarsPage() {
   const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
   const [editingWebinar, setEditingWebinar] = useState<Webinar | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [registrations, setRegistrations] = useState<WebinarReg[]>([]);
+  const [isLoadingRegs, setIsLoadingRegs] = useState(true);
 
   const webinarForm = useForm<WebinarFormValues>({
     resolver: zodResolver(webinarSchema) as any,
@@ -109,8 +121,19 @@ export default function AdminWebinarsPage() {
     }
   };
 
+  const fetchRegistrations = async () => {
+    setIsLoadingRegs(true);
+    try {
+      const res = await fetch('/api/admin/webinars/registrations');
+      if (res.ok) setRegistrations(await res.json());
+    } finally {
+      setIsLoadingRegs(false);
+    }
+  };
+
   useEffect(() => {
     fetchData();
+    fetchRegistrations();
   }, []);
 
   const openAddWebinarModal = () => {
@@ -230,10 +253,10 @@ export default function AdminWebinarsPage() {
     <div>
       {/* ── Featured webinar banner editor */}
       {banner && (
-        <section className="bg-white pt-8 pb-4 mb-8 rounded-2xl overflow-hidden border border-border-light shadow-sm">
-          <div className="px-6 md:px-10 pb-4 flex items-center justify-between border-b border-border-light mb-6">
+        <section className="pt-8 pb-4 mb-8 rounded-2xl overflow-hidden border border-white/8">
+          <div className="px-6 md:px-10 pb-4 flex items-center justify-between border-b border-white/8 mb-6">
             <div>
-              <h3 className="text-navy-text font-bold text-md flex items-center gap-1.5">
+              <h3 className="text-white font-semibold text-md flex items-center gap-1.5">
                 <Settings className="w-4.5 h-4.5 text-blue-default" />
                 Featured Webinar Banner Configuration
               </h3>
@@ -253,7 +276,7 @@ export default function AdminWebinarsPage() {
             <div className="bg-[radial-gradient(ellipse_at_60%_40%,#1e40af_0%,#0a1045_100%)] rounded-2xl p-7 sm:p-9 grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
               {/* Left content */}
               <div className="sm:col-span-8 text-left">
-                <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-[0.68rem] font-bold tracking-[0.14em] uppercase px-3 py-1.5 rounded-full mb-5">
+                <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-[0.68rem] font-semibold tracking-[0.14em] uppercase px-3 py-1.5 rounded-full mb-5">
                   <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
                   Next Up · {banner.date}
                 </div>
@@ -286,7 +309,7 @@ export default function AdminWebinarsPage() {
                 </div>
                 <button 
                   disabled
-                  className="bg-blue-default/60 text-white/80 font-bold py-2.5 px-7 rounded-lg text-[0.9rem] border-none shadow-lg cursor-not-allowed"
+                  className="bg-blue-default/60 text-white/80 font-semibold py-2.5 px-7 rounded-lg text-[0.9rem] border-none shadow-lg cursor-not-allowed"
                 >
                   Register Free →
                 </button>
@@ -296,11 +319,11 @@ export default function AdminWebinarsPage() {
               <div className="sm:col-span-4 flex flex-row sm:flex-col gap-3">
                 <div className="flex-1 bg-white/8 border border-white/12 rounded-xl p-5 text-center">
                   <span className="font-serif text-4xl font-extrabold text-white block leading-none mb-1">{banner.totalRegistrations}</span>
-                  <span className="text-[0.66rem] font-bold tracking-[0.14em] uppercase text-white/40">Registered So Far</span>
+                  <span className="text-[0.66rem] font-semibold tracking-[0.14em] uppercase text-white/40">Registered So Far</span>
                 </div>
                 <div className="flex-1 bg-white/8 border border-white/12 rounded-xl p-5 text-center">
                   <span className="font-serif text-4xl font-extrabold text-white block leading-none mb-1">Free</span>
-                  <span className="text-[0.66rem] font-bold tracking-[0.14em] uppercase text-white/40">No Cost · CE Credit Pending</span>
+                  <span className="text-[0.66rem] font-semibold tracking-[0.14em] uppercase text-white/40">No Cost · CE Credit Pending</span>
                 </div>
               </div>
             </div>
@@ -311,7 +334,7 @@ export default function AdminWebinarsPage() {
       {/* webinars management section */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h2 className="text-xl font-bold text-white">Manage Webinar Sessions</h2>
+          <h2 className="text-xl font-semibold text-white">Manage Webinar Sessions</h2>
           <p className="text-xs text-gray-500">Create new recorded watch-links or upcoming registration-based webinars shown in All Sessions.</p>
         </div>
         <button
@@ -328,38 +351,38 @@ export default function AdminWebinarsPage() {
           <span className="w-8 h-8 border-3 border-blue-default border-t-transparent rounded-full animate-spin" />
         </div>
       ) : webinars.length === 0 ? (
-        <div className="text-center py-20 text-gray-500 font-semibold border border-dashed border-border-light rounded-xl">
+        <div className="text-center py-20 text-gray-500 font-semibold border border-dashed border-white/8 rounded-xl">
           No webinar sessions found. Click &quot;Add Webinar Session&quot; to create one.
         </div>
       ) : (
-        <div className="overflow-x-auto border border-border-light rounded-xl">
-          <table className="w-full text-left border-collapse text-sm text-navy-text bg-white">
+        <div className="overflow-x-auto border border-white/8  rounded-xl">
+          <table className="w-full text-left border-collapse text-sm text-white">
             <thead>
-              <tr className="border-b border-border-light bg-gray-50 text-gray-500 text-xs font-semibold uppercase tracking-wider">
+              <tr className="border-b border border-white/8 text-white text-xs font-semibold uppercase tracking-wider">
                 <th className="py-3 px-4">Type</th>
                 <th className="py-3 px-4">Title / Speaker</th>
                 <th className="py-3 px-4">Schedule Details</th>
                 <th className="py-3 px-4">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border-light">
+            <tbody className="divide-y border border-white/8">
               {webinars.map((webinar) => (
-                <tr key={webinar._id} className="hover:bg-gray-50/50 transition-colors">
+                <tr key={webinar._id} className=" transition-colors">
                   <td className="py-3.5 px-4">
-                    <span className={`inline-block rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                    <span className={`inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
                       webinar.category === 'upcoming' ? 'bg-emerald-500/10 text-emerald-600' : 'bg-blue-500/10 text-blue-600'
                     }`}>
                       {webinar.category}
                     </span>
                   </td>
                   <td className="py-3.5 px-4">
-                    <div className="font-bold text-navy-text leading-tight">{webinar.title}</div>
+                    <div className="font-normal text-white leading-tight">{webinar.title}</div>
                     <div className="text-xs text-gray-500 mt-1">
                       {webinar.name}
                     </div>
                   </td>
                   <td className="py-3.5 px-4">
-                    <div className="text-navy-text text-xs">{webinar.date}</div>
+                    <div className="text-white text-xs">{webinar.date}</div>
                     <div className="text-[11px] text-gray-500 mt-0.5">{webinar.duration} minutes</div>
                   </td>
                   <td className="py-3.5 px-4">
@@ -371,7 +394,7 @@ export default function AdminWebinarsPage() {
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => openEditWebinarModal(webinar)}
-                        className="p-1.5 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 border-none cursor-pointer transition-colors"
+                        className="p-1.5 rounded hover:bg-blue-500/10 text-white border-none cursor-pointer transition-colors"
                         title="Edit Webinar"
                       >
                         <Edit2 className="w-3.5 h-3.5" />
@@ -392,12 +415,56 @@ export default function AdminWebinarsPage() {
         </div>
       )}
 
+      {/* ── Registrations ── */}
+      <div className="mt-12">
+        <div className="flex items-center gap-2 mb-4">
+          <Users className="w-4 h-4 text-blue-glow" />
+          <h3 className="text-base font-semibold text-white">Webinar Registrations</h3>
+          <span className="ml-1 bg-blue-default/20 text-blue-glow text-[10px] font-bold px-2 py-0.5 rounded-full">
+            {registrations.length}
+          </span>
+        </div>
+
+        {isLoadingRegs ? (
+          <div className="flex items-center justify-center py-10">
+            <span className="w-6 h-6 border-2 border-blue-default border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : registrations.length === 0 ? (
+          <p className="text-sm text-gray-500 py-6">No registrations yet.</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-sm text-gray-300">
+              <thead>
+                <tr className="border-b border-white/10 text-white/50 text-xs font-semibold uppercase tracking-wider">
+                  <th className="py-2.5 px-4">Name</th>
+                  <th className="py-2.5 px-4">Email</th>
+                  <th className="py-2.5 px-4">WhatsApp</th>
+                  <th className="py-2.5 px-4">Registered At</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/5">
+                {registrations.map(r => (
+                  <tr key={r._id} className="hover:bg-white/2 transition-colors">
+                    <td className="py-3 px-4 font-semibold text-white">{r.name}</td>
+                    <td className="py-3 px-4 text-gray-400">{r.email}</td>
+                    <td className="py-3 px-4 text-gray-400">{r.whatsAppNumber}</td>
+                    <td className="py-3 px-4 text-gray-500 text-xs">
+                      {new Date(r.registeredAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
       {/* Banner settings Edit Modal */}
       {isBannerModalOpen && banner && (
         <div className="fixed inset-0 z-[5000] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white border border-border-light rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl relative flex flex-col max-h-[90vh] text-navy-text">
-            <div className="flex items-center justify-between border-b border-border-light p-5">
-              <h3 className="text-lg font-bold flex items-center gap-1.5">
+          <div className="bg-white border border-white/8 rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl relative flex flex-col max-h-[90vh] text-navy-text">
+            <div className="flex items-center justify-between border-b border-white/8 p-5">
+              <h3 className="text-lg font-semibold flex items-center gap-1.5">
                 <Settings className="w-4.5 h-4.5 text-blue-default" /> Edit Webinar Banner
               </h3>
               <button
@@ -445,7 +512,7 @@ export default function AdminWebinarsPage() {
                   <input
                     type="text"
                     {...bannerForm.register('date')}
-                    className="w-full bg-gray-50 border border-border-light rounded-lg px-3.5 py-2 text-navy-text text-sm focus:border-blue-default outline-none"
+                    className="w-full bg-gray-50 border border-white/8 rounded-lg px-3.5 py-2 text-navy-text text-sm focus:border-blue-default outline-none"
                   />
                   {bannerForm.formState.errors.date && (
                     <span className="text-red-500 text-xs mt-1 block">{bannerForm.formState.errors.date.message}</span>
@@ -548,7 +615,7 @@ export default function AdminWebinarsPage() {
         <div className="fixed inset-0 z-[5000] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white border border-border-light rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl relative flex flex-col max-h-[90vh] text-navy-text">
             <div className="flex items-center justify-between border-b border-border-light p-5">
-              <h3 className="text-lg font-bold">
+              <h3 className="text-lg font-semibold">
                 {editingWebinar ? 'Edit Webinar Session' : 'Add New Webinar'}
               </h3>
               <button

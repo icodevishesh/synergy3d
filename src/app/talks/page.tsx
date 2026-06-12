@@ -17,11 +17,15 @@ export default function TalksPage() {
     const handleUnlock = () => { setOptinUnlocked(true); };
     window.addEventListener('optin-unlocked', handleUnlock);
 
+    // Auto-unlock if user already submitted their details in a previous visit
+    const savedEmail = localStorage.getItem('synergy_talks_email');
+    if (savedEmail) setOptinUnlocked(true);
+
     const fetchData = async () => {
       try {
         const [epsRes, featRes] = await Promise.all([
-          fetch('/api/talks'),
-          fetch('/api/talks/featured'),
+          fetch(`/api/talks?t=${Date.now()}`),
+          fetch(`/api/talks/featured?t=${Date.now()}`),
         ]);
         if (epsRes.ok) setEpisodes(await epsRes.json());
         if (featRes.ok) {
@@ -117,7 +121,7 @@ export default function TalksPage() {
           <div className="lg:col-span-6">
             {featured ? (
               <div
-                className="bg-[#0f1e5a] rounded-t-2xl overflow-hidden shadow-2xl cursor-pointer w-full max-w-[480px] mx-auto lg:mx-0 lg:ml-auto"
+                className="bg-[#0f1e5a] rounded-2xl overflow-hidden shadow-2xl cursor-pointer w-full max-w-[480px] mx-auto lg:mx-0 lg:ml-auto"
                 onClick={() => playVideo(featured.youtubeId, `Ep. ${featured.episodeNumber}`, featured.title, featured.guest)}
               >
                 {/* Real YouTube thumbnail */}

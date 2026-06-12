@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, ChevronUp } from 'lucide-react';
+import synergyLogo from '../../../public/synergy3d_logo-new.png'
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -54,10 +56,12 @@ export const Navbar: React.FC = () => {
         id="nav"
       >
       <Link href="/" className="flex items-center shrink-0 cursor-pointer">
-        <img
-          src="/mnt/user-data/uploads/ChatGPT_Image_May_29__2026__12_17_10_PM.png"
+        <Image
+          src={synergyLogo}
           alt="SYNERGY 3D"
-          style={{ height: '32px', width: 'auto', display: 'block' }}
+          width={120}
+          height={60}
+          className="w-auto h-6 object-contain"
         />
       </Link>
 
@@ -160,7 +164,7 @@ export const Navbar: React.FC = () => {
             <div className="text-[0.68rem] font-bold tracking-widest text-[#aab4ce] px-5 py-1 uppercase">
               Tools
             </div>
-            <a className="flex items-center gap-2.5 px-5 py-2.5 text-[11px] font-medium text-[#374263] hover:bg-[#f0f5ff] hover:text-blue transition-colors cursor-pointer group/item">
+            <a href='https://synergy3d.net/wp-content/uploads/2025/03/synegy-script.pdf' target='_blank' rel='noopener noreferrer' className="flex items-center gap-2.5 px-5 py-2.5 text-[11px] font-medium text-[#374263] hover:bg-[#f0f5ff] hover:text-blue transition-colors cursor-pointer group/item">
               <span className="flex items-center justify-center w-7.5 h-7.5 bg-[#f0f4fb] rounded-[7px] text-[#6b7a99] shrink-0 group-hover/item:bg-[#dbeafe] group-hover/item:text-blue transition-colors">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -183,13 +187,13 @@ export const Navbar: React.FC = () => {
               </span>
               Shipping Label
             </a>
-            <div className="h-px bg-[#eef1f8] my-2" />
+            {/* <div className="h-px bg-[#eef1f8] my-2" />
             <Link
               href="/integrations"
               className="flex items-center gap-2.5 px-5 py-2.5 text-[11px] font-semibold text-[#0a1530] hover:bg-[#f0f5ff] hover:text-blue transition-colors cursor-pointer"
             >
               Track Case
-            </Link>
+            </Link> */}
           </div>
         </li>
       </ul>

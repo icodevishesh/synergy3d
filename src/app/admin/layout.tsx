@@ -2,9 +2,11 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import AdminProviders from '@/components/AdminProviders';
+import logo from '../../../public/synergy3d_logo-new.png';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -14,20 +16,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: 'Education', href: '/admin/education' },
     { name: 'Webinars', href: '/admin/webinars' },
     { name: 'Customer Stories', href: '/admin/customers' },
+    { name: 'Articles', href: '/admin/articles' },
   ];
 
   return (
     <AdminProviders>
-      <div className="bg-navy min-h-screen pt-24 pb-16 text-white font-sans">
-        <div className="max-w-[1140px] mx-auto px-6 md:px-16">
+      <div className="bg-navy min-h-screen py-6 text-white font-sans">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-white/10 pb-6 mb-8 gap-4">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-widest text-blue-glow">
-                Control Panel
+                Admin Panel
               </span>
-              <h1 className="text-3xl font-serif font-extrabold text-white mt-1">
-                Synergy3D <em className="italic text-blue-glow">Admin.</em>
-              </h1>
+              <Image src={logo} alt="SYNERGY 3D" width={200} height={60} />
             </div>
 
             <div className="flex items-center gap-3">

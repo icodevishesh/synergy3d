@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { DM_Sans, Playfair_Display, Geist } from 'next/font/google';
 import './globals.css';
-import { TopStrip, Navbar, Footer } from '@/components/layout';
+import { LayoutWrapper } from '@/components/layout';
 import RevealObserver from '@/components/layout/RevealObserver';
 import ShippingLabelModal from '@/components/modals/ShippingLabelModal';
 import VideoModal from '@/components/modals/VideoModal';
@@ -36,10 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("scroll-smooth", dmSans.variable, playfair.variable, "font-sans", geist.variable)}>
       <body className="bg-navy font-sans text-white antialiased overflow-x-hidden">
-        <TopStrip />
-        <Navbar />
-        <main className="pt-[10px] min-h-[60vh]">{children}</main>
-        <Footer />
+        <LayoutWrapper>{children}</LayoutWrapper>
         <RevealObserver />
         <ShippingLabelModal />
         <VideoModal />

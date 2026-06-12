@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { TEAM } from '@/data/team';
 
 interface TeamPageProps {
@@ -31,8 +32,14 @@ export default async function TeamDetailPage({ params }: TeamPageProps) {
           
           {/* Avatar Graphic */}
           <div className="shrink-0 flex flex-col items-center">
-            <div className="w-36 h-36 rounded-full bg-gradient-to-br from-blue to-blue-glow flex items-center justify-center text-7xl font-bold border-4 border-white/10 shadow-2xl relative z-10 select-none">
-              {member.emoji}
+            <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-white/10 shadow-2xl relative z-10 select-none bg-navy-light/10">
+              <Image
+                src={member.image}
+                alt={member.name}
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
             <div className="bg-blue-default/20 text-blue-glow text-[0.68rem] font-bold tracking-widest px-4 py-1.5 rounded-full uppercase mt-4.5 border border-blue-glow/30 select-none">
               {member.role}
@@ -135,8 +142,13 @@ export default async function TeamDetailPage({ params }: TeamPageProps) {
                   href={`/about/${cid}`}
                   className="bg-white border border-border-light rounded-xl p-5 hover:shadow-premium hover:-translate-y-1 hover:border-blue/25 transition-all flex items-center gap-3.5 cursor-pointer group"
                 >
-                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-blue to-blue-glow flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition-transform duration-250 select-none">
-                    {col.emoji}
+                  <div className="w-11 h-11 rounded-full overflow-hidden bg-navy-light/10 shrink-0 group-hover:scale-105 transition-transform duration-250 select-none relative">
+                    <Image
+                      src={col.image}
+                      alt={col.name}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                   <div>
                     <div className="text-[0.95rem] font-bold text-navy-text group-hover:text-blue transition-colors line-clamp-1">{col.name}</div>
@@ -166,7 +178,7 @@ export default async function TeamDetailPage({ params }: TeamPageProps) {
       <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-16 text-white text-center sm:text-left">
         <div className="max-w-[1140px] mx-auto px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
           <div>
-            <h2 className="font-serif text-3xl font-bold leading-tight mb-2">
+            <h2 className="font-serif text-4xl font-bold leading-tight mb-2">
               Ready to send your <em>first case?</em>
             </h2>
             <p className="text-white/70 text-[0.95rem]">
@@ -174,10 +186,10 @@ export default async function TeamDetailPage({ params }: TeamPageProps) {
             </p>
           </div>
           <div className="flex flex-wrap gap-3.5 shrink-0 justify-center">
-            <Link href="/callback" className="inline-block bg-white hover:bg-gray-50 text-blue font-bold py-3.5 px-8 rounded-lg text-[0.95rem] shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+            <Link href="/callback" className="inline-block bg-white hover:bg-gray-50 text-blue-700 font-bold py-3.5 px-8 rounded-lg text-sm shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
               Start a Case →
             </Link>
-            <Link href="/products" className="inline-block bg-transparent hover:bg-white/6 text-white font-medium py-3.5 px-6 rounded-lg text-[0.92rem] border border-white/20 transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+            <Link href="/products" className="inline-block bg-transparent hover:bg-white/6 text-white font-medium py-3.5 px-6 rounded-lg text-sm border border-white/20 transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
               View Products
             </Link>
           </div>

@@ -10,6 +10,7 @@ export interface ITalk extends Document {
   docName?: string;
   duration: string;
   published: boolean;
+  locked: boolean;
   createdAt: Date;
 }
 
@@ -23,6 +24,7 @@ const TalkSchema: Schema = new Schema({
   docName: { type: String },
   duration: { type: String, required: true },
   published: { type: Boolean, default: true },
+  locked: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now }
 });
 

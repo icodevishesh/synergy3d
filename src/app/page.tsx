@@ -5,6 +5,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Clock, Target, RefreshCw, Users, Activity, ShieldCheck, Play, ArrowRight, ArrowUpRight, MapPin, Star, ArrowDown, User, Home as HomeIcon, Building2, Globe } from 'lucide-react';
 import whySynergyImg from '@/app/assets/image.png';
+import imgZirconia from '@/app/assets/products/zirconia-crown.png';
+import imgAllOnX from '@/app/assets/products/all-on-x-hybrid.png';
+import imgEmax from '@/app/assets/products/emax-restoration.png';
+import imgNightGuard from '@/app/assets/products/night-gaurds.png';
+import imgSurgicalGuide from '@/app/assets/products/surgical-guides.png';
+import imgPFM from '@/app/assets/products/pmf.png';
+import imgModels from '@/app/assets/products/printed-models.png';
 
 const renderIcon = (type: string, className = "w-5 h-5") => {
   switch (type) {
@@ -130,10 +137,10 @@ export default function Home() {
   return (
     <div>
       {/* ── HERO SECTION ── */}
-      <section className="relative min-h-[90vh] overflow-hidden flex flex-col items-center justify-center text-center px-8 py-32">
+      <section className="relative min-h-[90vh] overflow-hidden flex flex-col items-center justify-center text-center px-4 md:px-8 py-32">
         <div className="absolute inset-0 z-0">
           <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover object-center">
-            <source src="https://videos.pexels.com/video-files/3195394/3195394-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+            <source src="/hero-bg_trim.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 z-[1] bg-gradient-to-b from-navy/68 via-navy/48 to-navy/75" />
           <div className="absolute inset-0 z-[2] bg-[radial-gradient(ellipse_85%_50%_at_50%_30%,rgba(30,86,217,0.22)_0%,transparent_70%)]" />
@@ -173,7 +180,7 @@ export default function Home() {
 
       {/* ── SCANNERS INTEGRATION RIBBON ── */}
       <section className="bg-white border-b border-border-light py-14 text-navy-text">
-        <div className="max-w-[1140px] mx-auto px-16">
+        <div className="max-w-[1140px] mx-auto px-4 md:px-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
             <div>
               <p className="text-[11px] text-gray-500 font-medium tracking-[0.04em] mb-2.5">— Scanners we work with</p>
@@ -205,7 +212,7 @@ export default function Home() {
 
       {/* ── EXECUTIVE STATS ── */}
       <section className="bg-navy py-24 text-white">
-        <div className="max-w-[1140px] mx-auto px-16">
+        <div className="max-w-[1140px] mx-auto px-4 md:px-16">
           <div className="text-center max-w-[600px] mx-auto mb-16">
             <div className="flex items-center justify-center gap-2 mb-4">
               <div className="w-8 h-px bg-gradient-to-r from-transparent to-blue" />
@@ -303,7 +310,7 @@ export default function Home() {
 
       {/* ── WHY SYNERGY ── */}
       <section className="bg-gray-100 py-24 text-navy-text">
-        <div className="max-w-[1140px] mx-auto px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="max-w-[1140px] mx-auto px-4 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-6 flex flex-col">
             <div className="flex items-center gap-2.5 mb-5">
               {/* Short blue horizontal line */}
@@ -380,7 +387,7 @@ export default function Home() {
 
       {/* ── PRODUCTS HIGHLIGHT ── */}
       <section className="bg-white py-24 text-navy-text border-t border-gray-200">
-        <div className="max-w-[1140px] mx-auto px-16">
+        <div className="max-w-[1140px] mx-auto px-4 md:px-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <div className="max-w-[560px]">
               <div className="inline-block text-[11px] font-bold tracking-[0.14em] uppercase text-blue-600 mb-4">Our Products</div>
@@ -406,14 +413,7 @@ export default function Home() {
                   desc: 'High-strength, natural-looking zirconia crowns. Sub-30µm precision guaranteed on every single case.',
                   linkText: 'Explore →',
                   linkUrl: '/products/zirconia',
-                  drawing: (
-                    <svg className="w-20 h-20 text-blue-default/50" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 100 100">
-                      <path d="M25 40 C25 25, 35 20, 50 25 C65 20, 75 25, 75 40 C75 60, 70 80, 50 85 C30 80, 25 60, 25 40 Z" />
-                      <path d="M30 40 C35 48, 65 48, 70 40" />
-                      <path d="M40 25 C45 35, 55 35, 60 25" />
-                      <path d="M50 25 L50 48" />
-                    </svg>
-                  )
+                  img: imgZirconia,
                 },
                 {
                   id: 'allonx',
@@ -423,19 +423,7 @@ export default function Home() {
                   desc: 'Full-arch implant restorations — All-on-4, All-on-6, and custom hybrid frameworks milled in-house.',
                   linkText: 'Explore →',
                   linkUrl: '/products/allonx',
-                  drawing: (
-                    <svg className="w-24 h-20 text-blue-default/50" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 120 100">
-                      <path d="M20 50 C20 40, 100 40, 100 50 C100 55, 20 55, 20 50 Z" />
-                      <rect x="35" y="55" width="10" height="20" rx="2" />
-                      <rect x="55" y="55" width="10" height="20" rx="2" />
-                      <rect x="75" y="55" width="10" height="20" rx="2" />
-                      <path d="M40 38 L40 45M60 38 L60 45M80 38 L80 45" />
-                      <path d="M38 60 L38 70M42 60 L42 70M58 60 L58 70M62 60 L62 70M78 60 L78 70M82 60 L82 70" />
-                      <path d="M25 50 C30 35, 45 35, 50 50" />
-                      <path d="M50 50 C55 35, 65 35, 70 50" />
-                      <path d="M70 50 C75 35, 90 35, 95 50" />
-                    </svg>
-                  )
+                  img: imgAllOnX,
                 },
                 {
                   id: 'emax',
@@ -445,13 +433,7 @@ export default function Home() {
                   desc: 'Lithium disilicate and porcelain-fused-to-metal for unmatched aesthetics in every case.',
                   linkText: 'Explore →',
                   linkUrl: '/products/emax',
-                  drawing: (
-                    <svg className="w-20 h-20 text-blue-default/50" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 100 100">
-                      <path d="M30 25 C40 20, 60 20, 70 25 C75 40, 70 70, 50 85 C30 70, 25 40, 30 25 Z" />
-                      <path d="M37 32 C42 30, 58 30, 63 32" />
-                      <path d="M35 45 C38 60, 62 60, 65 45" />
-                    </svg>
-                  )
+                  img: imgEmax,
                 },
                 {
                   id: 'nightguard',
@@ -461,13 +443,7 @@ export default function Home() {
                   desc: 'Custom-milled night guards and splints for bruxism and TMJ protection.',
                   linkText: 'Explore →',
                   linkUrl: '/products/nightguard',
-                  drawing: (
-                    <svg className="w-24 h-20 text-blue-default/50" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 120 100">
-                      <path d="M20 70 C20 30, 100 30, 100 70 C85 65, 35 65, 20 70 Z" />
-                      <path d="M30 63 C30 40, 90 40, 90 63" />
-                      <path d="M25 58 C28 52, 33 52, 36 58 C39 52, 44 52, 47 58 C50 52, 55 52, 58 58 C61 52, 66 52, 69 58 C72 52, 77 52, 80 58 C83 52, 88 52, 91 58" />
-                    </svg>
-                  )
+                  img: imgNightGuard,
                 }
               ].map((p, i) => (
                 <div key={i} className="bg-white border border-[#dde6f5] rounded-xl overflow-hidden hover:shadow-premium hover:-translate-y-1.5 transition-all duration-300 flex flex-col group">
@@ -479,9 +455,9 @@ export default function Home() {
                         <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
                       </div>
                     </div>
-                    {/* Drawing representation */}
-                    <div className="flex-grow flex items-center justify-center mt-3">
-                      {p.drawing}
+                    {/* Product image */}
+                    <div className="flex-grow flex items-center justify-center mt-3 relative w-full">
+                      <Image src={p.img} alt={p.name} fill className="object-contain" sizes="(max-width: 768px) 100vw, 50vw" />
                     </div>
                     {/* Subtitle label */}
                     <span className="text-[10px] font-bold tracking-[0.2em] text-blue-default/45 uppercase mt-3">{p.label}</span>
@@ -511,18 +487,7 @@ export default function Home() {
                   desc: 'CBCT-based digitally planned surgical guides for precise implant placement.',
                   linkText: 'Explore →',
                   linkUrl: '/products/surgicalguide',
-                  drawing: (
-                    <svg className="w-24 h-20 text-blue-default/50" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 120 100">
-                      <path d="M20 65 C20 35, 100 35, 100 65 C85 60, 35 60, 20 65 Z" />
-                      <circle cx="35" cy="50" r="6" />
-                      <circle cx="35" cy="50" r="3" />
-                      <circle cx="60" cy="45" r="6" />
-                      <circle cx="60" cy="45" r="3" />
-                      <circle cx="85" cy="50" r="6" />
-                      <circle cx="85" cy="50" r="3" />
-                      <path d="M28 50 L42 50 M53 45 L67 45 M78 50 L92 50" />
-                    </svg>
-                  )
+                  img: imgSurgicalGuide,
                 },
                 {
                   id: 'pfmcrown',
@@ -532,14 +497,7 @@ export default function Home() {
                   desc: 'Porcelain-fused-to-metal crowns offering durable strength with excellent aesthetics.',
                   linkText: 'Explore →',
                   linkUrl: '/products/pfmcrown',
-                  drawing: (
-                    <svg className="w-20 h-20 text-blue-default/50" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 100 100">
-                      <path d="M25 40 C25 25, 35 20, 50 25 C65 20, 75 25, 75 40 C75 60, 70 80, 50 85 C30 80, 25 60, 25 40 Z" />
-                      <path d="M30 75 C38 78, 62 78, 70 75" />
-                      <path d="M32 78 C38 81, 62 81, 68 78" />
-                      <path d="M30 42 C35 50, 65 50, 70 42" />
-                    </svg>
-                  )
+                  img: imgPFM,
                 },
                 {
                   id: 'models',
@@ -549,15 +507,7 @@ export default function Home() {
                   desc: 'High-accuracy 3D-printed study models for planning and communication.',
                   linkText: 'Explore →',
                   linkUrl: '/products/models',
-                  drawing: (
-                    <svg className="w-24 h-20 text-blue-default/50" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 120 100">
-                      <rect x="25" y="60" width="70" height="15" rx="1" />
-                      <rect x="35" y="45" width="50" height="15" rx="1" />
-                      <path d="M40 45 C40 30, 80 30, 80 45" />
-                      <path d="M25 65 L95 65M25 70 L95 70M35 50 L85 50M35 55 L85 55" />
-                      <path d="M45 45 L45 60 M75 45 L75 60" />
-                    </svg>
-                  )
+                  img: imgModels,
                 }
               ].map((p, i) => (
                 <div key={i} className="bg-white border border-[#dde6f5] rounded-xl overflow-hidden hover:shadow-premium hover:-translate-y-1.5 transition-all duration-300 flex flex-col group">
@@ -569,9 +519,9 @@ export default function Home() {
                         <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
                       </div>
                     </div>
-                    {/* Drawing representation */}
-                    <div className="flex-grow flex items-center justify-center mt-3">
-                      {p.drawing}
+                    {/* Product image */}
+                    <div className="flex-grow flex items-center justify-center mt-3 relative w-full">
+                      <Image src={p.img} alt={p.name} fill className="object-contain" sizes="(max-width: 768px) 100vw, 33vw" />
                     </div>
                     {/* Subtitle label */}
                     <span className="text-[10px] font-bold tracking-[0.2em] text-blue-default/45 uppercase mt-3">{p.label}</span>
@@ -595,7 +545,7 @@ export default function Home() {
 
       {/* ── HOW IT WORKS ── */}
       <section className="bg-navy py-24 text-white overflow-hidden">
-        <div className="max-w-[1140px] mx-auto px-16">
+        <div className="max-w-[1140px] mx-auto px-4 md:px-16">
           <div className="text-center max-w-[700px] mx-auto mb-16">
             <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-blue-glow mb-4 block">How it works</span>
             <h2 className="font-serif text-3xl sm:text-7xl font-extrabold leading-tight mb-4">
@@ -724,7 +674,7 @@ export default function Home() {
 
       {/* ── FEEDBACKS FROM DOCTORS ── */}
       <section className="bg-navy pb-24 text-white border-t border-white/6">
-        <div className="max-w-[1140px] mx-auto px-16">
+        <div className="max-w-[1140px] mx-auto px-4 md:px-16">
           <div className="flex flex-col mb-16 items-start text-left pt-16">
             <span className="text-[11px] font-semibold tracking-[0.16em] uppercase text-blue-glow mb-4 block">Trusted by 1000+</span>
             <h2 className="font-serif text-3xl sm:text-5xl font-extrabold leading-tight text-white mb-4">
@@ -807,7 +757,7 @@ export default function Home() {
 
       {/* ── GETTING STARTED ── */}
       <section className="bg-[#0C1829] py-24 text-white border-t border-white/5">
-        <div className="max-w-[1140px] mx-auto px-16">
+        <div className="max-w-[1140px] mx-auto px-4 md:px-16">
           <div className="text-center max-w-[600px] mx-auto mb-16">
             <span className="text-[11px] font-semibold tracking-[0.16em] uppercase text-blue-glow mb-4 block">Get Started</span>
             <h2 className="font-serif text-3xl sm:text-5xl font-extrabold leading-tight text-white mb-4">
@@ -876,7 +826,7 @@ export default function Home() {
 
       {/* ── FAQ SECTION ── */}
       <section className="bg-white py-24 text-navy-text">
-        <div className="max-w-[1140px] mx-auto px-16 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        <div className="max-w-[1140px] mx-auto px-4 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           <div className="lg:col-span-4 lg:sticky lg:top-28">
             <span className="text-[11px] font-bold tracking-[0.14em] uppercase text-blue-600 mb-4 block">FAQ</span>
             <h2 className="font-serif text-3xl sm:text-5xl font-extrabold mb-4">Frequently asked <em className="text-blue-600 italic">questions.</em></h2>
@@ -917,7 +867,7 @@ export default function Home() {
       </section>
 
       {/* ── BOTTOM CTA BOX ── */}
-      <section className="bg-navy py-24 px-8 text-white">
+      <section className="bg-navy py-24 px-4 md:px-8 text-white">
         <div className="max-w-5xl mx-auto bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] rounded-3xl p-5 md:p-20 text-center relative overflow-hidden shadow-2xl">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_0%,rgba(255,255,255,0.1)_0%,transparent_65%)] pointer-events-none" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:44px_44px] pointer-events-none" />

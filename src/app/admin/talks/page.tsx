@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import toast from 'react-hot-toast';
-import { Edit2, Trash2, Plus, X, Eye, EyeOff } from 'lucide-react';
+import { Edit2, Trash2, Plus, X, Eye, EyeOff, Lock, Unlock, Users } from 'lucide-react';
 
 const talkSchema = z.object({
   episodeNumber: z.coerce.number().min(1, 'Episode number must be at least 1'),
@@ -17,6 +17,7 @@ const talkSchema = z.object({
   docName: z.string().optional().or(z.literal('')),
   duration: z.string().min(1, 'Duration is required').regex(/^\d+:\d+$/, 'Duration must be in format MM:SS (e.g. 12:34)'),
   published: z.boolean().default(true),
+  locked: z.boolean().default(false),
 });
 
 type TalkFormValues = z.infer<typeof talkSchema>;
@@ -32,6 +33,15 @@ interface Talk {
   docName?: string;
   duration: string;
   published: boolean;
+  locked: boolean;
+}
+
+interface TalkUnlock {
+  _id: string;
+  name: string;
+  email: string;
+  practice: string;
+  unlockedAt: string;
 }
 
 export default function AdminTalksPage() {
@@ -40,6 +50,9 @@ export default function AdminTalksPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTalk, setEditingTalk] = useState<Talk | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [unlocks, setUnlocks] = useState<TalkUnlock[]>([]);
+  const [isLoadingUnlocks, setIsLoadingUnlocks] = useState(true);
 
   const {
     register,
@@ -69,8 +82,19 @@ export default function AdminTalksPage() {
     }
   };
 
+  const fetchUnlocks = async () => {
+    setIsLoadingUnlocks(true);
+    try {
+      const res = await fetch('/api/admin/talks/unlocks');
+      if (res.ok) setUnlocks(await res.json());
+    } finally {
+      setIsLoadingUnlocks(false);
+    }
+  };
+
   useEffect(() => {
     fetchTalks();
+    fetchUnlocks();
   }, []);
 
   const openAddModal = () => {
@@ -85,6 +109,7 @@ export default function AdminTalksPage() {
       docName: '',
       duration: '',
       published: true,
+      locked: false,
     });
     setIsModalOpen(true);
   };
@@ -100,6 +125,7 @@ export default function AdminTalksPage() {
     setValue('docName', talk.docName || '');
     setValue('duration', talk.duration);
     setValue('published', talk.published);
+    setValue('locked', talk.locked || false);
     setIsModalOpen(true);
   };
 
@@ -155,11 +181,28 @@ export default function AdminTalksPage() {
     }
   };
 
+  const toggleLock = async (id: string) => {
+    try {
+      const talk = talks.find(t => t._id === id);
+      if (!talk) return;
+      const res = await fetch(`/api/admin/talks/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ locked: !talk.locked }),
+      });
+      if (!res.ok) throw new Error('Failed to toggle lock status');
+      toast.success(talk.locked ? 'Episode unlocked' : 'Episode locked');
+      fetchTalks();
+    } catch (err: any) {
+      toast.error(err.message || 'Error toggling lock');
+    }
+  };
+
   return (
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h2 className="text-xl font-bold text-white">Manage Talks Episodes</h2>
+          <h2 className="text-xl font-semibold text-white">Manage Talks Episodes</h2>
           <p className="text-xs text-muted-dark">Add, update, or remove podcast episodes shown on the site.</p>
         </div>
         <button
@@ -189,15 +232,16 @@ export default function AdminTalksPage() {
                 <th className="py-3 px-4">Category</th>
                 <th className="py-3 px-4">Duration</th>
                 <th className="py-3 px-4">Status</th>
+                <th className="py-3 px-4">Access</th>
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
               {talks.map((talk) => (
                 <tr key={talk._id} className="hover:bg-white/2 transition-colors">
-                  <td className="py-3.5 px-4 font-bold text-blue-glow">EP {talk.episodeNumber}</td>
+                  <td className="py-3.5 px-4 font-semibold text-blue-glow">EP {talk.episodeNumber}</td>
                   <td className="py-3.5 px-4">
-                    <div className="font-bold text-white leading-tight">{talk.title}</div>
+                    <div className="font-semibold text-white leading-tight">{talk.title}</div>
                     <div className="text-xs text-gray-500 mt-1">{talk.guest}</div>
                   </td>
                   <td className="py-3.5 px-4">
@@ -221,6 +265,25 @@ export default function AdminTalksPage() {
                       ) : (
                         <>
                           <EyeOff className="w-3.5 h-3.5" /> Hidden
+                        </>
+                      )}
+                    </button>
+                  </td>
+                  <td className="py-3.5 px-4">
+                    <button
+                      onClick={() => toggleLock(talk._id)}
+                      className={`inline-flex items-center gap-1 border-none bg-transparent cursor-pointer text-xs font-semibold transition-all ${
+                        talk.locked ? 'text-blue-glow' : 'text-gray-500'
+                      }`}
+                      title={talk.locked ? 'Click to unlock' : 'Click to lock'}
+                    >
+                      {talk.locked ? (
+                        <>
+                          <Lock className="w-3.5 h-3.5" /> Locked
+                        </>
+                      ) : (
+                        <>
+                          <Unlock className="w-3.5 h-3.5" /> Public
                         </>
                       )}
                     </button>
@@ -250,12 +313,56 @@ export default function AdminTalksPage() {
         </div>
       )}
 
+      {/* ── Unlocked Users ── */}
+      <div className="mt-12">
+        <div className="flex items-center gap-2 mb-4">
+          <Users className="w-4 h-4 text-blue-glow" />
+          <h3 className="text-base font-semibold text-white">Unlocked Users</h3>
+          <span className="ml-1 bg-blue-default/20 text-blue-glow text-[10px] font-bold px-2 py-0.5 rounded-full">
+            {unlocks.length}
+          </span>
+        </div>
+
+        {isLoadingUnlocks ? (
+          <div className="flex items-center justify-center py-10">
+            <span className="w-6 h-6 border-2 border-blue-default border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : unlocks.length === 0 ? (
+          <p className="text-sm text-gray-500 py-6">No users have unlocked episodes yet.</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse text-sm text-gray-300">
+              <thead>
+                <tr className="border-b border-white/10 text-white/50 text-xs font-semibold uppercase tracking-wider">
+                  <th className="py-2.5 px-4">Name</th>
+                  <th className="py-2.5 px-4">Email</th>
+                  <th className="py-2.5 px-4">Practice</th>
+                  <th className="py-2.5 px-4">Unlocked At</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/5">
+                {unlocks.map(u => (
+                  <tr key={u._id} className="hover:bg-white/2 transition-colors">
+                    <td className="py-3 px-4 font-semibold text-white">{u.name}</td>
+                    <td className="py-3 px-4 text-gray-400">{u.email}</td>
+                    <td className="py-3 px-4 text-gray-400">{u.practice}</td>
+                    <td className="py-3 px-4 text-gray-500 text-xs">
+                      {new Date(u.unlockedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-[5000] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-navy border border-white/10 rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl relative flex flex-col max-h-[90vh]">
             <div className="flex items-center justify-between border-b border-white/10 p-5">
-              <h3 className="text-lg font-bold text-white">
+              <h3 className="text-lg font-semibold text-white">
                 {editingTalk ? `Edit Episode ${editingTalk.episodeNumber}` : 'Add New Episode'}
               </h3>
               <button
@@ -396,6 +503,18 @@ export default function AdminTalksPage() {
                 />
                 <label htmlFor="published" className="text-xs font-semibold text-white cursor-pointer select-none">
                   Publish immediately (show on website)
+                </label>
+              </div>
+
+              <div className="flex items-center gap-2 pt-1">
+                <input
+                  type="checkbox"
+                  id="locked"
+                  {...register('locked')}
+                  className="w-4 h-4 accent-blue-default"
+                />
+                <label htmlFor="locked" className="text-xs font-semibold text-white cursor-pointer select-none">
+                  Lock episode (requires name, email, and phone to unlock)
                 </label>
               </div>
 
