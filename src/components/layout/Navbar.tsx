@@ -61,7 +61,7 @@ export const Navbar: React.FC = () => {
           alt="SYNERGY 3D"
           width={120}
           height={60}
-          className="w-auto h-6 object-contain"
+          className="w-auto h-5 md:h-6 object-contain"
         />
       </Link>
 

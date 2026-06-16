@@ -82,11 +82,11 @@ export default function EducationPage() {
   return (
     <div>
 
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
+      {/* Hero */}
       <section className="relative bg-navy pt-36 pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />
 
-        <div className="max-w-[1140px] mx-auto px-6 md:px-16 relative z-10">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16 relative z-10">
           {/* Breadcrumb */}
           <div className="flex gap-2 text-[0.78rem] text-white/40 mb-6">
             <Link href="/" className="hover:text-white/70 transition-colors">Home</Link>
@@ -176,9 +176,9 @@ export default function EducationPage() {
         </div>
       </section>
 
-      {/* ── Filter bar ───────────────────────────────────────────────────── */}
+      {/* Filter bar */}
       <div className="bg-white border-b border-border-light py-3 md:py-4 text-navy-text md:sticky md:top-[60px] z-[20]">
-        <div className="max-w-[1140px] mx-auto px-4 md:px-16 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           {/* Pills */}
           <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide flex-nowrap sm:flex-wrap pb-0.5 sm:pb-0">
             {topics.map(t => (
@@ -298,9 +298,9 @@ export default function EducationPage() {
         </section>
       )}
 
-      {/* ── All Resources grid ───────────────────────────────────────────── */}
+      {/* All Resources grid */}
       <section className="bg-white py-8 pb-20">
-        <div className="max-w-[1140px] mx-auto px-4 md:px-16">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <h2 className="font-serif text-2xl font-bold text-navy-text mb-7">
             {filter === 'all' && !search ? 'All Resources' : `${resourceCount} result${resourceCount !== 1 ? 's' : ''}`}
           </h2>
@@ -351,7 +351,7 @@ export default function EducationPage() {
 
       {/* ── CTA strip ───────────────────────────────────────────────────── */}
       <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-16 text-white text-center sm:text-left">
-        <div className="max-w-[1140px] mx-auto px-6 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
           <div>
             <h2 className="font-serif text-4xl font-bold leading-tight mb-2">
               Have a clinical question? <em className="italic font-normal">Ask us.</em>

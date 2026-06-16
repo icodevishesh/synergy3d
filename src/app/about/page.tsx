@@ -22,7 +22,7 @@ export default function AboutPage() {
       {/* About Us Hero */}
       <section className="relative bg-navy py-40 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />
-        <div className="max-w-[1140px] mx-auto px-16 relative z-10">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16 relative z-10">
           <div className="flex gap-2 text-[0.8rem] text-white/45 mb-5">
             <Link href="/" className="hover:text-white/80">Home</Link>
             <span className="text-white/20">›</span>
@@ -45,7 +45,7 @@ export default function AboutPage() {
       </section>
 
       {/* Section 2: Our Story */}
-      <section className="bg-white text-navy-text py-20 px-6 md:px-16">
+      <section className="bg-white text-navy-text py-20 px-8 md:px-16">
         <div className="max-w-[1140px] mx-auto text-center mb-16">
           <span className="inline-block text-[11px] font-bold tracking-[0.18em] uppercase text-blue-600 mb-4 block">
             Our Story
@@ -82,7 +82,7 @@ export default function AboutPage() {
       </section>
 
       {/* Section 3: Timeline */}
-      <section className="bg-navy text-white py-24 px-6 md:px-16 relative overflow-hidden">
+      <section className="bg-navy text-white py-24 px-8 md:px-16 relative overflow-hidden">
         <div className="max-w-[1140px] mx-auto text-center mb-12 relative z-10">
           <span className="inline-block text-[11px] font-bold tracking-[0.18em] uppercase text-blue-glow mb-4">
             Timeline
@@ -154,7 +154,7 @@ export default function AboutPage() {
 
       {/* Leadership Team Grid */}
       <section className="bg-white py-24 text-navy-text">
-        <div className="max-w-[1140px] mx-auto px-6 md:px-16">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           {/* Section Header */}
           <div className="text-center max-w-[600px] mx-auto mb-16">
             <span className="block text-[11px] font-bold tracking-[0.18em] uppercase text-blue-600 mb-4">Our Team</span>
@@ -176,7 +176,7 @@ export default function AboutPage() {
               >
                 <Link href={`/about/${m.id}`} className="absolute inset-0 z-10" aria-label={`View ${m.name}'s profile`} />
                 {/* Image area */}
-                <div className="relative h-62 overflow-hidden bg-navy-light/10">
+                <div className="relative h-84 md:h-62 overflow-hidden bg-navy-light/10">
                   <Image
                     src={m.image}
                     alt={m.name}
@@ -222,7 +222,7 @@ export default function AboutPage() {
 
       {/* CTA Strip */}
       <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-16 text-white text-center sm:text-left">
-        <div className="max-w-[1140px] mx-auto px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
           <div>
             <h2 className="font-serif text-4xl font-bold leading-tight mb-2">
               Ready to send your <em>first case?</em>

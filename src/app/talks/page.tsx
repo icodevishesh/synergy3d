@@ -77,7 +77,7 @@ export default function TalksPage() {
       {/* Podcast Hero */}
       <section className="relative bg-navy pt-32 pb-16 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none border-b border-white/6">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:48px_48px] pointer-events-none" />
-        <div className="max-w-[1140px] mx-auto px-16 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           <div className="lg:col-span-6">
             <div className="inline-flex items-center gap-2 bg-cyan-300/12 border border-cyan-400/30 text-[#00B4D8] text-[10px] md:text-[11px] font-bold tracking-[0.13em] uppercase px-4 py-1.5 rounded-full mb-6">
@@ -179,7 +179,7 @@ export default function TalksPage() {
 
       {/* Filter and Search sticky bar */}
       <div className="bg-white border-b border-border-light py-3 md:py-5 text-navy-text md:sticky md:top-[60px] z-[20]">
-        <div className="max-w-[1140px] mx-auto px-4 md:px-16 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           {/* Category filters — scrollable on mobile */}
           <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide flex-nowrap sm:flex-wrap pb-0.5 sm:pb-0">
             {categories.map(cat => (
@@ -213,7 +213,7 @@ export default function TalksPage() {
 
       {/* Episodes Grid Section */}
       <section className="bg-white text-navy-text py-14">
-        <div className="max-w-[1140px] mx-auto px-16">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           {isLoading ? (
             <div className="flex items-center justify-center py-20">
               <span className="w-10 h-10 border-4 border-blue-default border-t-transparent rounded-full animate-spin" />
@@ -323,7 +323,7 @@ export default function TalksPage() {
 
       {/* CTA Section */}
       <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-16 text-white text-center sm:text-left">
-        <div className="max-w-[1140px] mx-auto px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
           <div>
             <h2 className="font-serif text-4xl font-bold leading-tight mb-2">
               Ready to send your<em> first case?</em>

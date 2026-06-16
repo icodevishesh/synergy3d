@@ -79,7 +79,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       {/* Page Hero */}
       <section className="relative bg-navy pt-40 pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />
-        <div className="max-w-[1140px] mx-auto px-16 relative z-10">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16 relative z-10">
           <div className="flex gap-2 text-[0.8rem] text-white/45 mb-5">
             <Link href="/" className="hover:text-white/80">Home</Link>
             <span className="text-white/20">›</span>
@@ -98,10 +98,10 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
       {/* Main Details Grid */}
       <section className="bg-white text-navy-text py-20">
-        <div className="max-w-[1140px] mx-auto px-16 grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
           
           {/* Dynamic SVG Blueprint */}
-          <div className="block md:sticky top-28 bg-gray-50 border border-border-light rounded-[24px] aspect-square flex items-center justify-center p-12 overflow-hidden relative shadow-sm shrink-0 w-full">
+          <div className="block md:sticky top-8 md:top-28 bg-gray-50 border border-border-light rounded-[24px] aspect-square flex items-center justify-center p-12 overflow-hidden relative shadow-sm shrink-0 w-full">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_70%_at_50%_50%,rgba(224,234,255,0.6)_0%,transparent_70%)] pointer-events-none" />
             <div className="relative z-10 w-full h-full">{renderVisual()}</div>
           </div>
@@ -177,7 +177,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
       {/* Related Products Section */}
       <section className="bg-off-white py-20 border-t border-border-light text-navy-text">
-        <div className="max-w-[1140px] mx-auto px-16">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <h2 className="font-serif text-3xl font-bold text-navy-text mb-9">You might also need</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {product.related.map((rid) => {
@@ -204,7 +204,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
       {/* CTA Strip */}
       <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-16 text-white text-center sm:text-left">
-        <div className="max-w-[1140px] mx-auto px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
           <div>
             <h2 className="font-serif text-4xl font-bold leading-tight mb-2">
               Ready to order <em>{product.name}?</em>

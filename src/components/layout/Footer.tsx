@@ -6,7 +6,7 @@ import logo from '../../../public/synergy3d_logo-new.png';
 export const Footer: React.FC = () => {
   return (
     <footer className="bg-navy-mid border-t border-border-dark py-20">
-      <div className="max-w-6xl mx-auto px-16 grid grid-cols-2 md:grid-cols-4 gap-16">
+      <div className="max-w-6xl mx-auto px-8 md:px-16 grid grid-cols-2 md:grid-cols-4 gap-16">
         <div className="flex flex-col">
           <Link href="/" className="logo block mb-3.5 shrink-0">
             <Image src={logo} alt="SYNERGY 3D" width={200} height={60} />
@@ -43,7 +43,7 @@ export const Footer: React.FC = () => {
           </ul>
         </div>
       </div>
-      <div className="max-w-[1140px] mx-auto mt-14 px-16 pt-7 border-t border-border-dark flex justify-between">
+      <div className="max-w-[1140px] mx-auto mt-14 px-8 md:px-16 pt-7 border-t border-border-dark flex justify-between">
         <p className="text-[0.8rem] text-muted-dark">© 2026 Synergy 3D. All rights reserved.</p>
         <p className="text-[0.8rem] text-muted-dark">Made in New York 🗽</p>
       </div>
