@@ -143,10 +143,10 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-3.5 mb-6">
-              <Link href="/callback" className="inline-block bg-blue-default hover:bg-blue-bright text-white font-bold py-3.5 px-8 rounded-lg text-[0.95rem] transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+              <a href="https://synergy.greatlab.io/login" target="_blank" rel="noopener noreferrer" className="inline-block bg-blue-default hover:bg-blue-bright text-white font-bold py-3.5 px-8 rounded-lg text-[0.95rem] transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer text-center">
                 Start a Case →
-              </Link>
-              <a className="inline-block border-1.5 border-blue/30 hover:border-blue bg-transparent hover:bg-blue-pale text-blue font-medium py-3 px-6 rounded-lg text-[0.92rem] transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+              </a>
+              <a href="https://synergy3d.net/wp-content/uploads/2025/03/synegy-script.pdf" target="_blank" rel="noopener noreferrer" className="inline-block border-1.5 border-blue/30 hover:border-blue bg-transparent hover:bg-blue-pale text-blue font-medium py-3 px-6 rounded-lg text-[0.92rem] transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer text-center">
                 Download Rx Form
               </a>
             </div>
@@ -157,7 +157,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 <line x1="12" y1="8" x2="12" y2="12" />
                 <line x1="12" y1="16" x2="12.01" y2="16" />
               </svg>
-              Questions? Call us at <strong>&nbsp;+1 (800) 000-0000</strong> — 7 days a week.
+              Questions? Call us at <strong>&nbsp;+ 8454471807</strong> — 7 days a week.
             </p>
 
             <div className="border-t border-border-light pt-8 mt-2">
@@ -214,10 +214,10 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             </p>
           </div>
           <div className="flex flex-wrap gap-3.5 shrink-0 justify-center">
-            <Link href="/callback" className="inline-block bg-white hover:bg-gray-50 text-blue-700 font-bold py-3.5 px-8 rounded-lg text-[0.95rem] shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+            <a href="https://synergy.greatlab.io/login" target="_blank" rel="noopener noreferrer" className="inline-block bg-white hover:bg-gray-50 text-blue-700 font-bold py-3.5 px-8 rounded-lg text-[0.95rem] shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer text-center">
               Start a Case →
-            </Link>
-            <a className="inline-block bg-transparent hover:bg-white/6 text-white font-medium py-3.5 px-6 rounded-lg text-[0.92rem] border border-white/20 transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+            </a>
+            <a href="https://synergy3d.net/wp-content/uploads/2025/03/synegy-script.pdf" target="_blank" rel="noopener noreferrer" className="inline-block bg-transparent hover:bg-white/6 text-white font-medium py-3.5 px-6 rounded-lg text-[0.92rem] border border-white/20 transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer text-center">
               Download Rx Form
             </a>
           </div>

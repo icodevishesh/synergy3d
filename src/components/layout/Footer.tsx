@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import logo from '../../../public/synergy3d_logo-new.png';
+import { MapPin } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
@@ -22,9 +23,9 @@ export const Footer: React.FC = () => {
             <li><Link href="/products/allonx" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">All-on-X Hybrids</Link></li>
             <li><Link href="/products/emax" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">e.max Restorations</Link></li>
             <li><Link href="/products/pfm" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">PFM Crowns</Link></li>
-            <li><Link href="/products/pfm" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Surgical Guides</Link></li>
-            <li><Link href="/products/pfm" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Night Gaurds</Link></li>
-            <li><Link href="/products/pfm" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Printed Models & Dies</Link></li>
+            <li><Link href="/products/surgical" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Surgical Guides</Link></li>
+            <li><Link href="/products/nightguard" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Night Gaurds</Link></li>
+            <li><Link href="/products/models" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Printed Models & Dies</Link></li>
           </ul>
         </div>
         <div className="flex flex-col">
@@ -39,13 +40,16 @@ export const Footer: React.FC = () => {
         <div className="flex flex-col">
           <h4 className="text-[0.7rem] font-bold tracking-[0.12em] uppercase text-white mb-5">Resources</h4>
           <ul className="list-none flex flex-col gap-3">
-            <li><a className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Contact Us</a></li>
+            <li><Link href="/callback" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Contact Us</Link></li>
           </ul>
         </div>
       </div>
       <div className="max-w-[1140px] mx-auto mt-14 px-8 md:px-16 pt-7 border-t border-border-dark flex justify-between">
         <p className="text-[0.8rem] text-muted-dark">© 2026 Synergy 3D. All rights reserved.</p>
-        <p className="text-[0.8rem] text-muted-dark">Made in New York 🗽</p>
+        <p className="flex items-center gap-1 text-[0.8rem] text-muted-dark">
+           <MapPin className="w-3 h-3" />
+          Made in New York
+        </p>
       </div>
     </footer>
   );

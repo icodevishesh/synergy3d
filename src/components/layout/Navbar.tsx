@@ -334,7 +334,7 @@ export const Navbar: React.FC = () => {
             </button>
             {mobileQuickExpanded && (
               <div className="pl-4 pb-3 flex flex-col gap-2.5">
-                <a className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors cursor-pointer">
+                <a href="https://synergy3d.net/wp-content/uploads/2025/03/synegy-script.pdf" target="_blank" rel="noopener noreferrer" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors cursor-pointer">
                   Download Rx Form
                 </a>
                 <a

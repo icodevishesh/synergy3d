@@ -10,6 +10,11 @@ import logo from '../../../public/synergy3d_logo-new.png';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const isLoginPage = pathname === '/admin/login';
+
+  if (isLoginPage) {
+    return <AdminProviders>{children}</AdminProviders>;
+  }
 
   const navItems = [
     { name: 'Talks', href: '/admin/talks' },

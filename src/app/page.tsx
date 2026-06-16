@@ -32,6 +32,111 @@ const renderIcon = (type: string, className = "w-5 h-5") => {
   }
 };
 
+const allProducts = [
+  {
+    id: 'zirconia',
+    name: 'Zirconia Crowns',
+    cat: 'Crown & Bridge',
+    label: 'ZIRCONIA',
+    desc: 'High-strength, natural-looking zirconia crowns. Sub-30µm precision guaranteed on every single case.',
+    linkText: 'Explore →',
+    linkUrl: '/products/zirconia',
+    img: imgZirconia,
+  },
+  {
+    id: 'allonx',
+    name: 'All-on-X Hybrids',
+    cat: 'Implant Solutions',
+    label: 'ALL-ON-X',
+    desc: 'Full-arch implant restorations — All-on-4, All-on-6, and custom hybrid frameworks milled in-house.',
+    linkText: 'Explore →',
+    linkUrl: '/products/allonx',
+    img: imgAllOnX,
+  },
+  {
+    id: 'emax',
+    name: 'e.max & PFM',
+    cat: 'Ceramics',
+    label: 'E.MAX CERAMIC',
+    desc: 'Lithium disilicate and porcelain-fused-to-metal for unmatched aesthetics in every case.',
+    linkText: 'Explore →',
+    linkUrl: '/products/emax',
+    img: imgEmax,
+  },
+  {
+    id: 'nightguard',
+    name: 'Splints & Guards',
+    cat: 'Appliances',
+    label: 'NIGHT GUARD',
+    desc: 'Custom-milled night guards and splints for bruxism and TMJ protection.',
+    linkText: 'Explore →',
+    linkUrl: '/products/nightguard',
+    img: imgNightGuard,
+  },
+  {
+    id: 'surgicalguide',
+    name: 'Surgical Guides',
+    cat: 'Implant Solutions',
+    label: 'SURGICAL GUIDE',
+    desc: 'CBCT-based digitally planned surgical guides for precise implant placement.',
+    linkText: 'Explore →',
+    linkUrl: '/products/surgicalguide',
+    img: imgSurgicalGuide,
+  },
+  {
+    id: 'pfmcrown',
+    name: 'PFM Crowns',
+    cat: 'Ceramics',
+    label: 'PFM CROWN',
+    desc: 'Porcelain-fused-to-metal crowns offering durable strength with excellent aesthetics.',
+    linkText: 'Explore →',
+    linkUrl: '/products/pfmcrown',
+    img: imgPFM,
+  },
+  {
+    id: 'models',
+    name: 'Printed Models & Dies',
+    cat: 'Models & Dies',
+    label: 'MODELS',
+    desc: 'High-accuracy 3D-printed study models for planning and communication.',
+    linkText: 'Explore →',
+    linkUrl: '/products/models',
+    img: imgModels,
+  }
+];
+
+const renderProductCard = (p: any, isCarousel = false) => {
+  return (
+    <div key={p.id} className={`bg-white border border-[#dde6f5] rounded-xl overflow-hidden hover:shadow-premium hover:-translate-y-1.5 transition-all duration-300 flex flex-col group ${isCarousel ? 'w-[280px] shrink-0 snap-start scroll-mx-8' : 'w-full'}`}>
+      {/* Image/Drawing Box */}
+      <div className="aspect-[4/2.3] bg-gradient-to-b from-white to-[#f7f9ff] border-b border-[#dde6f5] flex flex-col items-center justify-center relative p-8">
+        {/* Top right indicator badge */}
+        <div className="absolute top-5 right-5">
+          <div className="w-8 h-8 rounded-full border border-blue-default/20 bg-white text-blue-default flex items-center justify-center hover:bg-blue-default hover:text-white hover:border-blue-default transition-all duration-300">
+            <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
+          </div>
+        </div>
+        {/* Product image */}
+        <div className="flex-grow flex items-center justify-center mt-3 relative w-full">
+          <Image src={p.img} alt={p.name} fill className="object-contain" sizes={isCarousel ? "(max-width: 768px) 100vw, 33vw" : "(max-width: 768px) 100vw, 50vw"} />
+        </div>
+        {/* Subtitle label */}
+        <span className="text-[10px] font-bold tracking-[0.2em] text-blue-default/45 uppercase mt-3">{p.label}</span>
+      </div>
+
+      {/* Info Box */}
+      <div className="p-6.5 flex flex-col flex-grow">
+        <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-blue-600 mb-2">{p.cat}</span>
+        <h3 className="font-serif text-lg font-bold text-[#0a1530] mb-2 leading-snug">{p.name}</h3>
+        <p className="text-sm text-gray-500 leading-relaxed mb-5">{p.desc}</p>
+        <Link href={p.linkUrl} className="mt-auto inline-flex items-center gap-1 text-sm font-semibold text-blue-default hover:text-blue-bright transition-all">
+          {p.linkText}
+        </Link>
+      </div>
+    </div>
+  );
+};
+
 export default function Home() {
   // FAQ accordion state
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -137,7 +242,7 @@ export default function Home() {
   return (
     <div>
       {/* ── HERO SECTION ── */}
-      <section className="relative min-h-[90vh] overflow-hidden flex flex-col items-center justify-center text-center px-4 md:px-8 py-32">
+      <section className="relative min-h-[90vh] overflow-hidden flex flex-col items-center justify-center text-center px-8 md:px-8 py-12 md:py-32">
         <div className="absolute inset-0 z-0">
           <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover object-center">
             <source src="/hero-bg_trim.mp4" type="video/mp4" />
@@ -160,9 +265,9 @@ export default function Home() {
             Precision crowns and restorations — engineered with CAD/CAM, milled in-house, and delivered in five days flat.
           </p>
           <div className="flex flex-wrap gap-3.5 justify-center">
-            <Link href="/callback" className="inline-block bg-blue-default hover:bg-blue-bright text-white font-semibold py-4 px-8 rounded-lg text-[13px] transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer h-12 w-48">
+            <a href="https://synergy.greatlab.io/login" target="_blank" rel="noopener noreferrer" className="inline-block bg-blue-default hover:bg-blue-bright text-white font-semibold py-4 px-8 rounded-lg text-[13px] transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer h-12 w-48 text-center flex items-center justify-center">
               Send Digital Scan →
-            </Link>
+            </a>
             <button
               onClick={() => playVideo('dQw4w9WgXcQ', 'Intro', 'Precision CAD/CAM Dental Lab', 'Enrico Romano')}
               className="inline-block bg-white/10 hover:bg-white/18 text-white font-semibold py-3.5 px-7 rounded-lg text-[13px] border border-white/20 backdrop-blur-md transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer w-48"
@@ -179,8 +284,8 @@ export default function Home() {
       </section>
 
       {/* ── SCANNERS INTEGRATION RIBBON ── */}
-      <section className="bg-white border-b border-border-light py-14 text-navy-text">
-        <div className="max-w-[1140px] mx-auto px-4 md:px-16">
+      <section className="bg-white border-b border-border-light py-12 md:py-14 text-navy-text">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
             <div>
               <p className="text-[11px] text-gray-500 font-medium tracking-[0.04em] mb-2.5">— Scanners we work with</p>
@@ -211,8 +316,8 @@ export default function Home() {
       </section>
 
       {/* ── EXECUTIVE STATS ── */}
-      <section className="bg-navy py-24 text-white">
-        <div className="max-w-[1140px] mx-auto px-4 md:px-16">
+      <section className="bg-navy py-12 md:py-24 text-white">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <div className="text-center max-w-[600px] mx-auto mb-16">
             <div className="flex items-center justify-center gap-2 mb-4">
               <div className="w-8 h-px bg-gradient-to-r from-transparent to-blue" />
@@ -225,7 +330,9 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="flex overflow-x-auto snap-x snap-mandatory pt-4 pb-12 -mx-8 px-8 sm:mx-0 sm:px-0 sm:pt-0 sm:pb-0 sm:grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {/* Start spacer for scroll spacing on mobile */}
+            <div className="w-1 shrink-0 sm:hidden" />
             {[
               {
                 num: '4.2',
@@ -260,7 +367,7 @@ export default function Home() {
                 imgPath: '/images/stats-practices.png'
               },
             ].map((st, i) => (
-              <div key={i} className="reveal bg-navy-card border border-border-dark hover:border-blue-glow/20 rounded-2xl p-6 flex flex-col items-start text-left transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl">
+              <div key={i} className="reveal bg-navy-card border border-border-dark hover:border-blue-glow/20 rounded-2xl p-6 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl w-[280px] sm:w-auto shrink-0 snap-start scroll-mx-8">
                 {/* 3D Image Container */}
                 <div className="w-full aspect-[1.35/1] bg-gradient-to-b from-[#0c1b3d] to-[#050b1a] rounded-xl border border-border-dark/30 relative overflow-hidden flex items-center justify-center mb-6 group/img shadow-inner">
                   {/* Top-left small icon badge inside the image box */}
@@ -304,13 +411,15 @@ export default function Home() {
                 </div>
               </div>
             ))}
+            {/* End spacer for scroll spacing on mobile */}
+            <div className="w-1 shrink-0 sm:hidden" />
           </div>
         </div>
       </section>
 
       {/* ── WHY SYNERGY ── */}
-      <section className="bg-gray-100 py-24 text-navy-text">
-        <div className="max-w-[1140px] mx-auto px-4 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section className="bg-gray-100 py-12 md:py-24 text-navy-text">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-6 flex flex-col">
             <div className="flex items-center gap-2.5 mb-5">
               {/* Short blue horizontal line */}
@@ -324,7 +433,9 @@ export default function Home() {
             <p className="text-sm text-gray-500 leading-relaxed mb-8 pl-5.5">
               Precision lab science meets seamless digital workflows <br/> — so every restoration fits right, first time.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="flex overflow-x-auto snap-x snap-mandatory pt-4 -mx-8 px-8 sm:mx-0 sm:px-0 sm:pt-0 sm:pb-0 sm:grid sm:grid-cols-2 gap-4">
+              {/* Start spacer for scroll spacing on mobile */}
+              <div className="w-1 shrink-0 sm:hidden" />
               {[
                 {
                   title: 'Sub-30µm precision',
@@ -355,7 +466,7 @@ export default function Home() {
                   linkUrl: '/callback'
                 }
               ].map((ft, i) => (
-                <div key={i} className="bg-white border border-[#dde6f5] rounded-xl p-4 hover:shadow-premium hover:-translate-y-1 transition-all flex flex-col items-start text-left">
+                <div key={i} className="bg-white border border-[#dde6f5] rounded-xl p-4 hover:shadow-premium hover:-translate-y-1 transition-all flex flex-col items-start text-left w-[260px] sm:w-auto shrink-0 snap-start scroll-mx-8">
                   <div className="w-10 h-10 rounded-xl bg-[#eef4ff] flex items-center justify-center text-blue-default mb-4.5">
                     {renderIcon(ft.iconType, "w-4 h-4")}
                   </div>
@@ -366,6 +477,8 @@ export default function Home() {
                   </Link>
                 </div>
               ))}
+              {/* End spacer for scroll spacing on mobile */}
+              <div className="w-1 shrink-0 sm:hidden" />
             </div>
           </div>
 
@@ -385,9 +498,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── PRODUCTS HIGHLIGHT ── */}
-      <section className="bg-white py-24 text-navy-text border-t border-gray-200">
-        <div className="max-w-[1140px] mx-auto px-4 md:px-16">
+      {/* ── PRODUCTS ── */}
+      <section className="bg-white md:py-24 py-12 text-navy-text border-t border-gray-200">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <div className="max-w-[560px]">
               <div className="inline-block text-[11px] font-bold tracking-[0.14em] uppercase text-blue-600 mb-4">Our Products</div>
@@ -401,152 +514,31 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="flex flex-col gap-6">
+          <div className="hidden md:flex flex-col gap-6">
             {/* Row 1 & 2: 2 Columns */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[
-                {
-                  id: 'zirconia',
-                  name: 'Zirconia Crowns',
-                  cat: 'Crown & Bridge',
-                  label: 'ZIRCONIA',
-                  desc: 'High-strength, natural-looking zirconia crowns. Sub-30µm precision guaranteed on every single case.',
-                  linkText: 'Explore →',
-                  linkUrl: '/products/zirconia',
-                  img: imgZirconia,
-                },
-                {
-                  id: 'allonx',
-                  name: 'All-on-X Hybrids',
-                  cat: 'Implant Solutions',
-                  label: 'ALL-ON-X',
-                  desc: 'Full-arch implant restorations — All-on-4, All-on-6, and custom hybrid frameworks milled in-house.',
-                  linkText: 'Explore →',
-                  linkUrl: '/products/allonx',
-                  img: imgAllOnX,
-                },
-                {
-                  id: 'emax',
-                  name: 'e.max & PFM',
-                  cat: 'Ceramics',
-                  label: 'E.MAX CERAMIC',
-                  desc: 'Lithium disilicate and porcelain-fused-to-metal for unmatched aesthetics in every case.',
-                  linkText: 'Explore →',
-                  linkUrl: '/products/emax',
-                  img: imgEmax,
-                },
-                {
-                  id: 'nightguard',
-                  name: 'Splints & Guards',
-                  cat: 'Appliances',
-                  label: 'NIGHT GUARD',
-                  desc: 'Custom-milled night guards and splints for bruxism and TMJ protection.',
-                  linkText: 'Explore →',
-                  linkUrl: '/products/nightguard',
-                  img: imgNightGuard,
-                }
-              ].map((p, i) => (
-                <div key={i} className="bg-white border border-[#dde6f5] rounded-xl overflow-hidden hover:shadow-premium hover:-translate-y-1.5 transition-all duration-300 flex flex-col group">
-                  {/* Image/Drawing Box */}
-                  <div className="aspect-[4/2.3] bg-gradient-to-b from-white to-[#f7f9ff] border-b border-[#dde6f5] flex flex-col items-center justify-center relative p-8">
-                    {/* Top right indicator badge */}
-                    <div className="absolute top-5 right-5">
-                      <div className="w-8 h-8 rounded-full border border-blue-default/20 bg-white text-blue-default flex items-center justify-center hover:bg-blue-default hover:text-white hover:border-blue-default transition-all duration-300">
-                        <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
-                      </div>
-                    </div>
-                    {/* Product image */}
-                    <div className="flex-grow flex items-center justify-center mt-3 relative w-full">
-                      <Image src={p.img} alt={p.name} fill className="object-contain" sizes="(max-width: 768px) 100vw, 50vw" />
-                    </div>
-                    {/* Subtitle label */}
-                    <span className="text-[10px] font-bold tracking-[0.2em] text-blue-default/45 uppercase mt-3">{p.label}</span>
-                  </div>
-
-                  {/* Info Box */}
-                  <div className="p-6.5 flex flex-col flex-grow">
-                    <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-blue-600 mb-2">{p.cat}</span>
-                    <h3 className="font-serif text-lg font-bold text-[#0a1530] mb-2 leading-snug">{p.name}</h3>
-                    <p className="text-sm text-gray-500 leading-relaxed mb-5">{p.desc}</p>
-                    <Link href={p.linkUrl} className="mt-auto inline-flex items-center gap-1 text-sm font-semibold text-blue-default hover:text-blue-bright transition-all">
-                      {p.linkText}
-                    </Link>
-                  </div>
-                </div>
-              ))}
+              {allProducts.slice(0, 4).map((p) => renderProductCard(p))}
             </div>
 
             {/* Row 3: 3 Columns */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                {
-                  id: 'surgicalguide',
-                  name: 'Surgical Guides',
-                  cat: 'Implant Solutions',
-                  label: 'SURGICAL GUIDE',
-                  desc: 'CBCT-based digitally planned surgical guides for precise implant placement.',
-                  linkText: 'Explore →',
-                  linkUrl: '/products/surgicalguide',
-                  img: imgSurgicalGuide,
-                },
-                {
-                  id: 'pfmcrown',
-                  name: 'PFM Crowns',
-                  cat: 'Ceramics',
-                  label: 'PFM CROWN',
-                  desc: 'Porcelain-fused-to-metal crowns offering durable strength with excellent aesthetics.',
-                  linkText: 'Explore →',
-                  linkUrl: '/products/pfmcrown',
-                  img: imgPFM,
-                },
-                {
-                  id: 'models',
-                  name: 'Printed Models & Dies',
-                  cat: 'Models & Dies',
-                  label: 'MODELS',
-                  desc: 'High-accuracy 3D-printed study models for planning and communication.',
-                  linkText: 'Explore →',
-                  linkUrl: '/products/models',
-                  img: imgModels,
-                }
-              ].map((p, i) => (
-                <div key={i} className="bg-white border border-[#dde6f5] rounded-xl overflow-hidden hover:shadow-premium hover:-translate-y-1.5 transition-all duration-300 flex flex-col group">
-                  {/* Image/Drawing Box */}
-                  <div className="aspect-[4/2.3] bg-gradient-to-b from-white to-[#f7f9ff] border-b border-[#dde6f5] flex flex-col items-center justify-center relative p-8">
-                    {/* Top right indicator badge */}
-                    <div className="absolute top-5 right-5">
-                      <div className="w-8 h-8 rounded-full border border-blue-default/20 bg-white text-blue-default flex items-center justify-center hover:bg-blue-default hover:text-white hover:border-blue-default transition-all duration-300">
-                        <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
-                      </div>
-                    </div>
-                    {/* Product image */}
-                    <div className="flex-grow flex items-center justify-center mt-3 relative w-full">
-                      <Image src={p.img} alt={p.name} fill className="object-contain" sizes="(max-width: 768px) 100vw, 33vw" />
-                    </div>
-                    {/* Subtitle label */}
-                    <span className="text-[10px] font-bold tracking-[0.2em] text-blue-default/45 uppercase mt-3">{p.label}</span>
-                  </div>
-
-                  {/* Info Box */}
-                  <div className="p-6.5 flex flex-col flex-grow">
-                    <span className="text-[10px] font-bold tracking-[0.16em] uppercase text-blue-600 mb-2">{p.cat}</span>
-                    <h3 className="text-[1.15rem] font-bold text-[#0a1530] mb-2 leading-snug">{p.name}</h3>
-                    <p className="text-[0.85rem] text-gray-500 leading-relaxed mb-5">{p.desc}</p>
-                    <Link href={p.linkUrl} className="mt-auto inline-flex items-center gap-1 text-sm font-semibold text-blue-default hover:text-blue-bright transition-all">
-                      {p.linkText}
-                    </Link>
-                  </div>
-                </div>
-              ))}
+              {allProducts.slice(4).map((p) => renderProductCard(p))}
             </div>
+          </div>
+
+          {/* Mobile Carousel View */}
+          <div className="flex md:hidden overflow-x-auto snap-x snap-mandatory pt-4 pb-8 -mx-8 px-8 gap-6">
+            <div className="w-1 shrink-0" />
+            {allProducts.map((p) => renderProductCard(p, true))}
+            <div className="w-1 shrink-0" />
           </div>
         </div>
       </section>
 
       {/* ── HOW IT WORKS ── */}
-      <section className="bg-navy py-24 text-white overflow-hidden">
-        <div className="max-w-[1140px] mx-auto px-4 md:px-16">
-          <div className="text-center max-w-[700px] mx-auto mb-16">
+      <section className="bg-navy py-12 md:py-24 text-white overflow-hidden">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16">
+          <div className="text-center max-w-[700px] mx-auto mb-4 md:mb-16">
             <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-blue-glow mb-4 block">How it works</span>
             <h2 className="font-serif text-3xl sm:text-7xl font-extrabold leading-tight mb-4">
               Three steps.<em className="italic text-blue-glow block">Zero friction.</em>
@@ -556,7 +548,9 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8 mb-14 before:absolute before:top-[110px] before:left-[10%] before:right-[10%] before:h-px before:bg-blue-default/20 before:hidden before:md:block before:z-0">
+          <div className="relative flex overflow-x-auto snap-x snap-mandatory pt-4 pb-2 md:pb-12 -mx-8 px-8 gap-8 mb-0 md:mb-14 md:mx-0 md:px-0 md:pt-0 md:pb-0 md:grid md:grid-cols-3 before:absolute before:top-[110px] before:left-[10%] before:right-[10%] before:h-px before:bg-blue-default/20 before:hidden before:md:block before:z-0">
+            {/* Start spacer for scroll spacing on mobile */}
+            <div className="w-1 shrink-0 md:hidden" />
             {[
               {
                 step: '01',
@@ -603,7 +597,7 @@ export default function Home() {
                 )
               }
             ].map((st, i) => (
-              <div key={i} className="relative z-10 bg-[#071125]/40 border border-white/5 hover:border-blue-glow/20 rounded-xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col items-center">
+              <div key={i} className="relative z-10 bg-[#071125]/40 border border-white/5 hover:border-blue-glow/20 rounded-xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col items-center w-[280px] md:w-auto shrink-0 snap-start scroll-mx-8">
                 {/* Image Box */}
                 <div className="w-full aspect-[1.5/1] bg-gradient-to-b from-[#091535] to-[#040b21] rounded-xl border border-white/5 relative flex items-center justify-center mb-8">
                   {/* Step oval badge */}
@@ -621,15 +615,20 @@ export default function Home() {
                 <h3 className="text-lg font-semibold text-white mb-2 leading-snug">{st.title}</h3>
 
                 {/* Description */}
-                <p className="text-xs text-muted-dark leading-relaxed max-w-[150px]">{st.desc}</p>
+                <p className="text-xs text-muted-dark leading-relaxed max-w-[220px] md:max-w-[150px]">{st.desc}</p>
               </div>
             ))}
+            {/* End spacer for scroll spacing on mobile */}
+            <div className="w-1 shrink-0 md:hidden" />
           </div>
 
           {/* Bottom Bar: 4 highlight items */}
-          <div className="border-t border-white/5 pt-4 mt-16 flex flex-col md:flex-row items-center justify-between gap-6 w-full">
+          <div className="border-t border-white/5 pt-4 mt-16 flex overflow-x-auto snap-x snap-mandatory md:-mx-8 px-8 gap-6 w-full md:mx-0 md:px-0 md:flex-row md:items-center md:justify-between">
+            {/* Start spacer for scroll spacing on mobile */}
+            <div className="w-1 shrink-0 md:hidden" />
+            
             {/* Item 1 */}
-            <div className="flex items-center gap-3.5 flex-1 justify-center md:justify-start">
+            <div className="flex items-center gap-3.5 md:flex-1 justify-center md:justify-start shrink-0 snap-start scroll-mx-8 w-[160px] md:w-auto">
               <Clock className="w-5 h-5 text-blue-default shrink-0" strokeWidth={2} />
               <div className="text-left text-xs font-semibold text-white/90 leading-tight">
                 No shipping <span className="block text-white/50 font-normal mt-0.5">impressions</span>
@@ -640,7 +639,7 @@ export default function Home() {
             <div className="hidden md:block w-px h-12 bg-white/10 shrink-0" />
 
             {/* Item 2 */}
-            <div className="flex items-center gap-3.5 flex-1 justify-center md:justify-start">
+            <div className="flex items-center gap-3.5 md:flex-1 justify-center md:justify-start shrink-0 snap-start scroll-mx-8 w-[160px] md:w-auto">
               <ShieldCheck className="w-5 h-5 text-blue-default shrink-0" strokeWidth={2} />
               <div className="text-left text-xs font-semibold text-white/90 leading-tight">
                 Certified <span className="block text-white/50 font-normal mt-0.5">technicians</span>
@@ -651,7 +650,7 @@ export default function Home() {
             <div className="hidden md:block w-px h-12 bg-white/10 shrink-0" />
 
             {/* Item 3 */}
-            <div className="flex items-center gap-3.5 flex-1 justify-center md:justify-start">
+            <div className="flex items-center gap-3.5 md:flex-1 justify-center md:justify-start shrink-0 snap-start scroll-mx-8 w-[160px] md:w-auto">
               <Clock className="w-5 h-5 text-blue-default shrink-0" strokeWidth={2} />
               <div className="text-left text-xs font-semibold text-white/90 leading-tight">
                 Consistent <span className="block text-white/50 font-normal mt-0.5">turnarounds</span>
@@ -662,19 +661,22 @@ export default function Home() {
             <div className="hidden md:block w-px h-12 bg-white/10 shrink-0" />
 
             {/* Item 4 */}
-            <div className="flex items-center gap-3.5 flex-1 justify-center md:justify-start">
+            <div className="flex items-center gap-3.5 md:flex-1 justify-center md:justify-start shrink-0 snap-start scroll-mx-8 w-[160px] md:w-auto">
               <MapPin className="w-5 h-5 text-blue-default shrink-0" strokeWidth={2} />
               <div className="text-left text-xs font-semibold text-white/90 leading-tight">
                 Nationwide <span className="block text-white/50 font-normal mt-0.5">shipping</span>
               </div>
             </div>
+
+            {/* End spacer for scroll spacing on mobile */}
+            <div className="w-1 shrink-0 md:hidden" />
           </div>
         </div>
       </section>
 
       {/* ── FEEDBACKS FROM DOCTORS ── */}
-      <section className="bg-navy pb-24 text-white border-t border-white/6">
-        <div className="max-w-[1140px] mx-auto px-4 md:px-16">
+      <section className="bg-navy pb-12 md:pb-24 text-white border-t border-white/6">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <div className="flex flex-col mb-16 items-start text-left pt-16">
             <span className="text-[11px] font-semibold tracking-[0.16em] uppercase text-blue-glow mb-4 block">Trusted by 1000+</span>
             <h2 className="font-serif text-3xl sm:text-5xl font-extrabold leading-tight text-white mb-4">
@@ -685,11 +687,13 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="flex overflow-x-auto snap-x snap-mandatory pt-4 pb-12 -mx-8 px-8 gap-6 md:mx-0 md:px-0 md:pt-0 md:pb-0 md:grid md:grid-cols-3">
+            {/* Start spacer for scroll spacing on mobile */}
+            <div className="w-1 shrink-0 md:hidden" />
             {featuredTestimonials.map((ts, i) => (
               <div
                 key={i}
-                className="bg-navy-card border border-border-dark hover:border-blue-glow/20 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col"
+                className="bg-navy-card border border-border-dark hover:border-blue-glow/20 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col w-[280px] md:w-auto shrink-0 snap-start scroll-mx-8"
                 onClick={() => playVideo(ts.videoId, `Review 0${i + 1}`, `${ts.name} Testimonial`, `${ts.role1} ${ts.role2}`)}
               >
                 {/* Video Preview Box */}
@@ -751,14 +755,16 @@ export default function Home() {
                 </div>
               </div>
             ))}
+            {/* End spacer for scroll spacing on mobile */}
+            <div className="w-1 shrink-0 md:hidden" />
           </div>
         </div>
       </section>
 
       {/* ── GETTING STARTED ── */}
-      <section className="bg-[#0C1829] py-24 text-white border-t border-white/5">
-        <div className="max-w-[1140px] mx-auto px-4 md:px-16">
-          <div className="text-center max-w-[600px] mx-auto mb-16">
+      <section className="bg-[#0C1829] py-8 md:py-24 text-white border-t border-white/5">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16">
+          <div className="text-center max-w-[600px] mx-auto mb-8 md:mb-16">
             <span className="text-[11px] font-semibold tracking-[0.16em] uppercase text-blue-glow mb-4 block">Get Started</span>
             <h2 className="font-serif text-3xl sm:text-5xl font-extrabold leading-tight text-white mb-4">
               3 ways to get started.
@@ -825,8 +831,8 @@ export default function Home() {
       </section>
 
       {/* ── FAQ SECTION ── */}
-      <section className="bg-white py-24 text-navy-text">
-        <div className="max-w-[1140px] mx-auto px-4 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+      <section className="bg-white py-12 md:py-24 text-navy-text">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           <div className="lg:col-span-4 lg:sticky lg:top-28">
             <span className="text-[11px] font-bold tracking-[0.14em] uppercase text-blue-600 mb-4 block">FAQ</span>
             <h2 className="font-serif text-3xl sm:text-5xl font-extrabold mb-4">Frequently asked <em className="text-blue-600 italic">questions.</em></h2>
@@ -867,7 +873,7 @@ export default function Home() {
       </section>
 
       {/* ── BOTTOM CTA BOX ── */}
-      <section className="bg-navy py-24 px-4 md:px-8 text-white">
+      <section className="bg-navy py-24 px-8 md:px-8 text-white">
         <div className="max-w-5xl mx-auto bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] rounded-3xl p-5 md:p-20 text-center relative overflow-hidden shadow-2xl">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_0%,rgba(255,255,255,0.1)_0%,transparent_65%)] pointer-events-none" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:44px_44px] pointer-events-none" />
@@ -880,9 +886,9 @@ export default function Home() {
               Send a digital scan in under 60 seconds. We handle design, milling, and shipping — backed by our full guarantee.
             </p>
             <div className="flex flex-wrap gap-3.5 justify-center mb-12">
-              <Link href="/callback" className="inline-block bg-white hover:bg-gray-50 text-blue-600 font-semibold py-3.5 px-8 rounded-lg text-[0.95rem] shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+              <a href="https://synergy.greatlab.io/login" target="_blank" rel="noopener noreferrer" className="inline-block bg-white hover:bg-gray-50 text-blue-600 font-semibold py-3.5 px-8 rounded-lg text-[0.95rem] shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer text-center">
                 Send Digital Scan →
-              </Link>
+              </a>
               <button
                 onClick={triggerShipping}
                 className="inline-block bg-transparent hover:bg-white/6 text-white font-semibold py-3.5 px-6 rounded-lg text-[0.92rem] border border-white/20 transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"

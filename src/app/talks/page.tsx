@@ -92,10 +92,10 @@ export default function TalksPage() {
             </p>
 
           <div className="flex md:flex-wrap gap-3.5 shrink-0 justify-start mb-8">
-            <Link href="/callback" className="inline-block bg-cyan-500 hover:bg-cyan-500/80 text-white font-bold py-3 px-6 rounded-md text-xs md:text-sm shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+            <Link href="#talks" className="inline-block bg-cyan-500 hover:bg-cyan-500/80 text-white font-bold py-3 px-6 rounded-md text-xs md:text-sm shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
               Browse All Episodes
             </Link>
-            <Link href="/education" className="inline-block bg-transparent hover:bg-white/6 text-white font-medium py-3 px-6 rounded-lg text-xs md:text-sm border border-white/20 transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+            <Link href="https://www.youtube.com/@Synergy_Talks" target="_blank" rel="noopener noreferrer" className="inline-block bg-transparent hover:bg-white/6 text-white font-medium py-3 px-6 rounded-lg text-xs md:text-sm border border-white/20 transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
               Listen on Podcast →
             </Link>
           </div>
@@ -212,7 +212,7 @@ export default function TalksPage() {
       </div>
 
       {/* Episodes Grid Section */}
-      <section className="bg-white text-navy-text py-14">
+      <section id='talks' className="bg-white text-navy-text py-14">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           {isLoading ? (
             <div className="flex items-center justify-center py-20">
@@ -333,10 +333,10 @@ export default function TalksPage() {
             </p>
           </div>
           <div className="flex flex-wrap gap-3.5 shrink-0 justify-center">
-            <Link href="/callback" className="inline-block bg-white hover:bg-gray-50 text-blue-700 font-bold py-3.5 px-8 rounded-lg text-sm shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+            <a href="https://synergy.greatlab.io/login" target="_blank" rel="noopener noreferrer" className="inline-block bg-white hover:bg-gray-50 text-blue-700 font-bold py-3.5 px-8 rounded-lg text-sm shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer text-center">
               Start a Case →
-            </Link>
-            <Link href="/education" className="inline-block bg-transparent hover:bg-white/6 text-white font-medium py-3.5 px-6 rounded-lg text-sm border border-white/20 transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+            </a>
+            <Link href="/products" className="inline-block bg-transparent hover:bg-white/6 text-white font-medium py-3.5 px-6 rounded-lg text-sm border border-white/20 transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
               View All Products
             </Link>
           </div>

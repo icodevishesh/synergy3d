@@ -144,7 +144,7 @@ export default function EducationPage() {
                   ),
                   label: 'Live Webinars',
                   sub: 'Register for upcoming sessions',
-                  href: '#',
+                  href: '/webinars',
                 },
                 {
                   icon: (
@@ -152,7 +152,7 @@ export default function EducationPage() {
                   ),
                   label: 'Articles & Guides',
                   sub: 'Deep-dive written resources',
-                  href: '#',
+                  href: '/articles',
                 },
               ].map((item) => (
                 <Link

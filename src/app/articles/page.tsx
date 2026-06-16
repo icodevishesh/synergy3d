@@ -81,7 +81,7 @@ export default function ArticlesPage() {
 
   return (
     <div>
-      {/* ── Hero ──────────────────────────────────────────────────────────── */}
+      {/* Hero */}
       <section className="relative bg-navy pt-36 pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />
 
@@ -142,7 +142,7 @@ export default function ArticlesPage() {
                   ),
                   label: 'Webinars',
                   sub: 'Live & on-demand sessions',
-                  href: '#',
+                  href: '/webinars',
                 },
                 {
                   icon: (
@@ -150,7 +150,7 @@ export default function ArticlesPage() {
                   ),
                   label: 'Customer Stories',
                   sub: 'Real results from real practices',
-                  href: '#',
+                  href: '/customer-stories',
                 },
               ].map(item => (
                 <Link
