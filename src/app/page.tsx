@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Clock, Target, RefreshCw, Users, Activity, ShieldCheck, Play, ArrowRight, ArrowUpRight, MapPin, Star, ArrowDown, User, Home as HomeIcon, Building2, Globe } from 'lucide-react';
-import whySynergyImg from '@/app/assets/image.png';
+import whySynergyImg from '@/app/assets/image.jpg';
 import imgZirconia from '@/app/assets/products/zirconia-crown.png';
 import imgAllOnX from '@/app/assets/products/all-on-x-hybrid.png';
 import imgEmax from '@/app/assets/products/emax-restoration.png';
@@ -293,7 +293,7 @@ export default function Home() {
                 Plug into the scanner you already own.
               </h2>
             </div>
-            <Link href="/integrations" className="text-[0.88rem] font-semibold text-navy-text border-b border-navy-text hover:text-blue-default hover:border-blue-default transition-all whitespace-nowrap pb-1">
+            <Link href="/digital-workflow" className="text-[0.88rem] font-semibold text-navy-text border-b border-navy-text hover:text-blue-default hover:border-blue-default transition-all whitespace-nowrap pb-1">
               See integrations →
             </Link>
           </div>
@@ -482,7 +482,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="lg:col-span-6 aspect-[9/12.5] rounded-2xl overflow-hidden relative shadow-xs bg-white flex flex-col border border-[#dde6f5] ">
+          <div className="lg:col-span-6 aspect-[9/12.5] rounded-2xl overflow-hidden relative shadow-xs bg-[#071121] flex flex-col">
             {/* Image Container */}
             <div className="relative flex-grow w-full">
               <Image 
