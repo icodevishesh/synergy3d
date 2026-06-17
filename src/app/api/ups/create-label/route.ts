@@ -164,7 +164,7 @@ export async function POST(req: NextRequest) {
     const shipData = await shipRes.json();
 
     // Temporary: log full response to see structure
-    console.log("UPS Response:", JSON.stringify(shipData, null, 2));
+    // console.log("UPS Response:", JSON.stringify(shipData, null, 2));
     
     // const packageResult =
     //   shipData.ShipmentResponse.PackageResults[0] ||
@@ -180,22 +180,22 @@ export async function POST(req: NextRequest) {
     const trackingNumber = shipData.ShipmentResponse.ShipmentResults.ShipmentIdentificationNumber;
 
     // Send the label via email
-    // await sendLabelEmail({
-    //   to: email,
-    //   practiceName,
-    //   contactName,
-    //   trackingNumber,
-    //   base64Label,
-    //   casesEnclosed,
-    // });
+    await sendLabelEmail({
+      to: email,
+      practiceName,
+      contactName,
+      trackingNumber,
+      base64Label,
+      casesEnclosed,
+    });
 
     
 
-    // return NextResponse.json({
-    //   success: true,
-    //   trackingNumber,
-    //   message: `Label emailed to ${email}`,
-    // });
+    return NextResponse.json({
+      success: true,
+      trackingNumber,
+      message: `Label emailed to ${email}`,
+    });
     
     return NextResponse.json({
       success: true,
