@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast';
+import { Video } from 'lucide-react';
 
 type Status = 'upcoming' | 'recorded';
 type Filter = 'all' | 'upcoming' | 'recorded';
@@ -177,7 +178,7 @@ export default function WebinarsPage() {
     <div>
 
       {/* Hero */}
-      <section className="relative bg-navy pt-36 pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
+      <section className="relative bg-navy pt-22 md:pt-36 pb-10 md:pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />
 
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 relative z-10">
@@ -374,12 +375,22 @@ export default function WebinarsPage() {
       )}
 
       {/* All sessions grid */}
-      <section className="bg-white py-8 pb-20">
+      <section className="bg-white py-8 pb-10 md:pb-20">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <h2 className="font-serif text-2xl font-bold text-navy-text mb-6">All Sessions</h2>
 
           {filtered.length === 0 ? (
-            <div className="text-center py-20 text-gray-400 font-semibold">No sessions found.</div>
+            <section className="bg-white py-20 text-center">
+          <div className="max-w-md mx-auto px-6 flex flex-col items-center">
+            <div className="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center mb-6 text-gray-400 border border-gray-100">
+              <Video size={24}/>
+            </div>
+            <h3 className="font-serif text-xl font-bold text-navy-text mb-2">no webinars yet!</h3>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              webinars will be uploaded soon, please check back later.
+            </p>
+          </div>
+        </section>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
               {filtered.map(w => (
@@ -473,7 +484,7 @@ export default function WebinarsPage() {
       </section>
 
       {/* CTA strip */}
-      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-14 text-white text-center sm:text-left">
+      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-12 md:py-16 text-white text-center sm:text-left">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-8">
           <div>
             <h2 className="font-serif text-2xl sm:text-4xl font-bold leading-tight mb-2">

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { Mic } from 'lucide-react';
 
 export default function TalksPage() {
   const [episodes, setEpisodes] = useState<any[]>([]);
@@ -75,7 +76,7 @@ export default function TalksPage() {
   return (
     <div>
       {/* Podcast Hero */}
-      <section className="relative bg-navy pt-32 pb-16 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none border-b border-white/6">
+      <section className="relative bg-navy pt-22 md:pt-32 pb-10 md:pb-16 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none border-b border-white/6">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:48px_48px] pointer-events-none" />
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
@@ -219,9 +220,17 @@ export default function TalksPage() {
               <span className="w-10 h-10 border-4 border-blue-default border-t-transparent rounded-full animate-spin" />
             </div>
           ) : filteredEps.length === 0 ? (
-            <div className="text-center py-20 text-gray-500 font-semibold text-[1.1rem]">
-              No episodes matched your search query.
-            </div>
+            <section className="bg-white py-20 text-center">
+              <div className="max-w-md mx-auto px-6 flex flex-col items-center">
+                <div className="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center mb-6 text-gray-400 border border-gray-100">
+                  <Mic  size={32}/>
+                </div>
+                <h3 className="font-serif text-xl font-bold text-navy-text mb-2">no episodes yet!</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  Check back soon
+                </p>
+              </div>
+            </section>
           ) : (
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
@@ -322,7 +331,7 @@ export default function TalksPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-16 text-white text-center sm:text-left">
+      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-12 md:py-16 text-white text-center sm:text-left">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
           <div>
             <h2 className="font-serif text-4xl font-bold leading-tight mb-2">

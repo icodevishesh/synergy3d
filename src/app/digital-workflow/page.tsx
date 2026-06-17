@@ -65,7 +65,7 @@ export default function DigitalWorkflow() {
   return (
     <div className="bg-[#f8faff] min-h-screen text-navy-text">
       {/* Page Hero */}
-      <section className="relative bg-navy pt-36 pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
+      <section className="relative bg-navy pt-22 md:pt-36 pb-10 md:pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 relative z-10">
           <div className="flex gap-2 text-[0.78rem] text-white/40 mb-6">
@@ -175,7 +175,7 @@ export default function DigitalWorkflow() {
       </section>
 
       {/* CTA strip */}
-      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-16 text-white text-center sm:text-left">
+      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-12 md:py-16 text-white text-center sm:text-left">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
           <div>
             <h2 className="font-serif text-4xl font-bold leading-tight mb-2">

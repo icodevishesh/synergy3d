@@ -26,7 +26,7 @@ export default async function TeamDetailPage({ params }: TeamPageProps) {
   return (
     <div>
       {/* Member Hero */}
-      <section className="relative bg-navy py-40 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
+      <section className="relative bg-navy py-22 md:py-40 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 relative z-10 flex flex-col md:flex-row items-center gap-12">
           
@@ -66,7 +66,7 @@ export default async function TeamDetailPage({ params }: TeamPageProps) {
       </section>
 
       {/* Member Details Body */}
-      <section className="bg-white text-navy-text py-20">
+      <section className="bg-white text-navy-text py-12 md:py-20">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           
           {/* Detailed Biography block */}
@@ -127,7 +127,7 @@ export default async function TeamDetailPage({ params }: TeamPageProps) {
       </section>
 
       {/* Colleagues Section */}
-      <section className="bg-white border-t border-border-light py-20 text-navy-text">
+      <section className="bg-white border-t border-border-light py-12 md:py-20 text-navy-text">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-navy-text mb-9">
             Meet the rest of the <em className="italic text-blue font-normal">team</em>
@@ -175,7 +175,7 @@ export default async function TeamDetailPage({ params }: TeamPageProps) {
       </section>
 
       {/* CTA Strip */}
-      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-16 text-white text-center sm:text-left">
+      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-12 md:py-16 text-white text-center sm:text-left">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
           <div>
             <h2 className="font-serif text-4xl font-bold leading-tight mb-2">

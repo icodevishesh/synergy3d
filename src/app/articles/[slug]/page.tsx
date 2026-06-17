@@ -204,12 +204,12 @@ export default function ArticleDetailPage() {
       {/* ── Cover Image ────────────────────────────────────────────────── */}
       {article.imageUrl && (
         <div className="max-w-[740px] mx-auto px-5 sm:px-8 mt-8">
-          <div className="relative w-full rounded-2xl overflow-hidden shadow-md bg-gray-100" style={{ aspectRatio: '16/7' }}>
+          <div className="relative w-full rounded-2xl overflow-hidden shadow-md bg-gray-100" style={{ aspectRatio: '16/12' }}>
             <Image
               src={article.imageUrl}
               alt={article.title}
               fill
-              className="object-cover"
+              className="object-contains"
               priority
               sizes="(max-width: 800px) 100vw, 740px"
             />
@@ -227,7 +227,7 @@ export default function ArticleDetailPage() {
 
       {/* ── Share + Tags ───────────────────────────────────────────────── */}
       <div className="max-w-[740px] mx-auto px-5 sm:px-8 pb-10">
-        <div className="border-t border-gray-100 pt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="border-t border-gray-100 pt-8 flex flex-row justify-between gap-4">
 
           {/* Tags */}
           <div className="flex items-center gap-2 flex-wrap">
@@ -271,7 +271,7 @@ export default function ArticleDetailPage() {
       </div>
 
       {/* Author Bio */}
-      <div className="max-w-[740px] mx-auto px-5 sm:px-8 pb-14">
+      {/* <div className="max-w-[740px] mx-auto px-5 sm:px-8 pb-14">
         <div className="bg-gray-50 border border-gray-100 rounded-2xl p-6 flex items-start gap-5">
           <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-default to-blue-glow flex items-center justify-center text-white text-xl font-bold shrink-0 shadow">
             {authorInitial}
@@ -282,12 +282,9 @@ export default function ArticleDetailPage() {
             {article.designation && (
               <p className="text-[0.78rem] text-blue-600 font-semibold mb-2">{article.designation}</p>
             )}
-            <p className="text-[0.82rem] text-gray-500 leading-relaxed">
-              {article.writer} is a contributor at Synergy 3D Digital Dental Lab, specializing in clinical workflows, restorative materials, and digital dentistry education.
-            </p>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Keep Reading */}
       {related.length > 0 && (
@@ -351,7 +348,7 @@ export default function ArticleDetailPage() {
       )}
 
       {/* CTA */}
-      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-16 text-white text-center sm:text-left">
+      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-12 md:py-16 text-white text-center sm:text-left">
         <div className="max-w-[1140px] mx-auto px-6 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
           <div>
             <h2 className="font-serif text-4xl font-bold leading-tight mb-2">

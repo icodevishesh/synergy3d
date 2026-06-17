@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { GraduationCap  } from 'lucide-react';
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
 
@@ -83,7 +84,7 @@ export default function EducationPage() {
     <div>
 
       {/* Hero */}
-      <section className="relative bg-navy pt-36 pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
+      <section className="relative bg-navy pt-22 md:pt-36 pb-10 md:pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />
 
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 relative z-10">
@@ -229,14 +230,35 @@ export default function EducationPage() {
               {/* Featured card */}
               <div 
                  onClick={() => playVideo(featured.youtubeId, featured.topicLabel, featured.title)}
-                 className="lg:col-span-7 rounded-2xl overflow-hidden relative group cursor-pointer bg-[radial-gradient(ellipse_at_40%_40%,#1e3a8a_0%,#0a1045_100%)] min-h-[340px] flex flex-col justify-end"
+                 className="lg:col-span-7 rounded-2xl overflow-hidden relative group cursor-pointer bg-[#0a1045] min-h-[340px] flex flex-col justify-end"
               >
-                {/* Emoji illustration */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-                  <span className="text-[6rem] opacity-60">{featured.emoji}</span>
+                {featured.youtubeId ? (
+                  <img
+                    src={`https://img.youtube.com/vi/${featured.youtubeId}/maxresdefault.jpg`}
+                    alt={featured.title}
+                    className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-75 group-hover:scale-105 transition-all duration-500"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${featured.youtubeId}/hqdefault.jpg`;
+                    }}
+                  />
+                ) : (
+                  /* Emoji illustration */
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+                    <span className="text-[6rem] opacity-60">{featured.emoji}</span>
+                  </div>
+                )}
+                
+                {/* Play button overlay */}
+                <div className="absolute inset-0 flex items-center justify-center z-[5] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="w-16 h-16 rounded-full bg-white/20 border border-white/30 backdrop-blur-md flex items-center justify-center transform scale-90 group-hover:scale-100 transition-all duration-300">
+                    <svg className="ml-1 text-white" width="20" height="22" viewBox="0 0 16 18" fill="none">
+                      <path d="M1 1.5L15 9L1 16.5V1.5Z" fill="currentColor"/>
+                    </svg>
+                  </div>
                 </div>
+
                 {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-[2]" />
                 {/* Content */}
                 <div className="relative z-10 p-7">
                   <span className={`inline-block text-[0.65rem] font-extrabold tracking-[0.15em] uppercase px-2.5 py-1 rounded-full mb-3 ${TOPIC_COLORS[featured.topic]}`}>
@@ -269,8 +291,16 @@ export default function EducationPage() {
                     onClick={() => playVideo(r.youtubeId, r.topicLabel, r.title)}
                     className="bg-white border border-border-light hover:border-blue-200 rounded-xl p-4 flex items-start gap-4 cursor-pointer hover:shadow-md transition-all group"
                   >
-                    <div className="w-12 h-12 rounded-lg bg-gray-50 border border-border-light flex items-center justify-center text-2xl shrink-0 group-hover:scale-105 transition-transform">
-                      {r.emoji}
+                    <div className="w-12 h-12 rounded-lg bg-gray-50 border border-border-light flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform relative overflow-hidden">
+                      {r.youtubeId ? (
+                        <img
+                          src={`https://img.youtube.com/vi/${r.youtubeId}/hqdefault.jpg`}
+                          alt={r.title}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <span className="text-2xl">{r.emoji}</span>
+                      )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <span className={`inline-block text-[0.62rem] font-extrabold tracking-[0.14em] uppercase px-2 py-0.5 rounded-full mb-1.5 ${TOPIC_COLORS_LIGHT[r.topic]}`}>
@@ -299,16 +329,24 @@ export default function EducationPage() {
       )}
 
       {/* All Resources grid */}
-      <section className="bg-white py-8 pb-20">
+      <section className="bg-white py-8 pb-10 md:pb-20">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <h2 className="font-serif text-2xl font-bold text-navy-text mb-7">
             {filter === 'all' && !search ? 'All Resources' : `${resourceCount} result${resourceCount !== 1 ? 's' : ''}`}
           </h2>
 
           {filtered.length === 0 ? (
-            <div className="text-center py-20 text-gray-400 font-semibold text-[1rem]">
-              No resources matched your search.
-            </div>
+            <section className="bg-white py-20 text-center w-full">
+              <div className="max-w-md mx-auto px-6 flex flex-col items-center">
+                <div className="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center mb-6 text-gray-400 border border-gray-100">
+                  <GraduationCap  size={32}/>
+                </div>
+                <h3 className="font-serif text-xl font-bold text-navy-text mb-2">no education resources yet!</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  Check back soon
+                </p>
+              </div>
+            </section>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
               {filtered.map(r => (
@@ -318,8 +356,25 @@ export default function EducationPage() {
                   className="reveal bg-white border border-border-light rounded-2xl overflow-hidden hover:shadow-premium hover:-translate-y-1 transition-all duration-300 flex flex-col cursor-pointer group"
                 >
                   {/* Thumbnail */}
-                  <div className="aspect-[16/9] bg-[radial-gradient(ellipse_at_50%_40%,#1e3a8a_0%,#080f35_100%)] flex items-center justify-center relative overflow-hidden">
-                    <span className="text-5xl select-none group-hover:scale-110 transition-transform duration-300">{r.emoji}</span>
+                  <div className="aspect-[16/9] bg-[#080f35] flex items-center justify-center relative overflow-hidden">
+                    {r.youtubeId ? (
+                      <img
+                        src={`https://img.youtube.com/vi/${r.youtubeId}/hqdefault.jpg`}
+                        alt={r.title}
+                        className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-95 group-hover:scale-105 transition-all duration-500"
+                      />
+                    ) : (
+                      <span className="text-5xl select-none group-hover:scale-110 transition-transform duration-300">{r.emoji}</span>
+                    )}
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all z-[1]" />
+                    {/* Play button overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="w-10 h-10 rounded-full bg-blue-default/80 border border-white/20 backdrop-blur-sm flex items-center justify-center transform scale-90 group-hover:scale-100 transition-all duration-300">
+                        <svg className="ml-0.5 text-white" width="12" height="14" viewBox="0 0 16 18" fill="none">
+                          <path d="M1 1.5L15 9L1 16.5V1.5Z" fill="currentColor"/>
+                        </svg>
+                      </div>
+                    </div>
                   </div>
                   {/* Info */}
                   <div className="p-5 flex flex-col flex-grow">
@@ -349,8 +404,8 @@ export default function EducationPage() {
         </>
       )}
 
-      {/* ── CTA strip ───────────────────────────────────────────────────── */}
-      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-16 text-white text-center sm:text-left">
+      {/* CTA strip */}
+      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-12 md:py-16 text-white text-center sm:text-left">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
           <div>
             <h2 className="font-serif text-4xl font-bold leading-tight mb-2">

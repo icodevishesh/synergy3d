@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Clock, Target, RefreshCw, Users, Activity, ShieldCheck, Play, ArrowRight, ArrowUpRight, MapPin, Star, ArrowDown, User, Home as HomeIcon, Building2, Globe } from 'lucide-react';
-import whySynergyImg from '@/app/assets/image.jpg';
+import whySynergyImg from '@/app/assets/image.png';
 import imgZirconia from '@/app/assets/products/zirconia-crown.png';
 import imgAllOnX from '@/app/assets/products/all-on-x-hybrid.png';
 import imgEmax from '@/app/assets/products/emax-restoration.png';
@@ -142,41 +142,7 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   // Dynamic featured testimonials state
-  const [featuredTestimonials, setFeaturedTestimonials] = useState<any[]>([
-    { 
-      videoId: 'dQw4w9WgXcQ', 
-      name: 'Dr. Sarah Chen', 
-      role1: 'Park Avenue', 
-      role2: 'Dental, NYC', 
-      quote: '"The fit accuracy is unreal. I’ve cut my chair-time adjustments by 80% since switching."', 
-      result: '80% chair time', 
-      resultType: 'down',
-      duration: '1:24', 
-      imgPath: '/images/stats-turnaround.png'
-    },
-    { 
-      videoId: 'dQw4w9WgXcQ', 
-      name: 'Dr. Michael Torres, DMD', 
-      role1: 'Bright Smiles DSO', 
-      role2: '12 Locations', 
-      quote: '"12 locations, all on Synergy 3D. Their digital workflow is miles ahead of any traditional lab."', 
-      result: '94% remakes', 
-      resultType: 'down',
-      duration: '2:08', 
-      imgPath: '/images/stats-accuracy.png'
-    },
-    { 
-      videoId: 'dQw4w9WgXcQ', 
-      name: 'Dr. Roy Park', 
-      role1: 'Family Dental', 
-      role2: 'Care, NJ', 
-      quote: '"22 years in dentistry — this is the most reliable lab partner I’ve ever had. Under 1% remakes."', 
-      result: '0 remakes · 6 mo', 
-      resultType: 'check',
-      duration: '1:52', 
-      imgPath: '/images/stats-remake.png'
-    }
-  ]);
+  const [featuredTestimonials, setFeaturedTestimonials] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchFeatured = async () => {
@@ -269,7 +235,7 @@ export default function Home() {
               Send Digital Scan →
             </a>
             <button
-              onClick={() => playVideo('dQw4w9WgXcQ', 'Intro', 'Precision CAD/CAM Dental Lab', 'Enrico Romano')}
+              onClick={() => playVideo('OKVLbV-74UI', 'Intro', 'Precision CAD/CAM Dental Lab', 'Enrico Romano')}
               className="inline-block bg-white/10 hover:bg-white/18 text-white font-semibold py-3.5 px-7 rounded-lg text-[13px] border border-white/20 backdrop-blur-md transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer w-48"
             >
               Watch how it works
@@ -449,7 +415,7 @@ export default function Home() {
                   desc: 'From scan upload to delivery — no impressions, no delays, no friction.',
                   iconType: 'pulse',
                   linkText: 'See integrations →',
-                  linkUrl: '/integrations'
+                  linkUrl: '/digital-workflow'
                 },
                 {
                   title: 'FDA-cleared materials',
@@ -674,92 +640,94 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FEEDBACKS FROM DOCTORS ── */}
-      <section className="bg-navy pb-12 md:pb-24 text-white border-t border-white/6">
-        <div className="max-w-[1140px] mx-auto px-8 md:px-16">
-          <div className="flex flex-col mb-16 items-start text-left pt-16">
-            <span className="text-[11px] font-semibold tracking-[0.16em] uppercase text-blue-glow mb-4 block">Trusted by 1000+</span>
-            <h2 className="font-serif text-3xl sm:text-5xl font-extrabold leading-tight text-white mb-4">
-              Dentists <em className="italic text-blue-glow font-normal">love</em> Synergy 3D.
-            </h2>
-            <p className="text-md text-muted-dark leading-relaxed max-w-[650px]">
-              Leading practices and DSO groups across the country rely on us for precision restorations, every day.
-            </p>
-          </div>
+      {/* ── FEEDBACKS ── */}
+      {featuredTestimonials.length > 0 && (
+        <section className="bg-navy pb-12 md:pb-24 text-white border-t border-white/6">
+          <div className="max-w-[1140px] mx-auto px-8 md:px-16">
+            <div className="flex flex-col mb-16 items-start text-left pt-16">
+              <span className="text-[11px] font-semibold tracking-[0.16em] uppercase text-blue-glow mb-4 block">Trusted by 1000+</span>
+              <h2 className="font-serif text-3xl sm:text-5xl font-extrabold leading-tight text-white mb-4">
+                Dentists <em className="italic text-blue-glow font-normal">love</em> Synergy 3D.
+              </h2>
+              <p className="text-md text-muted-dark leading-relaxed max-w-[650px]">
+                Leading practices and DSO groups across the country rely on us for precision restorations, every day.
+              </p>
+            </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory pt-4 pb-12 -mx-8 px-8 gap-6 md:mx-0 md:px-0 md:pt-0 md:pb-0 md:grid md:grid-cols-3">
-            {/* Start spacer for scroll spacing on mobile */}
-            <div className="w-1 shrink-0 md:hidden" />
-            {featuredTestimonials.map((ts, i) => (
-              <div
-                key={i}
-                className="bg-navy-card border border-border-dark hover:border-blue-glow/20 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col w-[280px] md:w-auto shrink-0 snap-start scroll-mx-8"
-                onClick={() => playVideo(ts.videoId, `Review 0${i + 1}`, `${ts.name} Testimonial`, `${ts.role1} ${ts.role2}`)}
-              >
-                {/* Video Preview Box */}
-                <div className="aspect-video relative overflow-hidden bg-navy-mid flex items-center justify-center shrink-0">
-                  <Image 
-                    src={ts.imgPath} 
-                    alt={ts.name} 
-                    fill 
-                    sizes="(max-width: 640px) 100vw, 25vw"
-                    className="object-cover opacity-35" 
-                  />
-                  <div className="absolute inset-0 bg-[#071125]/75 hover:bg-[#071125]/50 transition-colors z-[1]" />
-                  
-                  {/* Rating Stars top-left */}
-                  <div className="absolute top-4 left-4 z-[2] flex gap-0.5">
-                    {[...Array(5)].map((_, idx) => (
-                      <Star key={idx} className="w-3 h-3 fill-amber-500 text-amber-500" />
-                    ))}
-                  </div>
-
-                  {/* Play Button center */}
-                  <div className="w-12 h-12 rounded-full bg-white/10 border border-white/20 backdrop-blur-md flex items-center justify-center hover:bg-blue-default hover:border-blue-default hover:scale-110 transition-all duration-300 z-[2]">
-                    <Play className="w-4 h-4 fill-white text-white ml-0.5" />
-                  </div>
-
-                  {/* Video Duration bottom-right */}
-                  <div className="absolute bottom-3 right-3 z-[2] bg-black/75 px-1.5 py-0.5 rounded text-[9px] font-bold text-white tracking-wider">
-                    {ts.duration}
-                  </div>
-                </div>
-
-                {/* Content Box */}
-                <div className="p-6 flex flex-col flex-grow items-start text-left justify-between">
-                  <blockquote className="font-serif text-[0.98rem] italic text-white/85 leading-relaxed mb-6">
-                    {ts.quote}
-                  </blockquote>
-
-                  {/* Profile info footer */}
-                  <div className="flex items-center gap-3.5 mt-auto pt-6 border-t border-white/5 w-full">
-                    {/* Avatar */}
-                    <div className="w-10 h-10 rounded-full bg-blue-default/20 border border-blue-default/30 flex items-center justify-center text-blue-glow shrink-0">
-                      <User className="w-5 h-5" />
-                    </div>
+            <div className="flex overflow-x-auto snap-x snap-mandatory pt-4 pb-12 -mx-8 px-8 gap-6 md:mx-0 md:px-0 md:pt-0 md:pb-0 md:grid md:grid-cols-3">
+              {/* Start spacer for scroll spacing on mobile */}
+              <div className="w-1 shrink-0 md:hidden" />
+              {featuredTestimonials.map((ts, i) => (
+                <div
+                  key={i}
+                  className="bg-navy-card border border-border-dark hover:border-blue-glow/20 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col w-[280px] md:w-auto shrink-0 snap-start scroll-mx-8"
+                  onClick={() => playVideo(ts.videoId, `Review 0${i + 1}`, `${ts.name} Testimonial`, `${ts.role1} ${ts.role2}`)}
+                >
+                  {/* Video Preview Box */}
+                  <div className="aspect-video relative overflow-hidden bg-navy-mid flex items-center justify-center shrink-0">
+                    <Image 
+                      src={ts.imgPath} 
+                      alt={ts.name} 
+                      fill 
+                      sizes="(max-width: 640px) 100vw, 25vw"
+                      className="object-cover opacity-35" 
+                    />
+                    <div className="absolute inset-0 bg-[#071125]/75 hover:bg-[#071125]/50 transition-colors z-[1]" />
                     
-                    {/* Name and Clinic */}
-                    <div className="flex-grow min-w-0 text-left">
-                      <strong className="text-sm font-semibold text-white block leading-tight truncate">{ts.name}</strong>
-                      <span className="text-[11px] text-muted-dark leading-normal block mt-1">
-                        {ts.role1} <span className="block truncate">{ts.role2}</span>
+                    {/* Rating Stars top-left */}
+                    <div className="absolute top-4 left-4 z-[2] flex gap-0.5">
+                      {[...Array(5)].map((_, idx) => (
+                        <Star key={idx} className="w-3 h-3 fill-amber-500 text-amber-500" />
+                      ))}
+                    </div>
+
+                    {/* Play Button center */}
+                    <div className="w-12 h-12 rounded-full bg-white/10 border border-white/20 backdrop-blur-md flex items-center justify-center hover:bg-blue-default hover:border-blue-default hover:scale-110 transition-all duration-300 z-[2]">
+                      <Play className="w-4 h-4 fill-white text-white ml-0.5" />
+                    </div>
+
+                    {/* Video Duration bottom-right */}
+                    <div className="absolute bottom-3 right-3 z-[2] bg-black/75 px-1.5 py-0.5 rounded text-[9px] font-bold text-white tracking-wider">
+                      {ts.duration}
+                    </div>
+                  </div>
+
+                  {/* Content Box */}
+                  <div className="p-6 flex flex-col flex-grow items-start text-left justify-between">
+                    <blockquote className="font-serif text-[0.98rem] italic text-white/85 leading-relaxed mb-6">
+                      {ts.quote}
+                    </blockquote>
+
+                    {/* Profile info footer */}
+                    <div className="flex items-center gap-3.5 mt-auto pt-6 border-t border-white/5 w-full">
+                      {/* Avatar */}
+                      <div className="w-10 h-10 rounded-full bg-blue-default/20 border border-blue-default/30 flex items-center justify-center text-blue-glow shrink-0">
+                        <User className="w-5 h-5" />
+                      </div>
+                      
+                      {/* Name and Clinic */}
+                      <div className="flex-grow min-w-0 text-left">
+                        <strong className="text-sm font-semibold text-white block leading-tight truncate">{ts.name}</strong>
+                        <span className="text-[11px] text-muted-dark leading-normal block mt-1">
+                          {ts.role1} <span className="block truncate">{ts.role2}</span>
+                        </span>
+                      </div>
+
+                      {/* Outcome Badge */}
+                      <span className="inline-flex items-center gap-1 bg-green-500/12 text-green-500 text-[10px] font-bold px-2.5 py-1 rounded-full shrink-0">
+                        {ts.resultType === 'down' && <ArrowDown className="w-3 h-3 shrink-0" />}
+                        {ts.result}
                       </span>
                     </div>
-
-                    {/* Outcome Badge */}
-                    <span className="inline-flex items-center gap-1 bg-green-500/12 text-green-500 text-[10px] font-bold px-2.5 py-1 rounded-full shrink-0">
-                      {ts.resultType === 'down' && <ArrowDown className="w-3 h-3 shrink-0" />}
-                      {ts.result}
-                    </span>
                   </div>
                 </div>
-              </div>
-            ))}
-            {/* End spacer for scroll spacing on mobile */}
-            <div className="w-1 shrink-0 md:hidden" />
+              ))}
+              {/* End spacer for scroll spacing on mobile */}
+              <div className="w-1 shrink-0 md:hidden" />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── GETTING STARTED ── */}
       <section className="bg-[#0C1829] py-8 md:py-24 text-white border-t border-white/5">
@@ -873,7 +841,7 @@ export default function Home() {
       </section>
 
       {/* ── BOTTOM CTA BOX ── */}
-      <section className="bg-navy py-24 px-8 md:px-8 text-white">
+      <section className="bg-navy py-12 md:py-24 px-8 md:px-8 text-white">
         <div className="max-w-5xl mx-auto bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] rounded-3xl p-5 md:p-20 text-center relative overflow-hidden shadow-2xl">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_0%,rgba(255,255,255,0.1)_0%,transparent_65%)] pointer-events-none" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:44px_44px] pointer-events-none" />

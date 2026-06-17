@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { BookOpen } from 'lucide-react';
 
 type Category = 'all' | 'clinical' | 'materials' | 'technology' | 'business';
 
@@ -82,7 +83,7 @@ export default function ArticlesPage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative bg-navy pt-36 pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
+      <section className="relative bg-navy pt-22 md:pt-36 pb-10 md:pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />
 
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 relative z-10">
@@ -210,7 +211,7 @@ export default function ArticlesPage() {
       </div>
 
       {/* Main content */}
-      <section className="bg-white py-10 pb-20">
+      <section className="bg-white py-8 pb-10 md:pb-20">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* Article list */}
@@ -220,9 +221,17 @@ export default function ArticlesPage() {
                   <span className="w-8 h-8 border-3 border-blue-default border-t-transparent rounded-full animate-spin" />
                 </div>
               ) : filtered.length === 0 ? (
-                <div className="text-center py-20 text-gray-400 font-semibold text-[1rem]">
-                  No articles matched your search.
-                </div>
+                <section className="bg-white py-20 text-center w-full">
+                  <div className="max-w-md mx-auto px-6 flex flex-col items-center">
+                    <div className="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center mb-6 text-gray-400 border border-gray-100">
+                      <BookOpen size={32}/>
+                    </div>
+                    <h3 className="font-serif text-xl font-bold text-navy-text mb-2">no articles yet!</h3>
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                      Check back soon
+                    </p>
+                  </div>
+                </section>
               ) : (
                 filtered.map(a => (
                   <Link
@@ -361,7 +370,7 @@ export default function ArticlesPage() {
       </section>
 
       {/* CTA strip */}
-      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-14 text-white text-center sm:text-left">
+      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-12 md:py-16 text-white text-center sm:text-left">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-8">
           <div>
             <h2 className="font-serif text-2xl sm:text-4xl font-bold leading-tight mb-2">

@@ -77,7 +77,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   return (
     <div>
       {/* Page Hero */}
-      <section className="relative bg-navy pt-40 pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
+      <section className="relative bg-navy pt-22 md:pt-40 pb-10 md:pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 relative z-10">
           <div className="flex gap-2 text-[0.8rem] text-white/45 mb-5">
@@ -97,7 +97,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       </section>
 
       {/* Main Details Grid */}
-      <section className="bg-white text-navy-text py-20">
+      <section className="bg-white text-navy-text py-12 md:py-20">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
           
           {/* Dynamic SVG Blueprint */}
@@ -203,7 +203,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       </section>
 
       {/* CTA Strip */}
-      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-16 text-white text-center sm:text-left">
+      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-12 md:py-16 text-white text-center sm:text-left">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
           <div>
             <h2 className="font-serif text-4xl font-bold leading-tight mb-2">

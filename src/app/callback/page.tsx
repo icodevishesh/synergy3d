@@ -52,9 +52,9 @@ export default function CallbackPage() {
   return (
     <div>
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <section className="relative bg-navy pt-36 pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none text-center">
+      <section className="relative bg-navy pt-22 md:pt-36 pb-10 md:pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none text-center">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />
-        <div className="max-w-[1140px] mx-auto px-6 md:px-16 relative z-10">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16 relative z-10">
           {/* Breadcrumb */}
           <div className="flex gap-2 text-[0.78rem] text-white/40 mb-6 justify-center">
             <Link href="/" className="hover:text-white/70 transition-colors">Home</Link>
@@ -74,8 +74,8 @@ export default function CallbackPage() {
       </section>
 
       {/* ── Main content ─────────────────────────────────────────────────── */}
-      <section className="bg-white py-14 pb-20">
-        <div className="max-w-[1140px] mx-auto px-4 md:px-16">
+      <section className="bg-white py-10 pb-10 md:py-14 md:pb-20">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
 
             {/* ── Form ── */}

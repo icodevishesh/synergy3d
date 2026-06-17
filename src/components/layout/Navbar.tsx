@@ -343,9 +343,9 @@ export const Navbar: React.FC = () => {
                 >
                   Shipping Label
                 </a>
-                <Link href="/integrations" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
+                {/* <Link href="/integrations" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
                   Track Case
-                </Link>
+                </Link> */}
               </div>
             )}
           </div>

@@ -4,13 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { TEAM } from '@/data/team';
 import { MapPin } from 'lucide-react';
-import MuiTimeline from '@mui/lab/Timeline';
-import TimelineItem from '@mui/lab/TimelineItem';
-import TimelineSeparator from '@mui/lab/TimelineSeparator';
-import TimelineConnector from '@mui/lab/TimelineConnector';
-import TimelineContent from '@mui/lab/TimelineContent';
-import TimelineDot from '@mui/lab/TimelineDot';
-import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
+import { Timeline } from '@/components/ui/timeline';
 
 
 
@@ -82,8 +76,8 @@ export default function AboutPage() {
       </section>
 
       {/* Section 3: Timeline */}
-      <section className="bg-navy text-white py-12 md:py-24 px-8 md:px-16 relative overflow-hidden">
-        <div className="max-w-[1140px] mx-auto text-center mb-12 relative z-10">
+      <section className="bg-navy text-white py-12 md:py-24 relative overflow-hidden">
+        <div className="max-w-[1140px] mx-auto text-center mb-12 relative z-10 px-8 md:px-16">
           <span className="inline-block text-[11px] font-bold tracking-[0.18em] uppercase text-blue-glow mb-4">
             Timeline
           </span>
@@ -96,64 +90,97 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="max-w-xl mx-auto">
-          <MuiTimeline position="left" sx={{ padding: 0 }}>
-            {[
-              { year: '2015', cat: 'FOUNDATION', title: 'Synergy 3D is Born', text: 'Founded with a mission to revolutionize the dental industry through high-precision 3D printing and digital workflows — when the rest of the industry was still analog.', last: false },
-              { year: '2018', cat: 'TECHNOLOGY ADVANCEMENT', title: 'Custom Digital Prosthetics Launch', text: 'Launched our first line of custom digital prosthetics, enabling dentists to provide faster, more accurate, and cost-effective solutions to patients worldwide.', last: false },
-              { year: '2020', cat: 'GLOBAL EXPANSION', title: 'Into International Markets', text: 'Expanded operations into international markets, collaborating with leading dental laboratories and clinics across North America and Europe.', last: false },
-              { year: '2022', cat: 'AI-POWERED DIAGNOSTICS', title: 'Smarter Treatment Planning', text: 'Introduced AI-driven diagnostic tools that optimize treatment planning and improve the accuracy of dental restorations across thousands of cases.', last: false },
-              { year: '2024', cat: 'PRESENT', title: 'Industry Leader', text: 'Synergy 3D now serves thousands of dental professionals worldwide, offering cutting-edge 3D printing, AR-integrated treatment previews, and cloud-based case management solutions.', last: true },
-            ].map((item) => (
-              <TimelineItem key={item.year}>
-                <TimelineOppositeContent
-                  sx={{
-                    flex: 0.18,
-                    paddingRight: '24px',
-                    paddingTop: '6px',
-                    textAlign: 'right',
-                  }}
-                >
-                  <span style={{ color: '#6ea8fe', fontWeight: 700, fontSize: '0.85rem', letterSpacing: '0.05em' }}>
-                    {item.year}
-                  </span>
-                </TimelineOppositeContent>
-
-                <TimelineSeparator>
-                  <TimelineDot
-                    sx={{
-                      backgroundColor: 'transparent',
-                      border: '2px solid #3b82f6',
-                      boxShadow: 'none',
-                      width: 14,
-                      height: 14,
-                      margin: '8px 0',
-                    }}
-                  />
-                  {!item.last && (
-                    <TimelineConnector sx={{ backgroundColor: 'rgba(59,130,246,0.2)' }} />
-                  )}
-                </TimelineSeparator>
-
-                <TimelineContent sx={{ paddingLeft: '24px', paddingBottom: '40px' }}>
-                  <span style={{ display: 'block', fontSize: '10px', fontWeight: 600, letterSpacing: '0.15em', color: '#8a9abf', textTransform: 'uppercase', marginBottom: '6px' }}>
-                    {item.cat}
-                  </span>
-                  <h3 style={{ fontFamily: 'Georgia, serif', fontSize: '1.2rem', fontWeight: 700, color: 'text-muted-dark', marginBottom: '10px', lineHeight: 1.3 }}>
-                    {item.title}
-                  </h3>
-                  <p style={{ fontSize: '0.84rem', color: '#8a9abf', lineHeight: 1.7, margin: 0 }}>
-                    {item.text}
-                  </p>
-                </TimelineContent>
-              </TimelineItem>
-            ))}
-          </MuiTimeline>
+        <div className="max-w-5xl mx-auto">
+          <Timeline
+            className="bg-transparent text-white"
+            data={[
+              {
+                title: '2015',
+                content: (
+                  <div>
+                    <span className="block text-[10px] font-semibold tracking-[0.15em] text-blue-glow uppercase mb-1.5">
+                      FOUNDATION
+                    </span>
+                    <h3 className="font-serif text-xl sm:text-[22px] font-bold text-white mb-3 leading-snug">
+                      Synergy 3D is Born
+                    </h3>
+                    <p className="text-[14px] text-muted-dark leading-relaxed max-w-xl">
+                      Founded with a mission to revolutionize the dental industry through high-precision 3D printing and digital workflows — when the rest of the industry was still analog.
+                    </p>
+                  </div>
+                ),
+              },
+              {
+                title: '2018',
+                content: (
+                  <div>
+                    <span className="block text-[10px] font-semibold tracking-[0.15em] text-blue-glow uppercase mb-1.5">
+                      TECHNOLOGY ADVANCEMENT
+                    </span>
+                    <h3 className="font-serif text-xl sm:text-[22px] font-bold text-white mb-3 leading-snug">
+                      Custom Digital Prosthetics Launch
+                    </h3>
+                    <p className="text-[14px] text-muted-dark leading-relaxed max-w-xl">
+                      Launched our first line of custom digital prosthetics, enabling dentists to provide faster, more accurate, and cost-effective solutions to patients worldwide.
+                    </p>
+                  </div>
+                ),
+              },
+              {
+                title: '2020',
+                content: (
+                  <div>
+                    <span className="block text-[10px] font-semibold tracking-[0.15em] text-blue-glow uppercase mb-1.5">
+                      GLOBAL EXPANSION
+                    </span>
+                    <h3 className="font-serif text-xl sm:text-[22px] font-bold text-white mb-3 leading-snug">
+                      Into International Markets
+                    </h3>
+                    <p className="text-[14px] text-muted-dark leading-relaxed max-w-xl">
+                      Expanded operations into international markets, collaborating with leading dental laboratories and clinics across North America and Europe.
+                    </p>
+                  </div>
+                ),
+              },
+              {
+                title: '2022',
+                content: (
+                  <div>
+                    <span className="block text-[10px] font-semibold tracking-[0.15em] text-blue-glow uppercase mb-1.5">
+                      AI-POWERED DIAGNOSTICS
+                    </span>
+                    <h3 className="font-serif text-xl sm:text-[22px] font-bold text-white mb-3 leading-snug">
+                      Smarter Treatment Planning
+                    </h3>
+                    <p className="text-[14px] text-muted-dark leading-relaxed max-w-xl">
+                      Introduced AI-driven diagnostic tools that optimize treatment planning and improve the accuracy of dental restorations across thousands of cases.
+                    </p>
+                  </div>
+                ),
+              },
+              {
+                title: '2024',
+                content: (
+                  <div>
+                    <span className="block text-[10px] font-semibold tracking-[0.15em] text-blue-glow uppercase mb-1.5">
+                      PRESENT
+                    </span>
+                    <h3 className="font-serif text-xl sm:text-[22px] font-bold text-white mb-3 leading-snug">
+                      Industry Leader
+                    </h3>
+                    <p className="text-[14px] text-muted-dark leading-relaxed max-w-xl">
+                      Synergy 3D now serves thousands of dental professionals worldwide, offering cutting-edge 3D printing, AR-integrated treatment previews, and cloud-based case management solutions.
+                    </p>
+                  </div>
+                ),
+              },
+            ]}
+          />
         </div>
       </section>
 
       {/* Leadership Team Grid */}
-            <section className="bg-white py-12 md:py-24 text-navy-text">
+      <section className="bg-white py-12 md:py-24 text-navy-text">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           {/* Section Header */}
           <div className="text-center max-w-[600px] mx-auto mb-16">
@@ -227,7 +254,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Strip */}
-      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-12 md:py-16 text-white text-center sm:text-left">
+      <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] md:py-16 py-12 text-white text-center sm:text-left">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
           <div>
             <h2 className="font-serif text-4xl font-bold leading-tight mb-2">
