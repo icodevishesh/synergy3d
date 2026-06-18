@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
           <Link href="/" className="logo block mb-3.5 shrink-0">
             <Image src={logo} alt="SYNERGY 3D" width={200} height={60} />
           </Link>
-          <p className="text-[0.85rem] text-muted-dark leading-relaxed max-w-[280px] mt-3.5">
+          <p className="text-[0.85rem] text-muted-dark leading-relaxed max-w-[280px] mt-0.5">
             New York's leading digital dental laboratory. Precision restorations in five days.
           </p>
         </div>
@@ -33,14 +33,17 @@ export const Footer: React.FC = () => {
           <ul className="list-none flex flex-col gap-3">
             <li><Link href="/about" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">About Us</Link></li>
             <li><Link href="/talks" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">SynergyTalks</Link></li>
-            <li><a href="https://synergy.greatlab.io" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Customer Portal</a></li>
             <li><Link href="/articles" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Articles</Link></li>
+            <li><Link href="/webinars" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Webinars</Link></li>
+            <li><Link href="/education" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Education</Link></li>
+            <li><Link href="/customer-stories" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Testimonials</Link></li>
           </ul>
         </div>
         <div className="flex flex-col">
           <h4 className="text-[0.7rem] font-bold tracking-[0.12em] uppercase text-white mb-5">Resources</h4>
           <ul className="list-none flex flex-col gap-3">
             <li><Link href="/callback" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Contact Us</Link></li>
+             <li><a href="https://synergy.greatlab.io" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Customer Portal</a></li>
           </ul>
         </div>
       </div>

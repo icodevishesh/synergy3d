@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import toast, { Toaster } from 'react-hot-toast';
 
 const US_STATES = [
   'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut',
@@ -36,6 +37,7 @@ export default function CallbackPage() {
   });
   const [helpWith, setHelpWith] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const set = (k: string, v: string) => setForm(f => ({ ...f, [k]: v }));
 
@@ -44,9 +46,30 @@ export default function CallbackPage() {
       prev.includes(opt) ? prev.filter(o => o !== opt) : [...prev, opt]
     );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    try {
+      const res = await fetch('/api/callback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...form,
+          helpWith,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Failed to submit request');
+      }
+
+      setSubmitted(true);
+    } catch (err: any) {
+      toast.error(err.message || 'Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -229,10 +252,20 @@ export default function CallbackPage() {
                   {/* Submit */}
                   <button
                     type="submit"
-                    className="bg-blue-default hover:bg-blue-bright text-white font-bold py-3.5 px-6 rounded-lg text-[0.95rem] transition-all hover:-translate-y-0.5 active:translate-y-0 w-full cursor-pointer border-none shadow-lg flex items-center justify-center gap-2 mt-1"
+                    disabled={isSubmitting}
+                    className="bg-blue-default hover:bg-blue-bright disabled:bg-blue-default/60 text-white font-bold py-3.5 px-6 rounded-lg text-[0.95rem] transition-all hover:-translate-y-0.5 active:translate-y-0 w-full cursor-pointer border-none shadow-lg flex items-center justify-center gap-2 mt-1"
                   >
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.84a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
-                    Request My Call Back
+                    {isSubmitting ? (
+                      <>
+                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.84a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+                        Request My Call Back
+                      </>
+                    )}
                   </button>
                   <p className="text-[0.72rem] text-gray-400 text-center">
                     We respect your privacy. Your information is never shared with third parties.
@@ -335,6 +368,7 @@ export default function CallbackPage() {
         </div>
       </section>
 
+      <Toaster position="top-right" />
     </div>
   );
 }

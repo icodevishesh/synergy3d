@@ -69,7 +69,7 @@ export const Navbar: React.FC = () => {
         <li className="relative group/nav">
           <Link
             href="/products"
-            className={`text-white/75 hover:text-white text-[11px] font-medium px-3 py-2 rounded-md flex items-center gap-1 transition-all group-hover/nav:bg-white/6 ${pathname.startsWith('/products') ? 'text-white bg-white/6' : ''
+            className={`text-white/75 hover:text-white text-[13px] font-medium px-3 py-2 rounded-md flex items-center gap-1 transition-all group-hover/nav:bg-white/6 ${pathname.startsWith('/products') ? 'text-white bg-white/6' : ''
               }`}
           >
             Lab Services <span className="text-[0.6rem] opacity-60">▾</span>
@@ -107,7 +107,7 @@ export const Navbar: React.FC = () => {
 
         <li className="relative group/nav">
           <a
-            className={`text-white/75 hover:text-white text-[11px] font-medium px-3 py-2 rounded-md flex items-center gap-1 cursor-pointer transition-all group-hover/nav:bg-white/6`}
+            className={`text-white/75 hover:text-white text-[13px] font-medium px-3 py-2 rounded-md flex items-center gap-1 cursor-pointer transition-all group-hover/nav:bg-white/6`}
           >
             Learnings <span className="text-[11px] opacity-60">▾</span>
           </a>
@@ -138,7 +138,7 @@ export const Navbar: React.FC = () => {
         <li>
           <Link
             href="/about"
-            className={`text-white/75 hover:text-white text-[11px] font-medium px-3 py-2 rounded-md transition-all ${pathname === '/about' ? 'text-white bg-white/6' : ''
+            className={`text-white/75 hover:text-white text-[13px] font-medium px-3 py-2 rounded-md transition-all ${pathname === '/about' ? 'text-white bg-white/6' : ''
               }`}
           >
             About Us
@@ -150,14 +150,14 @@ export const Navbar: React.FC = () => {
             href="https://synergy.greatlab.io"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white/75 hover:text-white text-[11px] font-medium px-3 py-2 rounded-md transition-all"
+            className="text-white/75 hover:text-white text-[13px] font-medium px-3 py-2 rounded-md transition-all"
           >
             Customer Portal
           </a>
         </li>
 
         <li className="relative group/nav">
-          <a className="text-white/75 hover:text-white text-[11px] font-medium px-3 py-2 rounded-md flex items-center gap-1 cursor-pointer transition-all group-hover/nav:bg-white/6">
+          <a className="text-white/75 hover:text-white text-[13px] font-medium px-3 py-2 rounded-md flex items-center gap-1 cursor-pointer transition-all group-hover/nav:bg-white/6">
             Quick Links <span className="text-[11px] opacity-60">▾</span>
           </a>
           <div className="absolute top-[calc(100%+10px)] left-0 bg-white rounded-xl shadow-premium border border-black/6 w-[200px] py-2.5 opacity-0 invisible translate-y-2 group-hover/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0 transition-all duration-220 z-[400]">
@@ -201,7 +201,7 @@ export const Navbar: React.FC = () => {
       <div className="hidden lg:flex items-center gap-1.5 shrink-0">
         <Link
           href="/callback"
-          className={`text-white/75 hover:text-white text-[11px] font-medium px-3.5 py-2 rounded-md transition-all ${pathname === '/callback' ? 'text-white bg-white/6' : ''
+          className={`text-white/75 hover:text-white text-[13px] font-medium px-3.5 py-2 rounded-md transition-all ${pathname === '/callback' ? 'text-white bg-white/6' : ''
             }`}
         >
           Request a Call Back
@@ -210,7 +210,7 @@ export const Navbar: React.FC = () => {
           href="https://synergy.greatlab.io/login"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1.5 bg-blue-default hover:bg-blue-bright text-white px-4.5 py-2.25 rounded-[7px] text-[11px] font-semibold transition-all hover:-translate-y-[1px]"
+          className="flex items-center gap-1.5 bg-blue-default hover:bg-blue-bright text-white px-4.5 py-2.25 rounded-[7px] text-[13px] font-semibold transition-all hover:-translate-y-[1px]"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '15px', height: '15px' }}>
             <circle cx="12" cy="8" r="4" />

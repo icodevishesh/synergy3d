@@ -12,6 +12,9 @@ import imgNightGuard from '@/app/assets/products/night-gaurds.png';
 import imgSurgicalGuide from '@/app/assets/products/surgical-guides.png';
 import imgPFM from '@/app/assets/products/pmf.png';
 import imgModels from '@/app/assets/products/printed-models.png';
+import scanner from "@/app/assets/icons/scanner.png";
+import box from "@/app/assets/icons/box.png";
+import design from "@/app/assets/icons/design.png";
 
 const renderIcon = (type: string, className = "w-5 h-5") => {
   switch (type) {
@@ -109,7 +112,7 @@ const renderProductCard = (p: any, isCarousel = false) => {
   return (
     <div key={p.id} className={`bg-white border border-[#dde6f5] rounded-xl overflow-hidden hover:shadow-premium hover:-translate-y-1.5 transition-all duration-300 flex flex-col group ${isCarousel ? 'w-[280px] shrink-0 snap-start scroll-mx-8' : 'w-full'}`}>
       {/* Image/Drawing Box */}
-      <div className="aspect-[4/2.3] bg-gradient-to-b from-white to-[#f7f9ff] border-b border-[#dde6f5] flex flex-col items-center justify-center relative p-8">
+      <div className="aspect-[4/2.3] bg-gradient-to-br from-navy-50 via-navy-100 to-blue-50 border-b border-[#dde6f5] flex flex-col items-center justify-center relative p-8">
         {/* Top right indicator badge */}
         <div className="absolute top-5 right-5">
           <div className="w-8 h-8 rounded-full border border-blue-default/20 bg-white text-blue-default flex items-center justify-center hover:bg-blue-default hover:text-white hover:border-blue-default transition-all duration-300">
@@ -254,7 +257,7 @@ export default function Home() {
         <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
             <div>
-              <p className="text-[11px] text-gray-500 font-medium tracking-[0.04em] mb-2.5">— Scanners we work with</p>
+              <p className="text-xs text-gray-500 font-medium tracking-[0.04em] mb-2.5">— Scanners we work with</p>
               <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#0a1530] leading-tight">
                 Plug into the scanner you already own.
               </h2>
@@ -282,12 +285,12 @@ export default function Home() {
       </section>
 
       {/* ── EXECUTIVE STATS ── */}
-      <section className="bg-navy py-12 md:py-24 text-white">
+      <section className="bg-navy py-12 md:py-18 text-white">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <div className="text-center max-w-[600px] mx-auto mb-16">
             <div className="flex items-center justify-center gap-2 mb-4">
               <div className="w-8 h-px bg-gradient-to-r from-transparent to-blue" />
-              <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-blue-glow">Trusted by dental professionals</span>
+              <span className="text-[11px] font-semibold tracking-[0.16em] uppercase text-blue-glow">Trusted by dental professionals</span>
               <div className="w-8 h-px bg-gradient-to-l from-transparent to-blue" />
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold leading-tight mb-3">Proven performance. Real impact.</h2>
@@ -384,8 +387,8 @@ export default function Home() {
       </section>
 
       {/* ── WHY SYNERGY ── */}
-      <section className="bg-gray-100 py-12 md:py-24 text-navy-text">
-        <div className="max-w-[1140px] mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section className="bg-gray-100 py-12 md:py-18 text-navy-text">
+        <div className="max-w-[1140px] mx-auto px-8 md:px-16 items-start grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-6 flex flex-col">
             <div className="flex items-center gap-2.5 mb-5">
               {/* Short blue horizontal line */}
@@ -448,7 +451,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="lg:col-span-6 aspect-[9/12.5] rounded-2xl overflow-hidden relative shadow-xs bg-[#071121] flex flex-col">
+          <div className="lg:col-span-6 aspect-[9/12.7] rounded-2xl overflow-hidden relative shadow-xs bg-[#071121] flex flex-col">
             {/* Image Container */}
             <div className="relative flex-grow w-full">
               <Image 
@@ -465,7 +468,7 @@ export default function Home() {
       </section>
 
       {/* ── PRODUCTS ── */}
-      <section className="bg-white md:py-24 py-12 text-navy-text border-t border-gray-200">
+      <section className="bg-white md:py-18 py-12 text-navy-text border-t border-gray-200">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <div className="max-w-[560px]">
@@ -502,7 +505,7 @@ export default function Home() {
       </section>
 
       {/* ── HOW IT WORKS ── */}
-      <section className="bg-navy py-12 md:py-24 text-white overflow-hidden">
+      <section className="bg-navy py-12 md:py-18 text-white overflow-hidden">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <div className="text-center max-w-[700px] mx-auto mb-4 md:mb-16">
             <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-blue-glow mb-4 block">How it works</span>
@@ -523,13 +526,14 @@ export default function Home() {
                 title: 'Scan & Upload',
                 desc: 'Use any major intraoral scanner. Upload to our portal in under 2 minutes — no shipping impressions ever.',
                 drawing: (
-                  <svg className="w-20 h-20 text-blue-default/60" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 100 100">
-                    <rect x="25" y="25" width="50" height="50" rx="6" />
-                    <rect x="32" y="32" width="36" height="30" rx="3" />
-                    <path d="M40 54 C40 50, 43 48, 45 52 C47 48, 50 48, 52 52 C54 48, 57 50, 57 54 L57 57 L40 57 Z" />
-                    <path d="M35 32 L45 48 M65 32 L52 48" strokeDasharray="2 2" />
-                    <path d="M50 32 L49 48" strokeDasharray="2 2" />
-                  </svg>
+                  <Image src={scanner} width={70} height={70} alt="Scanner" />
+                  //   <svg className="w-20 h-20 text-blue-default/60" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 100 100">
+                  //   <rect x="25" y="25" width="50" height="50" rx="6" />
+                  //   <rect x="32" y="32" width="36" height="30" rx="3" />
+                  //   <path d="M40 54 C40 50, 43 48, 45 52 C47 48, 50 48, 52 52 C54 48, 57 50, 57 54 L57 57 L40 57 Z" />
+                  //   <path d="M35 32 L45 48 M65 32 L52 48" strokeDasharray="2 2" />
+                  //   <path d="M50 32 L49 48" strokeDasharray="2 2" />
+                  // </svg>
                 )
               },
               {
@@ -537,15 +541,16 @@ export default function Home() {
                 title: 'Design & Mill',
                 desc: 'Our certified technicians design your case in leading CAD software, then mill it in-house with exact precision.',
                 drawing: (
-                  <svg className="w-20 h-20 text-blue-default/60" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 100 100">
-                    <rect x="20" y="25" width="60" height="42" rx="4" />
-                    <path d="M42 67 L35 80 L65 80 L58 67 Z" />
-                    <path d="M30 48 C30 42, 35 40, 40 45 C45 40, 50 40, 55 45 C60 40, 65 42, 65 48" />
-                    <circle cx="40" cy="45" r="2" fill="currentColor" />
-                    <circle cx="55" cy="45" r="2" fill="currentColor" />
-                    <path d="M30 48 L70 48" strokeDasharray="1 1" />
-                    <path d="M25 30 H75 M25 35 H75" />
-                  </svg>
+                  <Image src={design} width={70} height={70} alt="Scanner" />
+                  // <svg className="w-20 h-20 text-blue-default/60" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 100 100">
+                  //   <rect x="20" y="25" width="60" height="42" rx="4" />
+                  //   <path d="M42 67 L35 80 L65 80 L58 67 Z" />
+                  //   <path d="M30 48 C30 42, 35 40, 40 45 C45 40, 50 40, 55 45 C60 40, 65 42, 65 48" />
+                  //   <circle cx="40" cy="45" r="2" fill="currentColor" />
+                  //   <circle cx="55" cy="45" r="2" fill="currentColor" />
+                  //   <path d="M30 48 L70 48" strokeDasharray="1 1" />
+                  //   <path d="M25 30 H75 M25 35 H75" />
+                  // </svg>
                 )
               },
               {
@@ -553,19 +558,22 @@ export default function Home() {
                 title: 'Ship in 5 Days',
                 desc: 'Your restoration ships directly to your practice within 5 business days — guaranteed, all 50 states.',
                 drawing: (
-                  <svg className="w-20 h-20 text-blue-default/60" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 100 100">
-                    <path d="M50 25 L80 35 L80 65 L50 78 L20 65 L20 35 Z" />
-                    <path d="M50 25 L50 78" />
-                    <path d="M20 35 L50 48 L80 35" />
-                    <path d="M30 50 C30 45, 40 43, 40 48 C40 55, 30 58, 30 50 Z" />
-                    <path d="M10 40 H18 M5 48 H15 M8 56 H17" strokeWidth="1.5" />
-                  </svg>
+                  <Image src={box} width={70} height={70} alt="Ship" />
+                  // <svg className="w-20 h-20 text-blue-default/60" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 100 100">
+                  //   <path d="M50 25 L80 35 L80 65 L50 78 L20 65 L20 35 Z" />
+                  //   <path d="M50 25 L50 78" />
+                  //   <path d="M20 35 L50 48 L80 35" />
+                  //   <path d="M30 50 C30 45, 40 43, 40 48 C40 55, 30 58, 30 50 Z" />
+                  //   <path d="M10 40 H18 M5 48 H15 M8 56 H17" strokeWidth="1.5" />
+                  // </svg>
                 )
               }
+              // bg-[#071125]/40
+              // bg-gradient-to-b from-[#091535] to-[#040b21]
             ].map((st, i) => (
-              <div key={i} className="relative z-10 bg-[#071125]/40 border border-white/5 hover:border-blue-glow/20 rounded-xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col items-center w-[280px] md:w-auto shrink-0 snap-start scroll-mx-8">
+              <div key={i} className="relative z-10 bg-white border border-white/5 hover:border-blue-glow/20 rounded-xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col items-center w-[280px] md:w-auto shrink-0 snap-start scroll-mx-8">
                 {/* Image Box */}
-                <div className="w-full aspect-[1.5/1] bg-gradient-to-b from-[#091535] to-[#040b21] rounded-xl border border-white/5 relative flex items-center justify-center mb-8">
+                <div className="w-full aspect-[1.5/1] bg-gradient-to-br from-navy-50 via-navy-100 to-blue-50 rounded-xl border border-[#dde6f5]  relative flex items-center justify-center mb-8">
                   {/* Step oval badge */}
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-blue-default px-3.5 py-0.5 rounded-full text-[10px] font-bold text-white tracking-widest leading-none shadow-md">
                     {st.step}
@@ -578,7 +586,7 @@ export default function Home() {
                 <div className="w-7 h-[2px] bg-gradient-to-r from-blue to-blue-glow rounded-full mb-3.5" />
 
                 {/* Title */}
-                <h3 className="text-lg font-semibold text-white mb-2 leading-snug">{st.title}</h3>
+                <h3 className="text-lg font-semibold text-blue-700 mb-2 leading-snug">{st.title}</h3>
 
                 {/* Description */}
                 <p className="text-xs text-muted-dark leading-relaxed max-w-[220px] md:max-w-[150px]">{st.desc}</p>
@@ -642,7 +650,7 @@ export default function Home() {
 
       {/* ── FEEDBACKS ── */}
       {featuredTestimonials.length > 0 && (
-        <section className="bg-navy pb-12 md:pb-24 text-white border-t border-white/6">
+        <section className="bg-navy pb-12 md:pb-18 text-white border-t border-white/6">
           <div className="max-w-[1140px] mx-auto px-8 md:px-16">
             <div className="flex flex-col mb-16 items-start text-left pt-16">
               <span className="text-[11px] font-semibold tracking-[0.16em] uppercase text-blue-glow mb-4 block">Trusted by 1000+</span>
@@ -730,7 +738,7 @@ export default function Home() {
       )}
 
       {/* ── GETTING STARTED ── */}
-      <section className="bg-[#0C1829] py-8 md:py-24 text-white border-t border-white/5">
+      <section className="bg-[#0C1829] py-8 md:py-18 text-white border-t border-white/5">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <div className="text-center max-w-[600px] mx-auto mb-8 md:mb-16">
             <span className="text-[11px] font-semibold tracking-[0.16em] uppercase text-blue-glow mb-4 block">Get Started</span>
@@ -799,7 +807,7 @@ export default function Home() {
       </section>
 
       {/* ── FAQ SECTION ── */}
-      <section className="bg-white py-12 md:py-24 text-navy-text">
+      <section className="bg-white py-12 md:py-18 text-navy-text">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           <div className="lg:col-span-4 lg:sticky lg:top-28">
             <span className="text-[11px] font-bold tracking-[0.14em] uppercase text-blue-600 mb-4 block">FAQ</span>
@@ -824,7 +832,7 @@ export default function Home() {
                     <span className={`text-[15px] font-semibold ${isOpen ? 'text-blue' : 'text-navy-text'} group-hover:text-blue transition-colors`}>
                       {faq.q}
                     </span>
-                    <span className={`w-7 h-7 rounded-full flex items-center justify-center border font-semibold text-lg text-blue-600 shrink-0 transition-all ${isOpen ? 'rotate-45 bg-blue-600 text-white border-blue' : 'bg-gray-100 border-border-light'
+                    <span className={`w-7 h-7 rounded-full flex items-center justify-center border font-semibold text-xl text-blue-600 shrink-0 transition-all ${isOpen ? 'rotate-45 bg-blue-600 text-white border-blue' : 'bg-gray-100 border-border-light'
                       }`}>
                       +
                     </span>
@@ -841,7 +849,7 @@ export default function Home() {
       </section>
 
       {/* ── BOTTOM CTA BOX ── */}
-      <section className="bg-navy py-12 md:py-24 px-8 md:px-8 text-white">
+      <section className="bg-navy py-12 md:py-18 px-8 md:px-8 text-white">
         <div className="max-w-5xl mx-auto bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] rounded-3xl p-5 md:p-20 text-center relative overflow-hidden shadow-2xl">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_0%,rgba(255,255,255,0.1)_0%,transparent_65%)] pointer-events-none" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:44px_44px] pointer-events-none" />

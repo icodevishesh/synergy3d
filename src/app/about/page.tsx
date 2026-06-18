@@ -58,21 +58,21 @@ export default function AboutPage() {
 
         <div className="max-w-[1000px] mx-auto bg-white border border-blue-100/40 rounded-3xl shadow-premium p-8 md:p-12 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 divide-y md:divide-y-0 md:divide-x divide-blue-100/40">
           <div className="flex flex-col">
-            <span className="font-serif text-5xl sm:text-6xl font-extrabold text-blue-600/10 block mb-3.5 select-none">01</span>
+            <span className="font-serif text-5xl sm:text-6xl font-extrabold text-blue-600/20 block mb-3.5 select-none">01</span>
             <h3 className="font-serif text-xl sm:text-[22px] font-bold text-navy-text mb-4">How We Started</h3>
             <p className="text-[13px] sm:text-[14px] text-gray-500/90 leading-relaxed font-normal">
               In November 2014 when Synergy 3D was established, we only produced restorations that came out of a milling unit. While analog labs were struggling to integrate digital technology, we were already developing and improving the digital workflow. Today we are proud to say <span className="font-semibold text-gray-500/90">98% of our restoratives are produced digitally.</span>
             </p>
           </div>
-          <div className="flex flex-col pt-8 md:pt-0 md:pl-12">
-            <span className="font-serif text-5xl sm:text-6xl font-extrabold text-blue-600/10 block mb-3.5 select-none">02</span>
+          <div className="flex flex-col pt-8 md:pt-0">
+            <span className="font-serif text-5xl sm:text-6xl font-extrabold text-blue-600/20 block mb-3.5 select-none">02</span>
             <h3 className="font-serif text-xl sm:text-[22px] font-bold text-navy-text mb-4">How We Operate</h3>
             <p className="text-[13px] sm:text-[14px] text-gray-500/90 leading-relaxed font-normal">
               It all starts with the technician. Each technician employed by Synergy 3D has been selectively chosen based on their experience, expertise and knowledge. Not only are they constantly willing to learn, they are also willing to educate. If your office has questions or wants training on scanners, we are here to help.
             </p>
           </div>
-          <div className="flex flex-col pt-8 md:pt-0 md:pl-12">
-            <span className="font-serif text-5xl sm:text-6xl font-extrabold text-blue-600/10 block mb-3.5 select-none">03</span>
+          <div className="flex flex-col pt-8 md:pt-0">
+            <span className="font-serif text-5xl sm:text-6xl font-extrabold text-blue-600/20 block mb-3.5 select-none">03</span>
             <h3 className="font-serif text-xl sm:text-[22px] font-bold text-navy-text mb-4">How We Sustain</h3>
             <p className="text-[13px] sm:text-[14px] text-gray-500/90 leading-relaxed font-normal">
               Without your consistent loyalty we would not be where we are today. Thank you for trusting your business in us. We are always looking to improve and love receiving customer feedback. Please take the time to <span className="font-semibold text-gray-500/90">leave us a review</span> as we would greatly appreciate it!
@@ -97,7 +97,7 @@ export default function AboutPage() {
         </div>
 
         <div className="max-w-xl mx-auto">
-          <MuiTimeline position="left" sx={{ padding: 0 }}>
+          <MuiTimeline position="right" sx={{ padding: 0 }}>
             {[
               { year: '2015', cat: 'FOUNDATION', title: 'Synergy 3D is Born', text: 'Founded with a mission to revolutionize the dental industry through high-precision 3D printing and digital workflows — when the rest of the industry was still analog.', last: false },
               { year: '2018', cat: 'TECHNOLOGY ADVANCEMENT', title: 'Custom Digital Prosthetics Launch', text: 'Launched our first line of custom digital prosthetics, enabling dentists to provide faster, more accurate, and cost-effective solutions to patients worldwide.', last: false },
