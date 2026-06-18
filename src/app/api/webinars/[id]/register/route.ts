@@ -70,7 +70,7 @@ async function sendRegistrationEmail({
 
     await resend.emails.send({
       from: `Synergy 3D Notifications <${sender}>`,
-      to: "visheshpurkait@gmail.com",
+      to: "info@synergy3d.net",
       subject: `🎓 Webinar Registered: ${name} — ${webinarTitle}`,
       html,
     });

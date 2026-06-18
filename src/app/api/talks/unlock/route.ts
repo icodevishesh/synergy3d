@@ -37,7 +37,7 @@ export async function POST(req: Request) {
       { upsert: true, new: true }
     );
 
-    // Send email notification to visheshpurkait@gmail.com
+    // Send email notification to info@synergy3d.net
     try {
       const sender = process.env.EMAIL_FROM || "noreply@synergy3d.net";
       const html = `
@@ -86,7 +86,7 @@ export async function POST(req: Request) {
 
       await resend.emails.send({
         from: `Synergy 3D Notifications <${sender}>`,
-        to: "visheshpurkait@gmail.com",
+        to: "info@synergy3d.net",
         subject: `🔓 SynergyTalks Episode Unlocked: ${name} — ${practice}`,
         html,
       });
