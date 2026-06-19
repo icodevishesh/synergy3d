@@ -501,17 +501,6 @@ export default function Home() {
             {allProducts.map((p) => renderProductCard(p, true))}
             <div className="w-1 shrink-0" />
           </div>
-
-          {/* View More Button */}
-          <div className="mt-12 flex justify-center">
-            <Link 
-              href="/products" 
-              className="inline-flex items-center gap-2 bg-blue-default hover:bg-blue-bright text-white font-bold py-3.5 px-8 rounded-lg text-[0.95rem] transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer shadow-md"
-            >
-              View All Products
-              <ArrowRight size={16} />
-            </Link>
-          </div>
         </div>
       </section>
 
