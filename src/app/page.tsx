@@ -12,9 +12,9 @@ import imgNightGuard from '@/app/assets/products/night-gaurds.png';
 import imgSurgicalGuide from '@/app/assets/products/surgical-guides.png';
 import imgPFM from '@/app/assets/products/pmf.png';
 import imgModels from '@/app/assets/products/printed-models.png';
-import scanner from "@/app/assets/icons/scanner.png";
-import box from "@/app/assets/icons/box.png";
-import design from "@/app/assets/icons/design.png";
+import scanner from '@/app/assets/icons/scanner.png';
+import design from '@/app/assets/icons/design.png';
+import box from '@/app/assets/icons/box.png';
 
 const renderIcon = (type: string, className = "w-5 h-5") => {
   switch (type) {
@@ -37,94 +37,94 @@ const renderIcon = (type: string, className = "w-5 h-5") => {
 
 const allProducts = [
   {
-    id: 'zirconia',
+    id: 'zirconia-crowns',
     name: 'Zirconia Crowns',
     cat: 'Crown & Bridge',
     label: 'ZIRCONIA',
     desc: 'High-strength, natural-looking zirconia crowns. Sub-30µm precision guaranteed on every single case.',
     linkText: 'Explore →',
-    linkUrl: '/products/zirconia',
+    linkUrl: '/products/zirconia-crowns',
     img: imgZirconia,
   },
   {
-    id: 'allonx',
+    id: 'all-on-x-hybrids',
     name: 'All-on-X Hybrids',
     cat: 'Implant Solutions',
     label: 'ALL-ON-X',
     desc: 'Full-arch implant restorations — All-on-4, All-on-6, and custom hybrid frameworks milled in-house.',
     linkText: 'Explore →',
-    linkUrl: '/products/allonx',
+    linkUrl: '/products/all-on-x-hybrids',
     img: imgAllOnX,
   },
   {
-    id: 'emax',
+    id: 'e-max-restorations',
     name: 'e.max & PFM',
     cat: 'Ceramics',
     label: 'E.MAX CERAMIC',
     desc: 'Lithium disilicate and porcelain-fused-to-metal for unmatched aesthetics in every case.',
     linkText: 'Explore →',
-    linkUrl: '/products/emax',
+    linkUrl: '/products/e-max-restorations',
     img: imgEmax,
   },
   {
-    id: 'nightguard',
+    id: 'night-guards',
     name: 'Splints & Guards',
     cat: 'Appliances',
     label: 'NIGHT GUARD',
     desc: 'Custom-milled night guards and splints for bruxism and TMJ protection.',
     linkText: 'Explore →',
-    linkUrl: '/products/nightguard',
+    linkUrl: '/products/night-guards',
     img: imgNightGuard,
   },
   {
-    id: 'surgicalguide',
+    id: 'surgical-guides',
     name: 'Surgical Guides',
     cat: 'Implant Solutions',
     label: 'SURGICAL GUIDE',
     desc: 'CBCT-based digitally planned surgical guides for precise implant placement.',
     linkText: 'Explore →',
-    linkUrl: '/products/surgicalguide',
+    linkUrl: '/products/surgical-guides',
     img: imgSurgicalGuide,
   },
   {
-    id: 'pfmcrown',
+    id: 'pfm-crowns',
     name: 'PFM Crowns',
     cat: 'Ceramics',
     label: 'PFM CROWN',
     desc: 'Porcelain-fused-to-metal crowns offering durable strength with excellent aesthetics.',
     linkText: 'Explore →',
-    linkUrl: '/products/pfmcrown',
+    linkUrl: '/products/pfm-crowns',
     img: imgPFM,
   },
   {
-    id: 'models',
+    id: 'printed-models-dies',
     name: 'Printed Models & Dies',
     cat: 'Models & Dies',
     label: 'MODELS',
     desc: 'High-accuracy 3D-printed study models for planning and communication.',
     linkText: 'Explore →',
-    linkUrl: '/products/models',
+    linkUrl: '/products/printed-models-dies',
     img: imgModels,
   }
 ];
 
 const renderProductCard = (p: any, isCarousel = false) => {
   return (
-    <div key={p.id} className={`bg-white border border-[#dde6f5] rounded-xl overflow-hidden hover:shadow-premium hover:-translate-y-1.5 transition-all duration-300 flex flex-col group ${isCarousel ? 'w-[280px] shrink-0 snap-start scroll-mx-8' : 'w-full'}`}>
+    <div key={p.id} className={`bg-blue-pale/40 border border-blue-200/50 rounded-xl overflow-hidden hover:shadow-premium hover:-translate-y-1.5 hover:bg-blue-pale/60 hover:border-blue-300/80 transition-all duration-300 flex flex-col group ${isCarousel ? 'w-[280px] shrink-0 snap-start scroll-mx-8' : 'w-full'}`}>
       {/* Image/Drawing Box */}
-      <div className="aspect-[4/2.3] bg-gradient-to-br from-navy-50 via-navy-100 to-blue-50 border-b border-[#dde6f5] flex flex-col items-center justify-center relative p-8">
+      <div className="aspect-[4/2.5] bg-gradient-to-b from-white to-blue-pale/35 border-b border-blue-200/50 flex flex-col items-center justify-center relative p-4">
         {/* Top right indicator badge */}
-        <div className="absolute top-5 right-5">
-          <div className="w-8 h-8 rounded-full border border-blue-default/20 bg-white text-blue-default flex items-center justify-center hover:bg-blue-default hover:text-white hover:border-blue-default transition-all duration-300">
+        <div className="absolute top-4 right-4">
+          <div className="w-8 h-8 rounded-full border border-blue-default/20 bg-white text-blue-default flex items-center justify-center hover:bg-blue-default hover:text-white hover:border-blue-default transition-all duration-300 shadow-sm">
             <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
           </div>
         </div>
         {/* Product image */}
-        <div className="flex-grow flex items-center justify-center mt-3 relative w-full">
+        <div className="flex-grow flex items-center justify-center mt-2 relative w-full">
           <Image src={p.img} alt={p.name} fill className="object-contain" sizes={isCarousel ? "(max-width: 768px) 100vw, 33vw" : "(max-width: 768px) 100vw, 50vw"} />
         </div>
         {/* Subtitle label */}
-        <span className="text-[10px] font-bold tracking-[0.2em] text-blue-default/45 uppercase mt-3">{p.label}</span>
+        <span className="text-[10px] font-bold tracking-[0.2em] text-blue-default/45 uppercase mt-2">{p.label}</span>
       </div>
 
       {/* Info Box */}
@@ -501,6 +501,17 @@ export default function Home() {
             {allProducts.map((p) => renderProductCard(p, true))}
             <div className="w-1 shrink-0" />
           </div>
+
+          {/* View More Button */}
+          <div className="mt-12 flex justify-center">
+            <Link 
+              href="/products" 
+              className="inline-flex items-center gap-2 bg-blue-default hover:bg-blue-bright text-white font-bold py-3.5 px-8 rounded-lg text-[0.95rem] transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer shadow-md"
+            >
+              View All Products
+              <ArrowRight size={16} />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -526,7 +537,7 @@ export default function Home() {
                 title: 'Scan & Upload',
                 desc: 'Use any major intraoral scanner. Upload to our portal in under 2 minutes — no shipping impressions ever.',
                 drawing: (
-                  <Image src={scanner} width={70} height={70} alt="Scanner" />
+                  <Image src={scanner} width={100} height={100} alt="Scanner" />
                   //   <svg className="w-20 h-20 text-blue-default/60" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 100 100">
                   //   <rect x="25" y="25" width="50" height="50" rx="6" />
                   //   <rect x="32" y="32" width="36" height="30" rx="3" />
@@ -541,7 +552,7 @@ export default function Home() {
                 title: 'Design & Mill',
                 desc: 'Our certified technicians design your case in leading CAD software, then mill it in-house with exact precision.',
                 drawing: (
-                  <Image src={design} width={70} height={70} alt="Scanner" />
+                  <Image src={design} width={100} height={100} alt="Scanner" />
                   // <svg className="w-20 h-20 text-blue-default/60" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 100 100">
                   //   <rect x="20" y="25" width="60" height="42" rx="4" />
                   //   <path d="M42 67 L35 80 L65 80 L58 67 Z" />
@@ -558,7 +569,7 @@ export default function Home() {
                 title: 'Ship in 5 Days',
                 desc: 'Your restoration ships directly to your practice within 5 business days — guaranteed, all 50 states.',
                 drawing: (
-                  <Image src={box} width={70} height={70} alt="Ship" />
+                  <Image src={box} width={100} height={100} alt="Ship" />
                   // <svg className="w-20 h-20 text-blue-default/60" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 100 100">
                   //   <path d="M50 25 L80 35 L80 65 L50 78 L20 65 L20 35 Z" />
                   //   <path d="M50 25 L50 78" />
@@ -571,9 +582,9 @@ export default function Home() {
               // bg-[#071125]/40
               // bg-gradient-to-b from-[#091535] to-[#040b21]
             ].map((st, i) => (
-              <div key={i} className="relative z-10 bg-white border border-white/5 hover:border-blue-glow/20 rounded-xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col items-center w-[280px] md:w-auto shrink-0 snap-start scroll-mx-8">
+              <div key={i} className="relative z-10 bg-white/5 border border-white/10 hover:border-blue-glow/20 rounded-xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col items-center w-[280px] md:w-auto shrink-0 snap-start scroll-mx-8">
                 {/* Image Box */}
-                <div className="w-full aspect-[1.5/1] bg-gradient-to-br from-navy-50 via-navy-100 to-blue-50 rounded-xl border border-[#dde6f5]  relative flex items-center justify-center mb-8">
+                <div className="w-full aspect-[1.5/1] bg-gradient-to-b from-[#091535] to-[#040b21] rounded-xl border border-white/5  relative flex items-center justify-center mb-8">
                   {/* Step oval badge */}
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-blue-default px-3.5 py-0.5 rounded-full text-[10px] font-bold text-white tracking-widest leading-none shadow-md">
                     {st.step}
@@ -586,7 +597,7 @@ export default function Home() {
                 <div className="w-7 h-[2px] bg-gradient-to-r from-blue to-blue-glow rounded-full mb-3.5" />
 
                 {/* Title */}
-                <h3 className="text-lg font-semibold text-blue-700 mb-2 leading-snug">{st.title}</h3>
+                <h3 className="text-lg font-semibold text-white mb-2 leading-snug">{st.title}</h3>
 
                 {/* Description */}
                 <p className="text-xs text-muted-dark leading-relaxed max-w-[220px] md:max-w-[150px]">{st.desc}</p>
@@ -597,47 +608,47 @@ export default function Home() {
           </div>
 
           {/* Bottom Bar: 4 highlight items */}
-          <div className="border-t border-white/5 pt-4 mt-16 flex overflow-x-auto snap-x snap-mandatory md:-mx-8 px-8 gap-6 w-full md:mx-0 md:px-0 md:flex-row md:items-center md:justify-between">
+          <div className="border-t border-white/20 pt-4 mt-16 flex overflow-x-auto snap-x snap-mandatory md:-mx-8 px-8 gap-6 w-full md:mx-0 md:px-0 md:flex-row md:items-center md:justify-between">
             {/* Start spacer for scroll spacing on mobile */}
             <div className="w-1 shrink-0 md:hidden" />
             
             {/* Item 1 */}
-            <div className="flex items-center gap-3.5 md:flex-1 justify-center md:justify-start shrink-0 snap-start scroll-mx-8 w-[160px] md:w-auto">
+            <div className="flex items-center gap-3.5 md:flex-1 justify-center md:justify-center shrink-0 snap-start scroll-mx-8 w-[160px] md:w-auto">
               <Clock className="w-5 h-5 text-blue-default shrink-0" strokeWidth={2} />
-              <div className="text-left text-xs font-semibold text-white/90 leading-tight">
+              <div className="text-center text-xs font-semibold text-white/90 leading-tight">
                 No shipping <span className="block text-white/50 font-normal mt-0.5">impressions</span>
               </div>
             </div>
 
             {/* Divider */}
-            <div className="hidden md:block w-px h-12 bg-white/10 shrink-0" />
+            <div className="hidden md:block w-px h-12 bg-white/20 shrink-0" />
 
             {/* Item 2 */}
-            <div className="flex items-center gap-3.5 md:flex-1 justify-center md:justify-start shrink-0 snap-start scroll-mx-8 w-[160px] md:w-auto">
+            <div className="flex items-center gap-3.5 md:flex-1 justify-center md:justify-center shrink-0 snap-start scroll-mx-8 w-[160px] md:w-auto">
               <ShieldCheck className="w-5 h-5 text-blue-default shrink-0" strokeWidth={2} />
-              <div className="text-left text-xs font-semibold text-white/90 leading-tight">
+              <div className="text-center text-xs font-semibold text-white/90 leading-tight">
                 Certified <span className="block text-white/50 font-normal mt-0.5">technicians</span>
               </div>
             </div>
 
             {/* Divider */}
-            <div className="hidden md:block w-px h-12 bg-white/10 shrink-0" />
+            <div className="hidden md:block w-px h-12 bg-white/20 shrink-0" />
 
             {/* Item 3 */}
-            <div className="flex items-center gap-3.5 md:flex-1 justify-center md:justify-start shrink-0 snap-start scroll-mx-8 w-[160px] md:w-auto">
+            <div className="flex items-center gap-3.5 md:flex-1 justify-center md:justify-center shrink-0 snap-start scroll-mx-8 w-[160px] md:w-auto">
               <Clock className="w-5 h-5 text-blue-default shrink-0" strokeWidth={2} />
-              <div className="text-left text-xs font-semibold text-white/90 leading-tight">
+              <div className="text-center text-xs font-semibold text-white/90 leading-tight">
                 Consistent <span className="block text-white/50 font-normal mt-0.5">turnarounds</span>
               </div>
             </div>
 
             {/* Divider */}
-            <div className="hidden md:block w-px h-12 bg-white/10 shrink-0" />
+            <div className="hidden md:block w-px h-12 bg-white/20 shrink-0" />
 
             {/* Item 4 */}
-            <div className="flex items-center gap-3.5 md:flex-1 justify-center md:justify-start shrink-0 snap-start scroll-mx-8 w-[160px] md:w-auto">
+            <div className="flex items-center gap-3.5 md:flex-1 justify-center md:justify-center shrink-0 snap-start scroll-mx-8 w-[160px] md:w-auto">
               <MapPin className="w-5 h-5 text-blue-default shrink-0" strokeWidth={2} />
-              <div className="text-left text-xs font-semibold text-white/90 leading-tight">
+              <div className="text-center text-xs font-semibold text-white/90 leading-tight">
                 Nationwide <span className="block text-white/50 font-normal mt-0.5">shipping</span>
               </div>
             </div>
@@ -815,7 +826,7 @@ export default function Home() {
             <p className="text-sm text-gray-500 leading-relaxed mb-8">
               Have more questions? Our team is available 7 days a week — call, email, or chat anytime.
             </p>
-            <Link href="/callback" className="inline-block bg-blue-default hover:bg-blue-bright text-white font-semibold py-3 px-6 rounded-lg text-[0.92rem] transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
+            <Link href="/contact-details" className="inline-block bg-blue-default hover:bg-blue-bright text-white font-semibold py-3 px-6 rounded-lg text-[0.92rem] transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
               Contact Support
             </Link>
           </div>
@@ -865,12 +876,14 @@ export default function Home() {
               <a href="https://synergy.greatlab.io/login" target="_blank" rel="noopener noreferrer" className="inline-block bg-white hover:bg-gray-50 text-blue-600 font-semibold py-3.5 px-8 rounded-lg text-[0.95rem] shadow-lg transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer text-center">
                 Send Digital Scan →
               </a>
-              <button
-                onClick={triggerShipping}
+              <a
+                href="https://synergy.greatlab.io/login"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block bg-transparent hover:bg-white/6 text-white font-semibold py-3.5 px-6 rounded-lg text-[0.92rem] border border-white/20 transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
               >
                 Open The Portal
-              </button>
+              </a>
             </div>
 
             <div className="w-full h-px bg-white/12 mb-10" />

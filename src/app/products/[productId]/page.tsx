@@ -10,14 +10,55 @@ import imgSurgical from '@/app/assets/products/surgical-guides.png';
 import imgNightGuard from '@/app/assets/products/night-gaurds.png';
 import imgModels from '@/app/assets/products/printed-models.png';
 
+import imgZirconiaHybridCustomAbutment from '@/app/assets/products/new-zirconia-hybrid-custom-abutment-poster.png';
+import imgWaxUp from '@/app/assets/products/wax_up_poster.png';
+import imgTitaniumCustomAbutments from '@/app/assets/products/new-titanium-custom-abutments-poster.png';
+import imgFullContourZirconia from '@/app/assets/products/full-contour-zirconia-poster.png';
+import imgAcrylicDenture from '@/app/assets/products/new-acrylic-denture-poster.png';
+import imgAcrylicPartial from '@/app/assets/products/acrylic-partial-poster.png';
+import imgPartialMetalFramework from '@/app/assets/products/partial_metal_framework_poster.png';
+import imgTemporaries from '@/app/assets/products/Temporaries-poster.png';
+import imgScrewRetainedZirconiaBridge from '@/app/assets/products/updated_screw_retained_zirconia_bridge_poster.png';
+import imgScrewRetainedPMMABridge from '@/app/assets/products/pmma_screw_retained_hybrid_poster.png';
+import imgProcessImplantAcrylicDenture from '@/app/assets/products/updated_process_Implant_poster.png';
+import imgPorcelainFusedToZirconia from '@/app/assets/products/Porcelain-Fused-to-Zirconia-poster-1.png';
+import imgMillableFlexiblePartials from '@/app/assets/products/rpd_flexi_poster.png';
+import imgScrewmentableCrownAbutmentWithScrewChannelCrown from '@/app/assets/products/new-screwmentable-crown-poster-1.png';
+import imgZirconiaScrewRetainedCrownWithTiBase from '@/app/assets/products/zirconia_screw_retained_crown_w_ti_base_poster-1.png';
+import imgFlexiblePartials from '@/app/assets/products/rpd_flexi_poster.png';
+import imgZirconiaHybrid from '@/app/assets/products/zirconia_hybrid_poster.png';
+import imgScrewRetainedBridge from '@/app/assets/products/updated_screw_retained_bridge_poster.png';
+import imgTemporaryBridge from '@/app/assets/products/updated_temporary_bridge_poster.png';
+import imgScrewmentable from '@/app/assets/products/screwmentable-1.png-1.png';
+
 const PRODUCT_IMAGES: Record<string, StaticImageData> = {
-  zirconia: imgZirconia,
-  allonx: imgAllOnX,
-  emax: imgEmax,
-  pfm: imgPFM,
-  surgical: imgSurgical,
-  nightguard: imgNightGuard,
-  models: imgModels,
+  'zirconia-crowns': imgZirconia,
+  'all-on-x-hybrids': imgAllOnX,
+  'e-max-restorations': imgEmax,
+  'pfm-crowns': imgPFM,
+  'surgical-guides': imgSurgical,
+  'night-guards': imgNightGuard,
+  'printed-models-dies': imgModels,
+  'zirconia-hybrid-custom-abutment': imgZirconiaHybridCustomAbutment,
+  'wax-up': imgWaxUp,
+  'titanium-custom-abutments': imgTitaniumCustomAbutments,
+  'full-contour-zirconia': imgFullContourZirconia,
+  'acrylic-denture': imgAcrylicDenture,
+  'acrylic-partial': imgAcrylicPartial,
+  'partial-metal-framework': imgPartialMetalFramework,
+  'temporaries': imgTemporaries,
+  'screw-retained-zirconia-bridge': imgScrewRetainedZirconiaBridge,
+  'screw-retained-pmma-bridge': imgScrewRetainedPMMABridge,
+  'process-implant-acrylic-denture': imgProcessImplantAcrylicDenture,
+  'porcelain-fused-to-zirconia': imgPorcelainFusedToZirconia,
+  'millable-flexible-partials': imgMillableFlexiblePartials,
+  'screwmentable-crown-abutment-with-screw-channel-crown': imgScrewmentableCrownAbutmentWithScrewChannelCrown,
+  'zirconia-screw-retained-crown-with-ti-base': imgZirconiaScrewRetainedCrownWithTiBase,
+  'flexible-partials': imgFlexiblePartials,
+  'zirconia-hybrid': imgZirconiaHybrid,
+  'screw-retained-bridge': imgScrewRetainedBridge,
+  'temporary-bridge': imgTemporaryBridge,
+  'screwmentable': imgScrewmentable,
 };
 
 interface ProductPageProps {
@@ -50,6 +91,37 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     const img = PRODUCT_IMAGES[rid];
     if (!img) return null;
     return <Image src={img} alt={rid} fill className="object-contain p-2" sizes="56px" />;
+  };
+
+  const renderRelatedCard = (rid: string, isCarousel = false) => {
+    const rp = PRODUCTS[rid];
+    if (!rp) return null;
+    const img = PRODUCT_IMAGES[rid];
+    return (
+      <Link
+        key={rid}
+        href={`/products/${rid}`}
+        className={`bg-white border border-border-light rounded-2xl p-5 hover:shadow-premium hover:-translate-y-1.5 hover:border-blue/25 transition-all duration-300 flex flex-col gap-4 cursor-pointer group ${
+          isCarousel ? 'w-[260px] shrink-0 snap-start scroll-mx-8' : 'w-full'
+        }`}
+      >
+        <div className="aspect-[4/3] w-full bg-gray-50 border border-border-light rounded-xl flex items-center justify-center relative overflow-hidden p-2 shrink-0">
+          {img && (
+            <Image
+              src={img}
+              alt={rp.name}
+              fill
+              className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+              sizes={isCarousel ? "(max-width: 768px) 100vw, 33vw" : "(max-width: 768px) 100vw, 33vw"}
+            />
+          )}
+        </div>
+        <div className="flex flex-col">
+          <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-blue-700 mb-1">{rp.cat}</span>
+          <h3 className="text-[1rem] font-semibold text-navy-text group-hover:text-blue transition-colors line-clamp-1">{rp.name}</h3>
+        </div>
+      </Link>
+    );
   };
   const renderTagline = (text: string) => {
     const parts = text.split(/(<em>|<\/em>)/g);
@@ -157,7 +229,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 <line x1="12" y1="8" x2="12" y2="12" />
                 <line x1="12" y1="16" x2="12.01" y2="16" />
               </svg>
-              Questions? Call us at <strong>&nbsp;+ 8454471807</strong> — 7 days a week.
+              Questions? Call us at <strong>&nbsp;+1 8454471807</strong> — 7 days a week.
             </p>
 
             <div className="border-t border-border-light pt-8 mt-2">
@@ -176,28 +248,20 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
       </section>
 
       {/* Related Products Section */}
-      <section className="bg-off-white py-20 border-t border-border-light text-navy-text">
+      <section className="bg-off-white py-12 md:py-20 border-t border-border-light text-navy-text">
         <div className="max-w-[1140px] mx-auto px-8 md:px-16">
           <h2 className="font-serif text-3xl font-bold text-navy-text mb-9">You might also need</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {product.related.map((rid) => {
-              const rp = PRODUCTS[rid];
-              return (
-                <Link 
-                  key={rid}
-                  href={`/products/${rid}`}
-                  className="bg-white border-1.5 border-border-light rounded-2xl p-6 hover:shadow-premium hover:-translate-y-1 hover:border-blue/25 transition-all flex gap-4 items-center cursor-pointer group"
-                >
-                  <div className="w-14 h-14 bg-gray-50 border border-border-light rounded-xl flex items-center justify-center shrink-0 relative overflow-hidden">
-                    {getSmallVisual(rid)}
-                  </div>
-                  <div>
-                    <div className="text-[0.68rem] font-bold tracking-[0.1em] uppercase text-blue mb-1">{rp.cat}</div>
-                    <div className="text-[0.95rem] font-semibold text-navy-text group-hover:text-blue transition-colors line-clamp-1">{rp.name}</div>
-                  </div>
-                </Link>
-              );
-            })}
+          
+          {/* Desktop View */}
+          <div className="hidden md:grid grid-cols-3 gap-5">
+            {product.related.map((rid) => renderRelatedCard(rid, false))}
+          </div>
+
+          {/* Mobile View (Carousel) */}
+          <div className="flex md:hidden overflow-x-auto snap-x snap-mandatory pb-6 gap-5 -mx-8 px-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="w-1 shrink-0" />
+            {product.related.map((rid) => renderRelatedCard(rid, true))}
+            <div className="w-1 shrink-0" />
           </div>
         </div>
       </section>

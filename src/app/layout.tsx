@@ -7,6 +7,7 @@ import ShippingLabelModal from '@/components/modals/ShippingLabelModal';
 import VideoModal from '@/components/modals/VideoModal';
 import EpisodeUnlockModal from '@/components/modals/EpisodeUnlockModal';
 import { cn } from "@/lib/utils";
+import Script from 'next/script';
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -41,6 +42,12 @@ export default function RootLayout({
         <ShippingLabelModal />
         <VideoModal />
         <EpisodeUnlockModal />
+        <Script
+            type="text/javascript"
+            src="https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js"
+            id="aisensy-wa-widget"
+            widget-id="aab24h"
+        />
       </body>
     </html>
   );

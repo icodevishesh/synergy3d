@@ -13,6 +13,27 @@ import imgSurgical from '@/app/assets/products/surgical-guides.png';
 import imgNightGuard from '@/app/assets/products/night-gaurds.png';
 import imgModels from '@/app/assets/products/printed-models.png';
 
+import imgZirconiaHybridCustomAbutment from '@/app/assets/products/new-zirconia-hybrid-custom-abutment-poster.png';
+import imgWaxUp from '@/app/assets/products/wax_up_poster.png';
+import imgTitaniumCustomAbutments from '@/app/assets/products/new-titanium-custom-abutments-poster.png';
+import imgFullContourZirconia from '@/app/assets/products/full-contour-zirconia-poster.png';
+import imgAcrylicDenture from '@/app/assets/products/new-acrylic-denture-poster.png';
+import imgAcrylicPartial from '@/app/assets/products/acrylic-partial-poster.png';
+import imgPartialMetalFramework from '@/app/assets/products/partial_metal_framework_poster.png';
+import imgTemporaries from '@/app/assets/products/Temporaries-poster.png';
+import imgScrewRetainedZirconiaBridge from '@/app/assets/products/updated_screw_retained_zirconia_bridge_poster.png';
+import imgScrewRetainedPMMABridge from '@/app/assets/products/pmma_screw_retained_hybrid_poster.png';
+import imgProcessImplantAcrylicDenture from '@/app/assets/products/updated_process_Implant_poster.png';
+import imgPorcelainFusedToZirconia from '@/app/assets/products/Porcelain-Fused-to-Zirconia-poster-1.png';
+import imgMillableFlexiblePartials from '@/app/assets/products/rpd_flexi_poster.png';
+import imgScrewmentableCrownAbutmentWithScrewChannelCrown from '@/app/assets/products/new-screwmentable-crown-poster-1.png';
+import imgZirconiaScrewRetainedCrownWithTiBase from '@/app/assets/products/zirconia_screw_retained_crown_w_ti_base_poster-1.png';
+import imgFlexiblePartials from '@/app/assets/products/rpd_flexi_poster.png';
+import imgZirconiaHybrid from '@/app/assets/products/zirconia_hybrid_poster.png';
+import imgScrewRetainedBridge from '@/app/assets/products/updated_screw_retained_bridge_poster.png';
+import imgTemporaryBridge from '@/app/assets/products/updated_temporary_bridge_poster.png';
+import imgScrewmentable from '@/app/assets/products/screwmentable-1.png-1.png';
+
 export default function ProductsPage() {
   const [filter, setFilter] = useState<'all' | 'crowns' | 'implants' | 'appliances'>('all');
 
@@ -24,13 +45,33 @@ export default function ProductsPage() {
   ];
 
   const productCards = [
-    { id: 'zirconia', filterCat: 'crowns', label: 'Crown & Bridge', desc: 'High-strength zirconia crowns milled to sub-30µm precision. Delivered in 5 days.', img: imgZirconia },
-    { id: 'allonx', filterCat: 'implants', label: 'Implant Solutions', desc: 'Full-arch implant restorations — All-on-4, All-on-6, and custom hybrid frameworks.', img: imgAllOnX },
-    { id: 'emax', filterCat: 'crowns', label: 'Ceramics', desc: 'Lithium disilicate for unmatched translucency and strength in anterior and posterior cases.', img: imgEmax },
-    { id: 'pfm', filterCat: 'crowns', label: 'Ceramics', desc: 'Porcelain-fused-to-metal crowns offering durable strength with excellent aesthetics.', img: imgPFM },
-    { id: 'surgical', filterCat: 'implants', label: 'Implant Solutions', desc: 'CBCT-based digitally planned implant surgical guides for precise, predictable placement.', img: imgSurgical },
-    { id: 'nightguard', filterCat: 'appliances', label: 'Appliances', desc: 'Custom-milled hard and soft night guards for bruxism and TMJ protection.', img: imgNightGuard },
-    { id: 'models', filterCat: 'appliances', label: 'Models & Dies', desc: 'High-accuracy 3D-printed study models and working dies for planning and fabrication.', img: imgModels }
+    { id: 'zirconia-crowns', filterCat: 'crowns', label: 'Crown & Bridge', desc: 'High-strength zirconia crowns milled to sub-30µm precision. Delivered in 5 days.', img: imgZirconia },
+    { id: 'all-on-x-hybrids', filterCat: 'implants', label: 'Implant Solutions', desc: 'Full-arch implant restorations — All-on-4, All-on-6, and custom hybrid frameworks.', img: imgAllOnX },
+    { id: 'e-max-restorations', filterCat: 'crowns', label: 'Ceramics', desc: 'Lithium disilicate for unmatched translucency and strength in anterior and posterior cases.', img: imgEmax },
+    { id: 'pfm-crowns', filterCat: 'crowns', label: 'Ceramics', desc: 'Porcelain-fused-to-metal crowns offering durable strength with excellent aesthetics.', img: imgPFM },
+    { id: 'surgical-guides', filterCat: 'implants', label: 'Implant Solutions', desc: 'CBCT-based digitally planned implant surgical guides for precise, predictable placement.', img: imgSurgical },
+    { id: 'night-guards', filterCat: 'appliances', label: 'Appliances', desc: 'Custom-milled hard and soft night guards for bruxism and TMJ protection.', img: imgNightGuard },
+    { id: 'printed-models-dies', filterCat: 'appliances', label: 'Models & Dies', desc: 'High-accuracy 3D-printed study models and working dies for planning and fabrication.', img: imgModels },
+    { id: 'zirconia-hybrid-custom-abutment', filterCat: 'implants', label: 'Implant Solutions', desc: 'Combine titanium strength with zirconia aesthetics for bespoke restorations.', img: imgZirconiaHybridCustomAbutment },
+    { id: 'wax-up', filterCat: 'appliances', label: 'Models & Dies', desc: 'Preparatory models for fit, form, and aesthetic verification prior to fabrication.', img: imgWaxUp },
+    { id: 'titanium-custom-abutments', filterCat: 'implants', label: 'Implant Solutions', desc: 'Custom-designed titanium abutments for a stable base and custom fit.', img: imgTitaniumCustomAbutments },
+    { id: 'full-contour-zirconia', filterCat: 'crowns', label: 'Ceramics', desc: 'Highest strength ceramic restoration, ideal for bruxers and grinders.', img: imgFullContourZirconia },
+    { id: 'acrylic-denture', filterCat: 'appliances', label: 'Appliances', desc: 'Durable, moldable full dentures that adapt comfortably over time.', img: imgAcrylicDenture },
+    { id: 'acrylic-partial', filterCat: 'appliances', label: 'Appliances', desc: 'Low-cost and practical partial denture solution for missing teeth.', img: imgAcrylicPartial },
+    { id: 'partial-metal-framework', filterCat: 'appliances', label: 'Appliances', desc: 'Detachable partial dentures on a solid base of high-quality alloys.', img: imgPartialMetalFramework },
+    { id: 'temporaries', filterCat: 'crowns', label: 'Crown & Bridge', desc: 'Interim crowns, bridges, and dentures for functional aesthetics.', img: imgTemporaries },
+    { id: 'screw-retained-zirconia-bridge', filterCat: 'implants', label: 'Implant Solutions', desc: 'Full arch zirconia bridge combining exceptional strength and beauty.', img: imgScrewRetainedZirconiaBridge },
+    { id: 'screw-retained-pmma-bridge', filterCat: 'implants', label: 'Implant Solutions', desc: 'Full-arch PMMA bridge, flexible and highly resistant to wear.', img: imgScrewRetainedPMMABridge },
+    { id: 'process-implant-acrylic-denture', filterCat: 'implants', label: 'Implant Solutions', desc: 'Acrylic dentures with implant attachments for custom, stable fit.', img: imgProcessImplantAcrylicDenture },
+    { id: 'porcelain-fused-to-zirconia', filterCat: 'crowns', label: 'Ceramics', desc: 'Combine zirconia durability with premium feldspathic porcelain aesthetics.', img: imgPorcelainFusedToZirconia },
+    { id: 'millable-flexible-partials', filterCat: 'appliances', label: 'Appliances', desc: 'Novel lightweight partial dentures combining flexibility and strength.', img: imgMillableFlexiblePartials },
+    { id: 'screwmentable-crown-abutment-with-screw-channel-crown', filterCat: 'implants', label: 'Implant Solutions', desc: 'Secure titanium abutments combined with retrievable screw channel crowns.', img: imgScrewmentableCrownAbutmentWithScrewChannelCrown },
+    { id: 'zirconia-screw-retained-crown-with-ti-base', filterCat: 'implants', label: 'Implant Solutions', desc: 'Zirconia crown on a titanium base for stable, retrievable restorations.', img: imgZirconiaScrewRetainedCrownWithTiBase },
+    { id: 'flexible-partials', filterCat: 'appliances', label: 'Appliances', desc: 'Removable prosthetics flexing to fit without metal clasps.', img: imgFlexiblePartials },
+    { id: 'zirconia-hybrid', filterCat: 'implants', label: 'Implant Solutions', desc: 'Full arch zirconia hybrid combining strength and beautiful aesthetics.', img: imgZirconiaHybrid },
+    { id: 'screw-retained-bridge', filterCat: 'implants', label: 'Implant Solutions', desc: 'Milled bridge providing a secure, stable connection to the jawbone.', img: imgScrewRetainedBridge },
+    { id: 'temporary-bridge', filterCat: 'crowns', label: 'Crown & Bridge', desc: 'Short-term solution matching natural tooth color during healing.', img: imgTemporaryBridge },
+    { id: 'screwmentable', filterCat: 'implants', label: 'Implant Solutions', desc: 'Screw-retained crown designed on a custom abutment for perfect fit.', img: imgScrewmentable }
   ];
 
   const filteredCards = productCards.filter(
@@ -62,14 +103,14 @@ export default function ProductsPage() {
       </section>
 
       {/* Category Filter Bar */}
-      <div className="bg-white border-b border-border-light py-6 text-navy-text sticky top-[60px] z-[20]">
-        <div className="max-w-[1140px] mx-auto px-6 md:px-16 flex items-center justify-between gap-4 flex-wrap">
-          <div className="flex items-center gap-2.5 flex-wrap">
+      <div className="bg-white border-b border-border-light py-4 text-navy-text sticky top-[60px] z-[20]">
+        <div className="max-w-[1140px] mx-auto px-6 md:px-16 flex items-center justify-between gap-4 flex-nowrap md:flex-wrap">
+          <div className="flex items-center gap-2.5 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden flex-nowrap md:flex-wrap w-full md:w-auto pb-1 md:pb-0">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setFilter(cat.id as any)}
-                className={`px-5 py-2 rounded-full border-1.5 font-semibold text-[0.82rem] cursor-pointer transition-all ${
+                className={`shrink-0 px-5 py-2 rounded-full border-1.5 font-semibold text-[0.82rem] cursor-pointer transition-all ${
                   filter === cat.id
                     ? 'bg-blue-default border-blue-default text-white'
                     : 'bg-white border-border-light text-gray-500 hover:border-gray-300 hover:text-navy-text'
@@ -79,7 +120,7 @@ export default function ProductsPage() {
               </button>
             ))}
           </div>
-          <span className="text-sm text-gray-500 font-semibold" id="filter-count">
+          <span className="text-sm text-gray-500 font-semibold hidden md:inline-block" id="filter-count">
             {filteredCards.length} product{filteredCards.length !== 1 ? 's' : ''}
           </span>
         </div>
@@ -94,10 +135,10 @@ export default function ProductsPage() {
               return (
                 <div
                   key={card.id}
-                  className="reveal bg-white border-2 border-blue-200/40 hover:border-blue-700/30 rounded-2xl overflow-hidden hover:shadow-premium hover:-translate-y-1.5 transition-all duration-300 relative cursor-pointer flex flex-col group"
+                  className="reveal bg-blue-pale/40 border border-blue-200/50 hover:border-blue-300/80 rounded-2xl overflow-hidden hover:shadow-premium hover:-translate-y-1.5 hover:bg-blue-pale/60 transition-all duration-300 relative cursor-pointer flex flex-col group"
                 >
                   <Link href={`/products/${card.id}`} className="absolute inset-0 z-[5]" />
-                  <div className="aspect-[4/3] bg-white border-b border-gray-200 flex items-center justify-center p-8 relative overflow-hidden shrink-0">
+                  <div className="aspect-[4/3] bg-gradient-to-b from-white to-blue-pale/35 border-b border-blue-200/50 flex items-center justify-center p-8 relative overflow-hidden shrink-0">
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_70%_at_50%_50%,rgba(224,234,255,0.5)_0%,transparent_75%)]" />
                     <div className="w-full h-full absolute inset-0 transition-transform group-hover:scale-105 duration-300 p-8">
                       <Image src={card.img} alt={prod.name} fill className="object-contain p-8" sizes="(max-width: 768px) 100vw, 33vw" />
@@ -111,7 +152,7 @@ export default function ProductsPage() {
                       View details <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
                     </span>
                   </div>
-                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full border-1.5 border border-blue-200/40 flex items-center justify-center text-blue-900/80 group-hover:bg-blue-600/10 group-hover:border-blue group-hover:text-blue-600 transition-all group-hover:rotate-[-45deg] duration-250">
+                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full border border-blue-default/20 bg-white text-blue-default flex items-center justify-center hover:bg-blue-default hover:text-white hover:border-blue-default transition-all duration-300 shadow-sm z-[10] group-hover:rotate-[-45deg] duration-250">
                     <ArrowRight size={14} />
                   </div>
                 </div>

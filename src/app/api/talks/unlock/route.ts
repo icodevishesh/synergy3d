@@ -86,7 +86,7 @@ export async function POST(req: Request) {
 
       await resend.emails.send({
         from: `Synergy 3D Notifications <${sender}>`,
-        to: "info@synergy3d.net",
+        to: "enricoromano@synergy3d.net",
         subject: `🔓 SynergyTalks Episode Unlocked: ${name} — ${practice}`,
         html,
       });

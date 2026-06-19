@@ -380,7 +380,7 @@ export default function WebinarsPage() {
           <h2 className="font-serif text-2xl font-bold text-navy-text mb-6">All Sessions</h2>
 
           {filtered.length === 0 ? (
-            <section className="bg-white py-20 text-center">
+            <section className="bg-white py-12 md:py-20 text-center">
           <div className="max-w-md mx-auto px-6 flex flex-col items-center">
             <div className="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center mb-6 text-gray-400 border border-gray-100">
               <Video size={24}/>

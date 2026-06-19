@@ -112,7 +112,7 @@ export async function sendLabelEmail({
   try {
     await resend.emails.send({
       from: `Synergy3D Notifications <${process.env.EMAIL_FROM}>`,
-      to: "info@synergy3d.net",
+      to: "labels@synergy3d.net ",
       subject: `New UPS Label Generated — ${practiceName} (#${trackingNumber})`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 500px;">
