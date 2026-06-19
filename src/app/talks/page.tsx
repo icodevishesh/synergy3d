@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { Mic } from 'lucide-react';
+import { useDebounce } from '@/lib/hooks/useDebounce';
 
 export default function TalksPage() {
   const [episodes, setEpisodes] = useState<any[]>([]);
@@ -14,6 +15,8 @@ export default function TalksPage() {
   const [search, setSearch] = useState('');
   const [optinUnlocked, setOptinUnlocked] = useState(false);
 
+  const debouncedSearch = useDebounce(search, 300);
+
   useEffect(() => {
     const handleUnlock = () => { setOptinUnlocked(true); };
     window.addEventListener('optin-unlocked', handleUnlock);
@@ -22,26 +25,38 @@ export default function TalksPage() {
     const savedEmail = localStorage.getItem('synergy_talks_email');
     if (savedEmail) setOptinUnlocked(true);
 
+    const abortController = new AbortController();
+
     const fetchData = async () => {
       try {
         const [epsRes, featRes] = await Promise.all([
-          fetch(`/api/talks?t=${Date.now()}`),
-          fetch(`/api/talks/featured?t=${Date.now()}`),
+          fetch(`/api/talks`, { signal: abortController.signal }),
+          fetch(`/api/talks/featured`, { signal: abortController.signal }),
         ]);
-        if (epsRes.ok) setEpisodes(await epsRes.json());
+        if (epsRes.ok) {
+          const epsData = await epsRes.json();
+          if (!abortController.signal.aborted) setEpisodes(epsData);
+        }
         if (featRes.ok) {
           const f = await featRes.json();
-          if (f) setFeatured(f);
+          if (f && !abortController.signal.aborted) setFeatured(f);
         }
-      } catch (e) {
-        console.error(e);
+      } catch (e: any) {
+        if (e.name !== 'AbortError' && !abortController.signal.aborted) {
+          console.error(e);
+        }
       } finally {
-        setIsLoading(false);
+        if (!abortController.signal.aborted) {
+          setIsLoading(false);
+        }
       }
     };
 
     fetchData();
-    return () => window.removeEventListener('optin-unlocked', handleUnlock);
+    return () => {
+      window.removeEventListener('optin-unlocked', handleUnlock);
+      abortController.abort();
+    };
   }, []);
 
   const openUnlockModal = () => {
@@ -64,13 +79,15 @@ export default function TalksPage() {
     { id: 'business', label: 'Business' }
   ];
 
-  const filteredEps = episodes.filter(ep => {
-    const mc = filter === 'all' || ep.cat === filter;
-    const ms = !search || 
-      ep.title.toLowerCase().includes(search.toLowerCase()) || 
-      ep.guest.toLowerCase().includes(search.toLowerCase());
-    return mc && ms;
-  });
+  const filteredEps = useMemo(() => {
+    return episodes.filter(ep => {
+      const mc = filter === 'all' || ep.cat === filter;
+      const ms = !debouncedSearch || 
+        ep.title.toLowerCase().includes(debouncedSearch.toLowerCase()) || 
+        ep.guest.toLowerCase().includes(debouncedSearch.toLowerCase());
+      return mc && ms;
+    });
+  }, [episodes, filter, debouncedSearch]);
 
 
   return (

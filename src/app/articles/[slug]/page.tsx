@@ -57,31 +57,46 @@ export default function ArticleDetailPage() {
   useEffect(() => {
     if (!slug) return;
 
+    const abortController = new AbortController();
+
     const load = async () => {
       try {
-        const res = await fetch(`/api/articles/${slug}`);
-        if (!res.ok) { setIsLoading(false); return; }
-        const data = await res.json();
-        setArticle(data);
-
-        const allRes = await fetch('/api/articles');
-        if (allRes.ok) {
-          const all: Article[] = await allRes.json();
-          setRelated(
-            all
-              .filter(a => a.slug !== slug)
-              .sort(() => 0.5 - Math.random())
-              .slice(0, 3)
-          );
+        const res = await fetch(`/api/articles/${slug}`, { signal: abortController.signal });
+        if (!res.ok) { 
+          if (!abortController.signal.aborted) setIsLoading(false); 
+          return; 
         }
-      } catch {
-        // ignore
+        const data = await res.json();
+        if (!abortController.signal.aborted) {
+          setArticle(data);
+        }
+
+        const relatedRes = await fetch(
+          `/api/articles?excludeSlug=${slug}&limit=3&select=title,slug,readDuration,date,category,imageUrl`,
+          { signal: abortController.signal }
+        );
+        if (relatedRes.ok) {
+          const relatedData = await relatedRes.json();
+          if (!abortController.signal.aborted) {
+            setRelated(relatedData);
+          }
+        }
+      } catch (err: any) {
+        if (err.name !== 'AbortError' && !abortController.signal.aborted) {
+          console.error(err);
+        }
       } finally {
-        setIsLoading(false);
+        if (!abortController.signal.aborted) {
+          setIsLoading(false);
+        }
       }
     };
 
     load();
+
+    return () => {
+      abortController.abort();
+    };
   }, [slug]);
 
   if (isLoading) {

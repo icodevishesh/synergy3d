@@ -3,9 +3,7 @@ import { DM_Sans, Playfair_Display, Geist } from 'next/font/google';
 import './globals.css';
 import { LayoutWrapper } from '@/components/layout';
 import RevealObserver from '@/components/layout/RevealObserver';
-import ShippingLabelModal from '@/components/modals/ShippingLabelModal';
-import VideoModal from '@/components/modals/VideoModal';
-import EpisodeUnlockModal from '@/components/modals/EpisodeUnlockModal';
+import ModalsContainer from '@/components/modals/ModalsContainer';
 import { cn } from "@/lib/utils";
 import Script from 'next/script';
 
@@ -39,9 +37,7 @@ export default function RootLayout({
       <body className="bg-navy font-sans text-white antialiased overflow-x-hidden">
         <LayoutWrapper>{children}</LayoutWrapper>
         <RevealObserver />
-        <ShippingLabelModal />
-        <VideoModal />
-        <EpisodeUnlockModal />
+        <ModalsContainer />
         <Script
             type="text/javascript"
             src="https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js"

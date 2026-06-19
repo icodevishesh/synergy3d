@@ -51,7 +51,7 @@ export default async function TeamDetailPage({ params }: TeamPageProps) {
             <div className="flex gap-2 text-[0.8rem] text-white/45 mb-5 justify-center md:justify-start">
               <Link href="/" className="hover:text-white/80">Home</Link>
               <span className="text-white/20">›</span>
-              <Link href="/about" className="hover:text-white/80">About Us</Link>
+              <Link href="/about-us" className="hover:text-white/80">About Us</Link>
               <span className="text-white/20">›</span>
               <span className="text-white/70">{member.name}</span>
             </div>
@@ -139,7 +139,7 @@ export default async function TeamDetailPage({ params }: TeamPageProps) {
               return (
                 <Link
                   key={cid}
-                  href={`/about/${cid}`}
+                  href={`/about-us/${cid}`}
                   className="bg-white border border-border-light rounded-xl p-5 hover:shadow-premium hover:-translate-y-1 hover:border-blue/25 transition-all flex items-center gap-3.5 cursor-pointer group"
                 >
                   <div className="w-11 h-11 rounded-full overflow-hidden bg-navy-light/10 shrink-0 group-hover:scale-105 transition-transform duration-250 select-none relative">
@@ -159,7 +159,7 @@ export default async function TeamDetailPage({ params }: TeamPageProps) {
             })}
 
             <Link
-              href="/about"
+              href="/about-us"
               className="bg-gray-50 border border-dashed border-border-light hover:border-blue/50 rounded-xl p-5 transition-all flex items-center gap-3.5 cursor-pointer group"
             >
               <div className="w-11 h-11 rounded-full bg-white border border-dashed border-border-light text-blue-default flex items-center justify-center text-xl shrink-0 group-hover:bg-blue-default group-hover:text-white transition-colors duration-200">

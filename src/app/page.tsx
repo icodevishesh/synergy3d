@@ -425,7 +425,7 @@ export default function Home() {
                   desc: 'Biocompatible, FDA-cleared restorations. Made in the USA, guaranteed.',
                   iconType: 'shield',
                   linkText: 'Learn more →',
-                  linkUrl: '/about'
+                  linkUrl: '/about-us'
                 },
                 {
                   title: '7-day clinical support',
@@ -765,7 +765,7 @@ export default function Home() {
                 title: 'For Multi-Location Groups',
                 desc: 'Standardize workflows across locations, consolidate lab spend, and unlock volume pricing across your network.',
                 linkText: 'Learn more →',
-                linkUrl: '/about',
+                linkUrl: '/about-us',
                 icon: <Building2 className="w-5 h-5" />
               },
               {
