@@ -42,11 +42,17 @@ export default function RootLayout({
         <ShippingLabelModal />
         <VideoModal />
         <EpisodeUnlockModal />
-        <Script
+        {/* <Script
             type="text/javascript"
             src="https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js"
             id="aisensy-wa-widget"
             widget-id="aab24h"
+        /> */}
+        <script 
+          type="text/javascript"
+          src="https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js"
+          id="aisensy-wa-widget"
+          widget-id="aabhog"
         />
       </body>
     </html>
