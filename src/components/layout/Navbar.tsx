@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, ChevronUp } from 'lucide-react';
 import synergyLogo from '../../../public/synergy3d_logo-new.png'
+import { MapPin } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -44,6 +45,10 @@ export const Navbar: React.FC = () => {
 
   const triggerShipping = () => {
     window.dispatchEvent(new Event('open-shipping-modal'));
+  };
+
+  const triggerTracking = () => {
+    window.dispatchEvent(new Event('open-tracking-modal'));
   };
 
   return (
@@ -139,8 +144,8 @@ export const Navbar: React.FC = () => {
 
         <li>
           <Link
-            href="/about"
-            className={`text-white/75 hover:text-white text-[13px] font-medium px-3 py-2 rounded-md transition-all ${pathname === '/about' ? 'text-white bg-white/6' : ''
+            href="/about-us"
+            className={`text-white/75 hover:text-white text-[13px] font-medium px-3 py-2 rounded-md transition-all ${pathname === '/about-us' ? 'text-white bg-white/6' : ''
               }`}
           >
             About Us
@@ -189,13 +194,15 @@ export const Navbar: React.FC = () => {
               </span>
               Shipping Label
             </a>
-            {/* <div className="h-px bg-[#eef1f8] my-2" />
-            <Link
-              href="/integrations"
-              className="flex items-center gap-2.5 px-5 py-2.5 text-[11px] font-semibold text-[#0a1530] hover:bg-[#f0f5ff] hover:text-blue transition-colors cursor-pointer"
+            <a
+              onClick={triggerTracking}
+              className="flex items-center gap-2.5 px-5 py-2.5 text-[11px] font-medium text-[#374263] hover:bg-[#f0f5ff] hover:text-blue transition-colors cursor-pointer group/item"
             >
+              <span className="flex items-center justify-center w-7.5 h-7.5 bg-[#f0f4fb] rounded-[7px] text-[#6b7a99] shrink-0 group-hover/item:bg-[#dbeafe] group-hover/item:text-blue transition-colors">
+                <MapPin className='w-4 h-4' />
+              </span>
               Track Case
-            </Link> */}
+            </a>
           </div>
         </li>
       </ul>
@@ -306,7 +313,7 @@ export const Navbar: React.FC = () => {
           {/* About Us Link */}
           <div className="border-b border-white/5">
             <Link
-              href="/about"
+              href="/about-us"
               className="block text-white/85 text-[14px] font-semibold py-4 hover:text-white transition-colors"
             >
               About Us
@@ -345,9 +352,12 @@ export const Navbar: React.FC = () => {
                 >
                   Shipping Label
                 </a>
-                {/* <Link href="/integrations" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
+                <a
+                  onClick={triggerTracking}
+                  className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors cursor-pointer"
+                >
                   Track Case
-                </Link> */}
+                </a>
               </div>
             )}
           </div>

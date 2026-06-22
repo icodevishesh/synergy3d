@@ -24,7 +24,7 @@ export const Footer: React.FC = () => {
             <li><Link href="/products/e-max-restorations" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">e.max Restorations</Link></li>
             <li><Link href="/products/pfm-crowns" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">PFM Crowns</Link></li>
             <li><Link href="/products/surgical-guides" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Surgical Guides</Link></li>
-            <li><Link href="/products/night-guards" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Night Gaurds</Link></li>
+            <li><Link href="/products/night-guards" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Night Guards</Link></li>
             <li><Link href="/products/printed-models-dies" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Printed Models & Dies</Link></li>
             <li><Link href="/products" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Explore All Products</Link></li>
           </ul>
@@ -32,7 +32,7 @@ export const Footer: React.FC = () => {
         <div className="flex flex-col">
           <h4 className="text-[0.7rem] font-bold tracking-[0.12em] uppercase text-white mb-5">Company</h4>
           <ul className="list-none flex flex-col gap-3">
-            <li><Link href="/about" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">About Us</Link></li>
+            <li><Link href="/about-us" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">About Us</Link></li>
             <li><Link href="/talks" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">SynergyTalks</Link></li>
             <li><Link href="/articles" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Articles</Link></li>
             <li><Link href="/webinars" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Webinars</Link></li>

@@ -80,7 +80,7 @@ export default function ApplyPage() {
           <div className="flex gap-2 text-[0.78rem] text-white/40 mb-6 justify-center">
             <Link href="/" className="hover:text-white/70 transition-colors">Home</Link>
             <span className="text-white/20">›</span>
-            <Link href="/about" className="hover:text-white/70 transition-colors">About Us</Link>
+            <Link href="/about-us" className="hover:text-white/70 transition-colors">About Us</Link>
             <span className="text-white/20">›</span>
             <span className="text-white/70 font-medium">Join Our Team</span>
           </div>
@@ -262,7 +262,7 @@ export default function ApplyPage() {
                 Thank you for applying to join the Synergy 3D team. We have received your CV and message. Our hiring team will review it and get back to you soon.
               </p>
               <Link
-                href="/about"
+                href="/about-us"
                 className="mt-6 inline-block bg-navy hover:bg-navy-light text-white font-bold py-3.5 px-8 rounded-full text-[0.92rem] transition-all hover:-translate-y-0.5"
               >
                 Back to About Us

@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { UserRound, MessageSquareText  } from 'lucide-react';
 
@@ -45,29 +45,35 @@ export default function CustomerStoriesPage() {
   const [reviewPracticeType, setReviewPracticeType] = useState<PracticeType>('private');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const fetchData = async () => {
+  const fetchData = async (signal?: AbortSignal) => {
     try {
       const [storiesRes, testimonialsRes] = await Promise.all([
-        fetch(`/api/customers?t=${Date.now()}`),
-        fetch(`/api/partners/testimonials?t=${Date.now()}`),
+        fetch(`/api/customers`, { signal }),
+        fetch(`/api/partners/testimonials`, { signal }),
       ]);
       if (storiesRes.ok) {
         const storiesData = await storiesRes.json();
-        setTestimonials(storiesData);
+        if (!signal?.aborted) setTestimonials(storiesData);
       }
       if (testimonialsRes.ok) {
         const testimonialsData = await testimonialsRes.json();
-        setTextTestimonials(testimonialsData);
+        if (!signal?.aborted) setTextTestimonials(testimonialsData);
       }
-    } catch (error) {
-      console.error('Error fetching data:', error);
+    } catch (error: any) {
+      if (error.name !== 'AbortError' && !signal?.aborted) {
+        console.error('Error fetching data:', error);
+      }
     } finally {
-      setIsLoading(false);
+      if (!signal?.aborted) setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchData();
+    const abortController = new AbortController();
+    fetchData(abortController.signal);
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   const handleReviewSubmit = async (e: React.FormEvent) => {
@@ -125,24 +131,25 @@ export default function CustomerStoriesPage() {
     );
   };
 
-  const videoStories = testimonials.filter(t => t.youtubeId);
-  const textStories = [...textTestimonials, ...testimonials.filter(t => !t.youtubeId)];
+  const videoStories = useMemo(() => testimonials.filter(t => t.youtubeId), [testimonials]);
+  const textStories = useMemo(() => [...textTestimonials, ...testimonials.filter(t => !t.youtubeId)], [testimonials, textTestimonials]);
 
-  const filteredVideos = videoStories.filter(
+  const filteredVideos = useMemo(() => videoStories.filter(
     v => filter === 'all' || v.practiceType === filter
-  );
-  const filteredText = textStories.filter(
+  ), [videoStories, filter]);
+  
+  const filteredText = useMemo(() => textStories.filter(
     t => filter === 'all' || t.practiceType === filter
-  );
+  ), [textStories, filter]);
 
-  const totalCount = filteredVideos.length + filteredText.length;
+  const totalCount = useMemo(() => filteredVideos.length + filteredText.length, [filteredVideos, filteredText]);
 
-  const filters: { id: PracticeType; label: string }[] = [
+  const filters = useMemo((): { id: PracticeType; label: string }[] => [
     { id: 'all',     label: 'All Stories' },
     { id: 'private', label: 'Private Practice' },
     { id: 'group',   label: 'Group Practice' },
     { id: 'dso',     label: 'DSO' },
-  ];
+  ], []);
 
   return (
     <div>

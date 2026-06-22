@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { GraduationCap  } from 'lucide-react';
+import { GraduationCap } from 'lucide-react';
+import { useDebounce } from '@/lib/hooks/useDebounce';
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
 
@@ -30,20 +31,33 @@ export default function EducationPage() {
   const [filter, setFilter] = useState<Topic>('all');
   const [search, setSearch] = useState('');
 
+  const debouncedSearch = useDebounce(search, 300);
+
   useEffect(() => {
+    const abortController = new AbortController();
     const fetchResources = async () => {
       try {
-        const res = await fetch('/api/education?sort=latest');
+        const res = await fetch('/api/education?sort=latest', { signal: abortController.signal });
         if (!res.ok) throw new Error('Failed to load resources');
         const data = await res.json();
-        setResources(data);
-      } catch (e) {
-        console.error(e);
+        if (!abortController.signal.aborted) {
+          setResources(data);
+        }
+      } catch (e: any) {
+        if (e.name !== 'AbortError' && !abortController.signal.aborted) {
+          console.error(e);
+        }
       } finally {
-        setIsLoading(false);
+        if (!abortController.signal.aborted) {
+          setIsLoading(false);
+        }
       }
     };
     fetchResources();
+
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   const playVideo = (videoId: string, category: string, title: string) => {
@@ -54,30 +68,34 @@ export default function EducationPage() {
     );
   };
 
-  const topics = [
+  const topics = useMemo(() => [
     { id: 'all',       label: 'All Topics' },
     { id: 'scanning',  label: 'Scanning' },
     { id: 'materials', label: 'Materials' },
-    { id: 'implants',  label: 'Imports' }, // wait, Implants
+    { id: 'implants',  label: 'Implants' },
     { id: 'workflow',  label: 'Workflow' },
-  ];
+  ] as { id: Topic; label: string }[], []);
 
-  // Map to adjust correct label for implants
-  topics[3].label = 'Implants';
+  const featured = useMemo(() => resources.find(r => r.featured), [resources]);
+  
+  const sidebar = useMemo(() => resources.filter(r => !r.featured).slice(0, 3), [resources]);
 
-  const featured = resources.find(r => r.featured);
-  const sidebar   = resources.filter(r => !r.featured).slice(0, 3);
+  const filtered = useMemo(() => {
+    return resources.filter(r => {
+      const matchTopic = filter === 'all' || r.topic === filter;
+      const matchSearch =
+        !debouncedSearch ||
+        r.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        r.desc.toLowerCase().includes(debouncedSearch.toLowerCase());
+      return matchTopic && matchSearch && !r.featured;
+    });
+  }, [resources, filter, debouncedSearch]);
 
-  const filtered = resources.filter(r => {
-    const matchTopic = filter === 'all' || r.topic === filter;
-    const matchSearch =
-      !search ||
-      r.title.toLowerCase().includes(search.toLowerCase()) ||
-      r.desc.toLowerCase().includes(search.toLowerCase());
-    return matchTopic && matchSearch && !r.featured;
-  });
-
-  const resourceCount = filter === 'all' && !search ? resources.length : filtered.length + (featured && (filter === 'all' || filter === featured.topic) ? 1 : 0);
+  const resourceCount = useMemo(() => {
+    return filter === 'all' && !debouncedSearch 
+      ? resources.length 
+      : filtered.length + (featured && (filter === 'all' || filter === featured.topic) ? 1 : 0);
+  }, [resources.length, filtered, featured, filter, debouncedSearch]);
 
 
   return (
