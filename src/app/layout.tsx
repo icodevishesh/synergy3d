@@ -5,7 +5,8 @@ import { LayoutWrapper } from '@/components/layout';
 import RevealObserver from '@/components/layout/RevealObserver';
 import ModalsContainer from '@/components/modals/ModalsContainer';
 import { cn } from "@/lib/utils";
-import Script from 'next/script';
+import { GoogleTagManager } from "@next/third-parties/google";
+import Script from "next/script";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -38,12 +39,13 @@ export default function RootLayout({
         <LayoutWrapper>{children}</LayoutWrapper>
         <RevealObserver />
         <ModalsContainer />
-        <script 
+        <Script 
           type="text/javascript"
           src="https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js"
           id="aisensy-wa-widget"
           widget-id="aabhog"
         />
+        <GoogleTagManager gtmId="GTM-WZMPQCQQ" />
       </body>
     </html>
   );
