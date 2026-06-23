@@ -332,9 +332,8 @@ export default function CallbackPage() {
                 <span className="block text-xs font-extrabold tracking-wider uppercase text-gray-300 mb-4">Business Hours</span>
                 <div className="flex flex-col gap-2.5">
                   {[
-                    { day: 'Monday – Friday', hours: '9am – 6pm EST' },
-                    { day: 'Saturday',        hours: '10am – 2pm EST' },
-                    { day: 'Sunday',          hours: 'Closed' },
+                    { day: 'Monday – Friday', hours: '8am – 6pm EST' },
+                    { day: 'Saturday - Sunday',          hours: 'Closed' },
                   ].map(row => (
                     <div key={row.day} className="flex items-center justify-between">
                       <span className="text-[0.82rem] text-muted-dark">{row.day}</span>

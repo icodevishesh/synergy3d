@@ -165,6 +165,10 @@ export default function UPSShippingModal({ isOpen: controlledIsOpen, onClose: co
           </div>
         ) : (
           <div className="px-6 pb-6 space-y-4">
+            <div className=" py-1 px-2 bg-amber-100 rounded-sm">
+              <p className="text-[10px] text-gray-900 text-start italic">*Please do not send back crowns or any returns for credits, unless pre-authorized by the lab. Labels used for this will be charged to your account.</p>
+            </div>
+
             {/* Row 1 */}
             <div className="grid grid-cols-2 gap-4">
               <div>
