@@ -37,6 +37,7 @@ const initialForm: FormData = {
 
 export default function UPSShippingModal({ isOpen: controlledIsOpen, onClose: controlledOnClose }: UPSShippingModalProps) {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const [step, setStep] = useState<'select' | 'warning' | 'form'>('select');
   const [form, setForm] = useState<FormData>(initialForm);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
@@ -44,6 +45,7 @@ export default function UPSShippingModal({ isOpen: controlledIsOpen, onClose: co
 
   useEffect(() => {
     const handleOpen = () => {
+      setStep('select');
       setInternalIsOpen(true);
       document.body.style.overflow = "hidden";
     };
@@ -113,6 +115,87 @@ export default function UPSShippingModal({ isOpen: controlledIsOpen, onClose: co
     }
   };
 
+  if (step === 'select') {
+    return (
+      <div 
+        className="fixed inset-0 z-[5000] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+        onClick={handleOverlayClick}
+      >
+        <div className="bg-white rounded-xl w-full max-w-sm shadow-2xl p-6 text-gray-900">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-base font-bold text-gray-900">What are you looking for?</h2>
+            <button
+              onClick={handleClose}
+              className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <button 
+              onClick={() => setStep('form')}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-6 rounded-xl text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+            >
+              New Shipment
+            </button>
+            
+            <button 
+              onClick={() => setStep('warning')}
+              className="w-full bg-white hover:bg-gray-50 text-gray-700 font-semibold py-3.5 px-6 rounded-xl text-xs border border-gray-200 transition-colors flex items-center justify-center gap-2 cursor-pointer"
+            >
+              Reverse Shipment
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (step === 'warning') {
+    return (
+      <div 
+        className="fixed inset-0 z-[5000] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+        onClick={handleOverlayClick}
+      >
+        <div className="bg-white rounded-xl w-full max-w-sm shadow-2xl p-6 text-gray-900">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-base font-bold text-gray-900">For Reverse Shipment</h2>
+            <button
+              onClick={handleClose}
+              className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <p className="text-xs text-gray-500 mb-6 leading-relaxed">
+            Labels used for this will be charged to your account if not pre-authorized by the Lab.
+          </p>
+
+          <div className="flex gap-3">
+            <button 
+              onClick={() => setStep('form')}
+              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl text-xs transition-colors flex items-center justify-center cursor-pointer shadow-sm"
+            >
+              Continue Anyway
+            </button>
+            <button 
+              onClick={handleClose}
+              className="flex-1 bg-white hover:bg-gray-50 text-gray-700 font-semibold py-3 px-4 rounded-xl text-xs border border-gray-200 transition-colors flex items-center justify-center cursor-pointer"
+            >
+              Skip
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div 
       className="fixed inset-0 z-[5000] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
@@ -127,9 +210,15 @@ export default function UPSShippingModal({ isOpen: controlledIsOpen, onClose: co
               <Image src={upsLogo} alt="UPS Logo" width={50} height={50} />
             </div>
             <div>
+              <button
+                onClick={() => setStep('select')}
+                className="text-[11px] text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-0.5 mb-1 cursor-pointer font-medium"
+              >
+                ← Back to choices
+              </button>
               <h2 className="text-sm font-bold text-gray-900">Generate a Shipping Label</h2>
               <p className="text-xs text-gray-500 mt-0.5">
-                Pick a carrier and tell us where to send the case. We'll email you a prepaid label.
+                Pick a carrier and tell us where to send the case. We&apos;ll email you a prepaid label.
               </p>
             </div>
           </div>

@@ -154,9 +154,7 @@ export const Navbar: React.FC = () => {
 
         <li>
           <a
-            href="https://synergy.greatlab.io"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/customer-portal"
             className="text-white/75 hover:text-white text-[13px] font-medium px-3 py-2 rounded-md transition-all"
           >
             Customer Portal
@@ -171,7 +169,7 @@ export const Navbar: React.FC = () => {
             <div className="text-[0.68rem] font-bold tracking-widest text-[#aab4ce] px-5 py-1 uppercase">
               Tools
             </div>
-            <a href='https://synergy3d.net/wp-content/uploads/2025/03/synegy-script.pdf' target='_blank' rel='noopener noreferrer' className="flex items-center gap-2.5 px-5 py-2.5 text-[11px] font-medium text-[#374263] hover:bg-[#f0f5ff] hover:text-blue transition-colors cursor-pointer group/item">
+            <a href='/synergy_script.pdf' download="synergy_script.pdf" className="flex items-center gap-2.5 px-5 py-2.5 text-[11px] font-medium text-[#374263] hover:bg-[#f0f5ff] hover:text-blue transition-colors cursor-pointer group/item">
               <span className="flex items-center justify-center w-7.5 h-7.5 bg-[#f0f4fb] rounded-[7px] text-[#6b7a99] shrink-0 group-hover/item:bg-[#dbeafe] group-hover/item:text-blue transition-colors">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -343,7 +341,7 @@ export const Navbar: React.FC = () => {
             </button>
             {mobileQuickExpanded && (
               <div className="pl-4 pb-3 flex flex-col gap-2.5">
-                <a href="https://synergy3d.net/wp-content/uploads/2025/03/synegy-script.pdf" target="_blank" rel="noopener noreferrer" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors cursor-pointer">
+                <a href="/synergy_script.pdf" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors cursor-pointer">
                   Download Rx Form
                 </a>
                 <a
