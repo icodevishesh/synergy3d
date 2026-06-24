@@ -253,9 +253,9 @@ export const Navbar: React.FC = () => {
             </button>
             {mobileLabExpanded && (
               <div className="pl-4 pb-3 flex flex-col gap-2.5">
-                {/* <Link href="/products" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
+                <Link href="/products" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
                   All Products
-                </Link> */}
+                </Link>
                 <Link href="/products/zirconia-crowns" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
                   Zirconia Crowns
                 </Link>
