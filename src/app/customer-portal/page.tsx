@@ -122,9 +122,7 @@ export default function CustomerPortal() {
               
               <div className="flex flex-wrap gap-4">
                 <a 
-                  href="https://synergy.greatlab.io/login" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                  href="/contact-details"
                   className="inline-flex items-center justify-center gap-1.5 bg-blue-default hover:bg-blue-bright text-white font-bold py-3.5 px-6.5 rounded-lg text-[13px] shadow-[0_4px_14px_rgba(30,86,217,0.35)] transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
                 >
                   Create your account
