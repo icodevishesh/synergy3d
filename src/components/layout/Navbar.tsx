@@ -73,40 +73,40 @@ export const Navbar: React.FC = () => {
       <ul className="hidden lg:flex items-center gap-1 list-none">
         <li className="relative group/nav">
           <Link
-            href="/products"
-            className={`text-white/75 hover:text-white text-[13px] font-medium px-3 py-2 rounded-md flex items-center gap-1 transition-all group-hover/nav:bg-white/6 ${pathname.startsWith('/products') ? 'text-white bg-white/6' : ''
+            href="/lab-services"
+            className={`text-white/75 hover:text-white text-[13px] font-medium px-3 py-2 rounded-md flex items-center gap-1 transition-all group-hover/nav:bg-white/6 ${pathname.startsWith('/lab-services') ? 'text-white bg-white/6' : ''
               }`}
           >
             Lab Services <span className="text-[0.6rem] opacity-60">▾</span>
           </Link>
           <div className="absolute top-[calc(100%+10px)] left-0 bg-white rounded-sm shadow-premium border border-black/6 w-[220px] py-2 opacity-0 invisible translate-y-2 group-hover/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0 transition-all duration-220 z-[400]">
             <Link
-            href='/products'
+            href='/lab-services'
             className="block text-[11px] font-bold text-blue-500 tracking-wider uppercase bg-[#eef3ff] px-5 py-2.5 border-b border-[#e2eaf8] mb-1 cursor-pointer">
               Explore all products
             </Link>
             {/* <Link href="/products" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
               All Products
             </Link> */}
-            <Link href="/products/zirconia-crowns" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
+            <Link href="/lab-services/products/zirconia-crowns" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
               Zirconia Crowns
             </Link>
-            <Link href="/products/all-on-x-hybrids" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
+            <Link href="/lab-services/products/all-on-x-hybrids" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
               All-on-X Hybrids
             </Link>
-            <Link href="/products/e-max-restorations" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
+            <Link href="/lab-services/products/e-max-restorations" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
               e.max Restorations
             </Link>
-            <Link href="/products/pfm-crowns" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
+            <Link href="/lab-services/products/pfm-crowns" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
               PFM Crowns
             </Link>
-            <Link href="/products/surgical-guides" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
+            <Link href="/lab-services/products/surgical-guides" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
               Surgical Guides
             </Link>
-            <Link href="/products/night-guards" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
+            <Link href="/lab-services/products/night-guards" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
               Night Guards
             </Link>
-            <Link href="/products/printed-models-dies" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
+            <Link href="/lab-services/products/printed-models-dies" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
               Printed Models & Dies
             </Link>
           </div>
@@ -253,28 +253,28 @@ export const Navbar: React.FC = () => {
             </button>
             {mobileLabExpanded && (
               <div className="pl-4 pb-3 flex flex-col gap-2.5">
-                <Link href="/products" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
+                <Link href="/lab-services" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
                   All Products
                 </Link>
-                <Link href="/products/zirconia-crowns" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
+                <Link href="/lab-services/products/zirconia-crowns" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
                   Zirconia Crowns
                 </Link>
-                <Link href="/products/all-on-x-hybrids" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
+                <Link href="/lab-services/products/all-on-x-hybrids" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
                   All-on-X Hybrids
                 </Link>
-                <Link href="/products/e-max-restorations" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
+                <Link href="/lab-services/products/e-max-restorations" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
                   e.max Restorations
                 </Link>
-                <Link href="/products/pfm-crowns" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
+                <Link href="/lab-services/products/pfm-crowns" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
                   PFM Crowns
                 </Link>
-                <Link href="/products/surgical-guides" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
+                <Link href="/lab-services/products/surgical-guides" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
                   Surgical Guides
                 </Link>
-                <Link href="/products/night-guards" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
+                <Link href="/lab-services/products/night-guards" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
                   Night Guards
                 </Link>
-                <Link href="/products/printed-models-dies" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
+                <Link href="/lab-services/products/printed-models-dies" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
                   Printed Models & Dies
                 </Link>
               </div>
