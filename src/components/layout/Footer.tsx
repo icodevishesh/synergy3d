@@ -53,14 +53,14 @@ export const Footer: React.FC = () => {
         <div className="flex flex-col">
           <h4 className="text-[0.7rem] font-bold tracking-[0.12em] uppercase text-white mb-5">Products</h4>
           <ul className="list-none flex flex-col gap-3">
-            <li><Link href="/products/zirconia-crowns" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Zirconia Crowns</Link></li>
-            <li><Link href="/products/all-on-x-hybrids" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">All-on-X Hybrids</Link></li>
-            <li><Link href="/products/e-max-restorations" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">e.max Restorations</Link></li>
-            <li><Link href="/products/pfm-crowns" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">PFM Crowns</Link></li>
-            <li><Link href="/products/surgical-guides" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Surgical Guides</Link></li>
-            <li><Link href="/products/night-guards" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Night Guards</Link></li>
-            <li><Link href="/products/printed-models-dies" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Printed Models & Dies</Link></li>
-            <li><Link href="/products" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Explore All Products</Link></li>
+            <li><Link href="/lab-services/products/zirconia-crowns" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Zirconia Crowns</Link></li>
+            <li><Link href="/lab-services/products/all-on-x-hybrids" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">All-on-X Hybrids</Link></li>
+            <li><Link href="/lab-services/products/e-max-restorations" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">e.max Restorations</Link></li>
+            <li><Link href="/lab-services/products/pfm-crowns" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">PFM Crowns</Link></li>
+            <li><Link href="/lab-services/products/surgical-guides" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Surgical Guides</Link></li>
+            <li><Link href="/lab-services/products/night-guards" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Night Guards</Link></li>
+            <li><Link href="/lab-services/products/printed-models-dies" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Printed Models & Dies</Link></li>
+            <li><Link href="/lab-services" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Explore All Products</Link></li>
           </ul>
         </div>
         <div className="flex flex-col">

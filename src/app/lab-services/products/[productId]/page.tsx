@@ -100,7 +100,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     return (
       <Link
         key={rid}
-        href={`/products/${rid}`}
+        href={`/lab-services/products/${rid}`}
         className={`bg-white border border-border-light rounded-2xl p-5 hover:shadow-premium hover:-translate-y-1.5 hover:border-blue/25 transition-all duration-300 flex flex-col gap-4 cursor-pointer group ${
           isCarousel ? 'w-[260px] shrink-0 snap-start scroll-mx-8' : 'w-full'
         }`}
@@ -155,7 +155,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
           <div className="flex gap-2 text-[0.8rem] text-white/45 mb-5">
             <Link href="/" className="hover:text-white/80">Home</Link>
             <span className="text-white/20">›</span>
-            <Link href="/products" className="hover:text-white/80">Lab Services</Link>
+            <Link href="/lab-services" className="hover:text-white/80">Lab Services</Link>
             <span className="text-white/20">›</span>
             <span className="text-white/70">{product.name}</span>
           </div>

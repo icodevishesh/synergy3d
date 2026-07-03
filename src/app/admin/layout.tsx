@@ -22,6 +22,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: 'Webinars', href: '/admin/webinars' },
     { name: 'Customer Stories', href: '/admin/customers' },
     { name: 'Articles', href: '/admin/articles' },
+    { name: 'Analytics', href: '/admin/analytics' },
   ];
 
   return (

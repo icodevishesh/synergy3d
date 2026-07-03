@@ -43,7 +43,7 @@ const allProducts = [
     label: 'ZIRCONIA',
     desc: 'High-strength, natural-looking zirconia crowns. Sub-30µm precision guaranteed on every single case.',
     linkText: 'Explore →',
-    linkUrl: '/products/zirconia-crowns',
+    linkUrl: '/lab-services/products/zirconia-crowns',
     img: imgZirconia,
   },
   {
@@ -53,7 +53,7 @@ const allProducts = [
     label: 'ALL-ON-X',
     desc: 'Full-arch implant restorations — All-on-4, All-on-6, and custom hybrid frameworks milled in-house.',
     linkText: 'Explore →',
-    linkUrl: '/products/all-on-x-hybrids',
+    linkUrl: '/lab-services/products/all-on-x-hybrids',
     img: imgAllOnX,
   },
   {
@@ -63,7 +63,7 @@ const allProducts = [
     label: 'E.MAX CERAMIC',
     desc: 'Lithium disilicate and porcelain-fused-to-metal for unmatched aesthetics in every case.',
     linkText: 'Explore →',
-    linkUrl: '/products/e-max-restorations',
+    linkUrl: '/lab-services/products/e-max-restorations',
     img: imgEmax,
   },
   {
@@ -73,7 +73,7 @@ const allProducts = [
     label: 'NIGHT GUARD',
     desc: 'Custom-milled night guards and splints for bruxism and TMJ protection.',
     linkText: 'Explore →',
-    linkUrl: '/products/night-guards',
+    linkUrl: '/lab-services/products/night-guards',
     img: imgNightGuard,
   },
   {
@@ -83,7 +83,7 @@ const allProducts = [
     label: 'SURGICAL GUIDE',
     desc: 'CBCT-based digitally planned surgical guides for precise implant placement.',
     linkText: 'Explore →',
-    linkUrl: '/products/surgical-guides',
+    linkUrl: '/lab-services/products/surgical-guides',
     img: imgSurgicalGuide,
   },
   {
@@ -93,7 +93,7 @@ const allProducts = [
     label: 'PFM CROWN',
     desc: 'Porcelain-fused-to-metal crowns offering durable strength with excellent aesthetics.',
     linkText: 'Explore →',
-    linkUrl: '/products/pfm-crowns',
+    linkUrl: '/lab-services/products/pfm-crowns',
     img: imgPFM,
   },
   {
@@ -103,7 +103,7 @@ const allProducts = [
     label: 'MODELS',
     desc: 'High-accuracy 3D-printed study models for planning and communication.',
     linkText: 'Explore →',
-    linkUrl: '/products/printed-models-dies',
+    linkUrl: '/lab-services/products/printed-models-dies',
     img: imgModels,
   }
 ];

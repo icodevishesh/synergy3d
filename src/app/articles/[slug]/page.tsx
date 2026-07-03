@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { Calendar, Clock } from 'lucide-react';
+import { Calendar, Clock, User, Building, Mail, Phone, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface Article {
   _id: string;
@@ -49,6 +49,58 @@ export default function ArticleDetailPage() {
   const [related, setRelated] = useState<Article[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [pageUrl, setPageUrl] = useState('');
+
+  const [formData, setFormData] = useState({
+    fullName: '',
+    practiceName: '',
+    email: '',
+    contact: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.fullName || !formData.practiceName || !formData.email || !formData.contact) {
+      setSubmitStatus('error');
+      setErrorMessage('All fields are required.');
+      return;
+    }
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    try {
+      const res = await fetch('/api/articles/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          articleSlug: slug,
+          articleTitle: article?.title || '',
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Something went wrong.');
+      }
+      setSubmitStatus('success');
+      setFormData({
+        fullName: '',
+        practiceName: '',
+        email: '',
+        contact: '',
+      });
+    } catch (err: any) {
+      setSubmitStatus('error');
+      setErrorMessage(err.message || 'Failed to submit. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     setPageUrl(window.location.href);
@@ -153,7 +205,7 @@ export default function ArticleDetailPage() {
   return (
     <div className="bg-white text-navy-text">
 
-      {/* ── Article Header ─────────────────────────────────────────────── */}
+      {/* Article Header */}
       <header className="relative bg-navy text-white pt-28 pb-14 overflow-hidden border-b border-white/6">
         {/* Radial blue glow gradient background */}
         <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_30%,rgba(30,86,217,0.18)_0%,transparent_70%)] pointer-events-none" />
@@ -161,7 +213,7 @@ export default function ArticleDetailPage() {
         {/* Dotted grid overlay */}
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />
 
-        <div className="max-w-[740px] mx-auto px-5 sm:px-8 relative z-10">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 relative z-10">
 
           {/* Breadcrumb */}
           <nav className="flex gap-2 text-[0.75rem] text-white/40 mb-7 flex-wrap items-center">
@@ -216,10 +268,10 @@ export default function ArticleDetailPage() {
         </div>
       </header>
 
-      {/* ── Cover Image ────────────────────────────────────────────────── */}
+      {/* Cover Image */}
       {article.imageUrl && (
-        <div className="max-w-[740px] mx-auto px-5 sm:px-8 mt-8">
-          <div className="relative w-full rounded-2xl overflow-hidden shadow-md bg-gray-100" style={{ aspectRatio: '16/12' }}>
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 mt-8">
+          <div className="relative w-full rounded-2xl overflow-hidden shadow-md bg-gray-100" style={{ aspectRatio: '16/10' }}>
             <Image
               src={article.imageUrl}
               alt={article.title}
@@ -232,57 +284,196 @@ export default function ArticleDetailPage() {
         </div>
       )}
 
-      {/* ── Article Body ───────────────────────────────────────────────── */}
-      <article className="max-w-[740px] mx-auto px-5 sm:px-8 py-10">
-        <div
-          className="article-body"
-          dangerouslySetInnerHTML={{ __html: article.content }}
-        />
-      </article>
+      {/* ── Main Layout: Content + Sticky Lead Form ─────────────────────── */}
+      <div className="max-w-5xl mx-auto px-5 sm:px-8 py-10 flex flex-col lg:flex-row gap-10 items-start">
+        
+        {/* Left Side: Article Content & sharing */}
+        <div className="flex-1 w-full lg:max-w-[700px]">
+          <article>
+            <div
+              className="article-body"
+              dangerouslySetInnerHTML={{ __html: article.content }}
+            />
+          </article>
 
-      {/* ── Share + Tags ───────────────────────────────────────────────── */}
-      <div className="max-w-[740px] mx-auto px-5 sm:px-8 pb-10">
-        <div className="border-t border-gray-100 pt-8 flex flex-row justify-between gap-4">
+          {/* Share + Tags */}
+          <div className="border-t border-gray-100 mt-10 pt-8 flex flex-row justify-between gap-4">
+            {/* Tags */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className={`text-[0.72rem] font-bold px-2.5 py-1 rounded-full ${catColor}`}>{catLabel}</span>
+            </div>
 
-          {/* Tags */}
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className={`text-[0.72rem] font-bold px-2.5 py-1 rounded-full ${catColor}`}>{catLabel}</span>
-          </div>
+            {/* Share buttons */}
+            <div className="flex items-center gap-2">
+              <span className="text-[0.72rem] text-gray-400 font-semibold mr-1">Share:</span>
 
-          {/* Share buttons */}
-          <div className="flex items-center gap-2">
-            <span className="text-[0.72rem] text-gray-400 font-semibold mr-1">Share:</span>
+              {/* Email */}
+              <a
+                href={`mailto:?subject=${encodeURIComponent(article.title)}&body=${encodeURIComponent('Check out this article: ' + pageUrl)}`}
+                className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:border-blue-300 hover:text-blue-600 transition-all text-gray-400"
+                title="Share via Email"
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </a>
 
-            {/* Email */}
-            <a
-              href={`mailto:?subject=${encodeURIComponent(article.title)}&body=${encodeURIComponent('Check out this article: ' + pageUrl)}`}
-              className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:border-blue-300 hover:text-blue-600 transition-all text-gray-400"
-              title="Share via Email"
-            >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-            </a>
+              {/* Twitter/X */}
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(pageUrl)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:border-gray-400 hover:text-gray-700 transition-all text-gray-400"
+                title="Share on X"
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
 
-            {/* Twitter/X */}
-            <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(pageUrl)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:border-gray-400 hover:text-gray-700 transition-all text-gray-400"
-              title="Share on X"
-            >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-
-            {/* Copy link */}
-            <button
-              onClick={() => { navigator.clipboard.writeText(pageUrl); }}
-              className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:border-gray-400 hover:text-gray-700 transition-all text-gray-400"
-              title="Copy link"
-            >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-            </button>
+              {/* Copy link */}
+              <button
+                onClick={() => { navigator.clipboard.writeText(pageUrl); }}
+                className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:border-gray-400 hover:text-gray-700 transition-all text-gray-400"
+                title="Copy link"
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              </button>
+            </div>
           </div>
         </div>
+
+        {/* Right Side: Sticky Lead Form */}
+        <aside className="w-full lg:w-[300px] shrink-0 lg:sticky lg:top-22 bg-[#fafbff] border border-[#e4ecf8] rounded-2xl p-4 shadow-md transition-all">
+          <div className="mb-4">
+            <h3 className="font-serif text-lg font-bold text-navy-text mb-2">
+              Connect with our Lab
+            </h3>
+            <p className="text-xs text-gray-500 leading-relaxed">
+              Have questions about this article or a case? Fill out your details below and a Synergy 3D specialist will reach out.
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="fullName" className="block text-[10px] font-bold uppercase tracking-wider text-navy-text mb-1">
+                Full Name
+              </label>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-muted-dark pointer-events-none">
+                  <User className="w-4 h-4" />
+                </span>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  placeholder="Dr. Jane Doe"
+                  className="w-full pl-9 pr-3 py-2 text-sm bg-white border border-[#dde4f5] rounded-lg focus:outline-none focus:border-blue-default transition-all placeholder:text-gray-400/70"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="practiceName" className="block text-[10px] font-bold uppercase tracking-wider text-navy-text mb-1">
+                Practice Name
+              </label>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-muted-dark pointer-events-none">
+                  <Building className="w-4 h-4" />
+                </span>
+                <input
+                  type="text"
+                  id="practiceName"
+                  name="practiceName"
+                  value={formData.practiceName}
+                  onChange={handleInputChange}
+                  placeholder="Apex Dental Care"
+                  className="w-full pl-9 pr-3 py-2 text-sm bg-white border border-[#dde4f5] rounded-lg focus:outline-none focus:border-blue-default transition-all placeholder:text-gray-400/70"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="email" className="block text-[10px] font-bold uppercase tracking-wider text-navy-text mb-1">
+                Email Address
+              </label>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-muted-dark pointer-events-none">
+                  <Mail className="w-4 h-4" />
+                </span>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="jane.doe@example.com"
+                  className="w-full pl-9 pr-3 py-2 text-sm bg-white border border-[#dde4f5] rounded-lg focus:outline-none focus:border-blue-default transition-all placeholder:text-gray-400/70"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="contact" className="block text-[10px] font-bold uppercase tracking-wider text-navy-text mb-1">
+                Contact Number
+              </label>
+              <div className="relative">
+                <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-muted-dark pointer-events-none">
+                  <Phone className="w-4 h-4" />
+                </span>
+                <input
+                  type="tel"
+                  id="contact"
+                  name="contact"
+                  value={formData.contact}
+                  onChange={handleInputChange}
+                  placeholder="(555) 000-0000"
+                  className="w-full pl-9 pr-3 py-2 text-sm bg-white border border-[#dde4f5] rounded-lg focus:outline-none focus:border-blue-default transition-all placeholder:text-gray-400/70"
+                  required
+                />
+              </div>
+            </div>
+
+            {submitStatus === 'success' && (
+              <div className="flex gap-2.5 p-3.5 bg-emerald-50 border border-emerald-100 rounded-lg text-emerald-800 text-xs">
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600 mt-0.5" />
+                <div>
+                  <p className="font-semibold">Successfully Submitted!</p>
+                  <p className="text-[11px] text-emerald-700/90 mt-0.5">Thank you, we'll get in touch with you shortly.</p>
+                </div>
+              </div>
+            )}
+
+            {submitStatus === 'error' && (
+              <div className="flex gap-2.5 p-3.5 bg-red-50 border border-red-100 rounded-lg text-red-800 text-xs">
+                <AlertCircle className="w-4 h-4 shrink-0 text-red-600 mt-0.5" />
+                <div>
+                  <p className="font-semibold">Submission Failed</p>
+                  <p className="text-[11px] text-red-700/90 mt-0.5">{errorMessage}</p>
+                </div>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full mt-2 bg-gradient-to-r from-blue-default to-blue-bright hover:to-blue-default text-white font-bold py-2.5 px-4 rounded-lg text-sm transition-all hover:shadow-md cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? (
+                <>
+                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span>Submitting...</span>
+                </>
+              ) : (
+                <>
+                  <Send className="w-3.5 h-3.5" />
+                  <span>Submit Details</span>
+                </>
+              )}
+            </button>
+          </form>
+        </aside>
       </div>
 
       {/* Author Bio */}
@@ -319,12 +510,13 @@ export default function ArticleDetailPage() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {/* Desktop View */}
+            <div className="hidden sm:grid grid-cols-3 gap-5">
               {related.map(r => (
                 <Link
                   key={r._id}
                   href={`/articles/${r.slug}`}
-                  className="bg-white hover:bg-white/8 border border-gray-200 hover:border-gray-300 rounded-2xl overflow-hidden transition-all group flex flex-col"
+                  className="bg-white hover:bg-white/8 border border-gray-200 hover:border-gray-300 rounded-2xl overflow-hidden transition-all group flex flex-col w-full"
                 >
                   <div className="aspect-[16/9] relative overflow-hidden bg-navy-mid flex items-center justify-center">
                     {r.imageUrl ? (
@@ -358,13 +550,56 @@ export default function ArticleDetailPage() {
                 </Link>
               ))}
             </div>
+
+            {/* Mobile View (Carousel) */}
+            <div className="flex sm:hidden overflow-x-auto snap-x snap-mandatory pb-6 gap-5 -mx-5 px-5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="w-1 shrink-0" />
+              {related.map(r => (
+                <Link
+                  key={r._id}
+                  href={`/articles/${r.slug}`}
+                  className="bg-white hover:bg-white/8 border border-gray-200 hover:border-gray-300 rounded-2xl overflow-hidden transition-all group flex flex-col w-[280px] shrink-0 snap-start scroll-mx-5"
+                >
+                  <div className="aspect-[16/9] relative overflow-hidden bg-navy-mid flex items-center justify-center">
+                    {r.imageUrl ? (
+                      <Image
+                        src={r.imageUrl}
+                        alt={r.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, 360px"
+                      />
+                    ) : (
+                      <span className="text-4xl opacity-40">{CAT_THUMB[r.category] || '📄'}</span>
+                    )}
+                  </div>
+                  <div className="p-5 flex flex-col flex-1">
+                    <span className={`inline-block text-[0.62rem] font-extrabold tracking-[0.14em] uppercase px-2 py-0.5 rounded-full mb-3 w-fit ${CAT_COLORS[r.category] || 'bg-white/10 text-white/70'}`}>
+                      {CAT_LABELS[r.category] || r.category}
+                    </span>
+                    <h3 className="font-serif text-[0.98rem] font-bold text-black leading-snug mb-3 line-clamp-2 group-hover:text-blue-glow transition-colors flex-1">
+                      {r.title}
+                    </h3>
+                    <div className="flex items-center gap-3 text-[0.7rem] text-muted-dark mt-auto">
+                      <span className="flex items-center gap-1">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        {r.readDuration}
+                      </span>
+                      <span>·</span>
+                      <span>{r.date}</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+              <div className="w-1 shrink-0" />
+            </div>
           </div>
         </section>
       )}
 
       {/* CTA */}
       <section className="bg-gradient-to-br from-[#1344c4] to-[#0d2e9e] py-12 md:py-16 text-white text-center sm:text-left">
-        <div className="max-w-[1140px] mx-auto px-6 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
+        <div className="max-w-6xl mx-auto px-6 md:px-16 flex flex-col sm:flex-row sm:items-center justify-between gap-10">
           <div>
             <h2 className="font-serif text-4xl font-bold leading-tight mb-2">
               Have a case in mind<em className="italic font-normal">after reading?</em>

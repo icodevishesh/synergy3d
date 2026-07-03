@@ -137,7 +137,7 @@ export default function ProductsPage() {
                   key={card.id}
                   className="reveal bg-blue-pale/40 border border-blue-200/50 hover:border-blue-300/80 rounded-2xl overflow-hidden hover:shadow-premium hover:-translate-y-1.5 hover:bg-blue-pale/60 transition-all duration-300 relative cursor-pointer flex flex-col group"
                 >
-                  <Link href={`/products/${card.id}`} className="absolute inset-0 z-[5]" />
+                  <Link href={`/lab-services/products/${card.id}`} className="absolute inset-0 z-[5]" />
                   <div className="aspect-[4/3] bg-gradient-to-b from-white to-blue-pale/35 border-b border-blue-200/50 flex items-center justify-center p-8 relative overflow-hidden shrink-0">
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_70%_at_50%_50%,rgba(224,234,255,0.5)_0%,transparent_75%)]" />
                     <div className="w-full h-full absolute inset-0 transition-transform group-hover:scale-105 duration-300 p-8">

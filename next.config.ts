@@ -8,6 +8,15 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'img.youtube.com' },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/lab-services/products',
+        destination: '/lab-services',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
