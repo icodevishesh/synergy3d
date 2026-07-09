@@ -11,6 +11,8 @@ import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
+import JsonLd from "@/components/JsonLd";
+import { aboutUs } from "@/lib/schema/about-us";
 
 
 
@@ -19,6 +21,8 @@ export default function AboutPage() {
 
   return (
     <div>
+      <JsonLd data={aboutUs} />
+
       {/* About Us Hero */}
       <section className="relative bg-navy py-22 md:py-40 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />

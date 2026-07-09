@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import JsonLd from "@/components/JsonLd";
+import { digitalWorkflow } from "@/lib/schema/digital-workflow";
 
 interface Scanner {
   id: string;
@@ -64,6 +66,7 @@ export default function DigitalWorkflow() {
 
   return (
     <div className="bg-[#f8faff] min-h-screen text-navy-text">
+      <JsonLd data={digitalWorkflow} />
       {/* Page Hero */}
       <section className="relative bg-navy pt-22 md:pt-36 pb-10 md:pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />

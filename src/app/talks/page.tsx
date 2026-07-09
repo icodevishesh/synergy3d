@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { Mic } from 'lucide-react';
+import JsonLd from "@/components/JsonLd";
+import { talks } from "@/lib/schema/talks";
 import { useDebounce } from '@/lib/hooks/useDebounce';
 
 export default function TalksPage() {
@@ -92,6 +94,7 @@ export default function TalksPage() {
 
   return (
     <div>
+      <JsonLd data={talks} />
       {/* Podcast Hero */}
       <section className="relative bg-navy pt-22 md:pt-32 pb-10 md:pb-16 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none border-b border-white/6">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:48px_48px] pointer-events-none" />

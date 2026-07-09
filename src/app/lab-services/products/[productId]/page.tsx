@@ -2,6 +2,59 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image, { StaticImageData } from 'next/image';
 import { PRODUCTS } from '@/data/products';
+import JsonLd from "@/components/JsonLd";
+
+import { acrylicDenture } from '@/lib/schema/product/acrylic-denture';
+import { allOnXHybridSchema } from '@/lib/schema/product/all-on-x-hybrid';
+import { eMaxRestorationSchema } from '@/lib/schema/product/e-max-restoration';
+import { fullContourZirconia } from '@/lib/schema/product/full-contour-zirconia';
+import { millableFlexiblePartials } from '@/lib/schema/product/millable-flexible-partials';
+import { nightGuard } from '@/lib/schema/product/night-guards';
+import { partialMetalFramework } from '@/lib/schema/product/partial-metal-framework';
+import { pfmCrownsSchema } from '@/lib/schema/product/pfm-crown';
+import { porcelainFusedToZirconia } from '@/lib/schema/product/porcelain-fused-to-zirconia';
+import { processImplantAcrylicDenture } from '@/lib/schema/product/process-implant-acrylic-denture';
+import { screwRetainedBridge } from '@/lib/schema/product/screw-retained-bridge';
+import { screwRetainedPmmaBridge } from '@/lib/schema/product/screw-retained-pmma-bridge';
+import { screwRetainedZirconiaBridge } from '@/lib/schema/product/screw-retained-zirconia-bridge';
+import { screwmentableCrownAbutmentWithScrewChannelCrown } from '@/lib/schema/product/screwmentable-crown-abutment-with-screw-channel-crown';
+import { screwmentableCrown } from '@/lib/schema/product/screwmentable';
+import { surgicalGuide } from '@/lib/schema/product/surgical-guides';
+import { temporaries } from '@/lib/schema/product/temporaries';
+import { temporaryBridge } from '@/lib/schema/product/temporary-bridge';
+import { titaniumCustomAbutment } from '@/lib/schema/product/titanium-custom-abutments';
+import { waxUp } from '@/lib/schema/product/wax-up';
+import { zirconiaHybridCustomAbutment } from '@/lib/schema/product/zirconia-hybrid-custom-abutment';
+import { zirconiaHybrid } from '@/lib/schema/product/zirconia-hybrid';
+import { zirconiaScrewRetainedCrownWithTiBase } from '@/lib/schema/product/zirconia-screw-retained-crown-with-ti-base';
+import { zicroniaCrownsSchema } from '@/lib/schema/product/zirconio-crowns';
+
+const productSchemas: Record<string, any> = {
+  'acrylic-denture': acrylicDenture,
+  'all-on-x-hybrids': allOnXHybridSchema,
+  'e-max-restorations': eMaxRestorationSchema,
+  'full-contour-zirconia': fullContourZirconia,
+  'millable-flexible-partials': millableFlexiblePartials,
+  'night-guards': nightGuard,
+  'partial-metal-framework': partialMetalFramework,
+  'pfm-crowns': pfmCrownsSchema,
+  'porcelain-fused-to-zirconia': porcelainFusedToZirconia,
+  'process-implant-acrylic-denture': processImplantAcrylicDenture,
+  'screw-retained-bridge': screwRetainedBridge,
+  'screw-retained-pmma-bridge': screwRetainedPmmaBridge,
+  'screw-retained-zirconia-bridge': screwRetainedZirconiaBridge,
+  'screwmentable-crown-abutment-with-screw-channel-crown': screwmentableCrownAbutmentWithScrewChannelCrown,
+  'screwmentable': screwmentableCrown,
+  'surgical-guides': surgicalGuide,
+  'temporaries': temporaries,
+  'temporary-bridge': temporaryBridge,
+  'titanium-custom-abutments': titaniumCustomAbutment,
+  'wax-up': waxUp,
+  'zirconia-hybrid-custom-abutment': zirconiaHybridCustomAbutment,
+  'zirconia-hybrid': zirconiaHybrid,
+  'zirconia-screw-retained-crown-with-ti-base': zirconiaScrewRetainedCrownWithTiBase,
+  'zirconia-crowns': zicroniaCrownsSchema,
+};
 import imgZirconia from '@/app/assets/products/zirconia-crown.png';
 import imgAllOnX from '@/app/assets/products/all-on-x-hybrid.png';
 import imgEmax from '@/app/assets/products/emax-restoration.png';
@@ -146,8 +199,11 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     });
   };
 
+  const schema = productSchemas[productId];
+
   return (
     <div>
+      {schema && <JsonLd data={schema} />}
       {/* Page Hero */}
       <section className="relative bg-navy pt-22 md:pt-40 pb-10 md:pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />

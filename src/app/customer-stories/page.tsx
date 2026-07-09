@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { UserRound, MessageSquareText  } from 'lucide-react';
+import JsonLd from "@/components/JsonLd";
+import { stories } from "@/lib/schema/stories";
 
 type PracticeType = 'all' | 'private' | 'group' | 'dso';
 
@@ -153,6 +155,7 @@ export default function CustomerStoriesPage() {
 
   return (
     <div>
+      <JsonLd data={stories} />
 
       {/* Hero */}
       <section className="relative bg-navy pt-36 pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">

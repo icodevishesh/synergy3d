@@ -2,6 +2,8 @@
 
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
+import JsonLd from "@/components/JsonLd";
+import { apply } from "@/lib/schema/apply";
 
 export default function ApplyPage() {
   const [form, setForm] = useState({
@@ -72,6 +74,7 @@ export default function ApplyPage() {
 
   return (
     <div className="bg-[#f9f8f3] min-h-screen text-navy-text font-sans pb-24">
+      <JsonLd data={apply} />
       {/* Hero Header */}
       <section className="relative bg-navy pt-36 pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none text-center">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />

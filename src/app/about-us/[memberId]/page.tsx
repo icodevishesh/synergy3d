@@ -2,6 +2,24 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { TEAM } from '@/data/team';
+import JsonLd from "@/components/JsonLd";
+import { ashley } from "@/lib/schema/about-us/ashley";
+import { davie } from "@/lib/schema/about-us/davie";
+import { enrico } from "@/lib/schema/about-us/enrico";
+import { erik } from "@/lib/schema/about-us/erik";
+import { gina } from "@/lib/schema/about-us/gina";
+import { kelli } from "@/lib/schema/about-us/kelli";
+import { milos } from "@/lib/schema/about-us/milos";
+
+const memberSchemas: Record<string, any> = {
+  ashley,
+  davie,
+  enrico,
+  erik,
+  gina,
+  kelli,
+  milos
+};
 
 interface TeamPageProps {
   params: Promise<{
@@ -23,8 +41,11 @@ export default async function TeamDetailPage({ params }: TeamPageProps) {
     notFound();
   }
 
+  const schema = memberSchemas[memberId];
+
   return (
     <div>
+      {schema && <JsonLd data={schema} />}
       {/* Member Hero */}
       <section className="relative bg-navy py-22 md:py-40 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />

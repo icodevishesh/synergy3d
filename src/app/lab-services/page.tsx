@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
+import JsonLd from "@/components/JsonLd";
+import { labServiceSchema } from "@/lib/schema/lab-service";
 import { PRODUCTS } from '@/data/products';
 import imgZirconia from '@/app/assets/products/zirconia-crown.png';
 import imgAllOnX from '@/app/assets/products/all-on-x-hybrid.png';
@@ -84,6 +86,7 @@ export default function ProductsPage() {
 
   return (
     <div>
+      <JsonLd data={labServiceSchema} />
       {/* Page Hero */}
       <section className="relative bg-navy pt-22 md:pt-40 pb-10 md:pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />

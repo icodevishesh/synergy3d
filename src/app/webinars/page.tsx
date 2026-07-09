@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast';
 import { Video } from 'lucide-react';
+import JsonLd from "@/components/JsonLd";
+import { webinars } from "@/lib/schema/webinars";
 
 type Status = 'upcoming' | 'recorded';
 type Filter = 'all' | 'upcoming' | 'recorded';
@@ -176,6 +178,7 @@ export default function WebinarsPage() {
 
   return (
     <div>
+      <JsonLd data={webinars} />
 
       {/* Hero */}
       <section className="relative bg-navy pt-22 md:pt-36 pb-10 md:pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { Calendar, Clock, User, Building, Mail, Phone, Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import JsonLd from "@/components/JsonLd";
 
 interface Article {
   _id: string;
@@ -202,8 +203,35 @@ export default function ArticleDetailPage() {
     return title;
   };
 
+  const articleSchema = article ? {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": article.title,
+    "description": article.description,
+    "datePublished": article.date,
+    "author": {
+      "@type": "Person",
+      "name": article.writer,
+      "jobTitle": article.designation || "Author"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Synergy 3D",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://synergy3d.net/_next/static/media/synergy3d_logo-new.22tr8ajfzh_x4.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://synergy3d.net/articles/${article.slug}`
+    },
+    "image": article.imageUrl || "https://synergy3d.net/default-article-image.jpg"
+  } : null;
+
   return (
     <div className="bg-white text-navy-text">
+      {articleSchema && <JsonLd data={articleSchema} />}
 
       {/* Article Header */}
       <header className="relative bg-navy text-white pt-28 pb-14 overflow-hidden border-b border-white/6">

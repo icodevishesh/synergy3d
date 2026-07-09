@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BookOpen } from 'lucide-react';
+import JsonLd from "@/components/JsonLd";
+import { articles } from "@/lib/schema/articles";
 
 type Category = 'all' | 'clinical' | 'materials' | 'technology' | 'business';
 
@@ -82,6 +84,7 @@ export default function ArticlesPage() {
 
   return (
     <div>
+      <JsonLd data={articles} />
       {/* Hero */}
       <section className="relative bg-navy pt-22 md:pt-36 pb-10 md:pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />

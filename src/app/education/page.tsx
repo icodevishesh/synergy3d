@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { GraduationCap } from 'lucide-react';
+import JsonLd from "@/components/JsonLd";
+import { education } from "@/lib/schema/education";
 import { useDebounce } from '@/lib/hooks/useDebounce';
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
@@ -100,6 +102,7 @@ export default function EducationPage() {
 
   return (
     <div>
+      <JsonLd data={education} />
 
       {/* Hero */}
       <section className="relative bg-navy pt-22 md:pt-36 pb-10 md:pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none">

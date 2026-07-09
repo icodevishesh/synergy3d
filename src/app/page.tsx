@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Clock, Target, RefreshCw, Users, Activity, ShieldCheck, Play, ArrowRight, ArrowUpRight, MapPin, Star, ArrowDown, User, Home as HomeIcon, Building2, Globe } from 'lucide-react';
+import { Clock, Target, RefreshCw, Users, Activity, ShieldCheck, Play, ArrowRight, MapPin, Star, ArrowDown, User, Home as HomeIcon, Building2, Globe } from 'lucide-react';
 import whySynergyImg from '@/app/assets/image.png';
 import imgZirconia from '@/app/assets/products/zirconia-crown.png';
 import imgAllOnX from '@/app/assets/products/all-on-x-hybrid.png';
@@ -15,6 +15,9 @@ import imgModels from '@/app/assets/products/printed-models.png';
 import scanner from '@/app/assets/icons/scanner.png';
 import design from '@/app/assets/icons/design.png';
 import box from '@/app/assets/icons/box.png';
+
+import JsonLd from "@/components/JsonLd";
+import { homeSchema } from "@/lib/schema/home";
 
 const renderIcon = (type: string, className = "w-5 h-5") => {
   switch (type) {
@@ -210,6 +213,8 @@ export default function Home() {
 
   return (
     <div>
+      <JsonLd data={homeSchema} />
+
       {/* ── HERO SECTION ── */}
       <section className="relative min-h-[90vh] overflow-hidden flex flex-col items-center justify-center text-center px-8 md:px-8 py-12 md:py-32">
         <div className="absolute inset-0 z-0">

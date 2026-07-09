@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast';
+import JsonLd from "@/components/JsonLd";
+import { contacts } from "@/lib/schema/contacts";
 
 const US_STATES = [
   'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut',
@@ -74,6 +76,7 @@ export default function CallbackPage() {
 
   return (
     <div>
+      <JsonLd data={contacts} />
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
       <section className="relative bg-navy pt-22 md:pt-36 pb-10 md:pb-20 overflow-hidden before:absolute before:inset-0 before:bg-radial-glow before:pointer-events-none text-center">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.04)_1px,transparent_0)] bg-[size:50px_50px] pointer-events-none" />
