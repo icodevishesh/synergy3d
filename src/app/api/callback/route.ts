@@ -75,8 +75,8 @@ export async function POST(req: NextRequest) {
       helpWith,
     })
 
-    // const recipient = "info@synergy3d.net";
-    const recipient = "visheshpurkait23@gmail.com";
+    const recipient = "info@synergy3d.net";
+    // const recipient = "visheshpurkait23@gmail.com";
     const sender = process.env.EMAIL_FROM || "noreply@synergy3d.net";
     const helpOptionsText = Array.isArray(helpWith) && helpWith.length > 0
       ? helpWith.join(", ")
