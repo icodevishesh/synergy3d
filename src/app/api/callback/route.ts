@@ -1,11 +1,36 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { connectToDatabase } from "@/lib/db";
+import Callback from "@/models/Callback";
+import { z } from "zod";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]/route";
+
+
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
   try {
+
+    const callbackSchema = z.object({
+      firstName: z.string(),
+      lastName: z.string(),
+      practice: z.string(),
+      phone: z.string(),
+      email: z.string().optional().or(z.literal("")),
+    })
+
     const body = await req.json();
+    const result = callbackSchema.safeParse(body)
+    if(!result.success){
+      return NextResponse.json({
+        error: result.error.issues
+      },{
+        status:400
+      })
+    }
+
     const {
       firstName,
       lastName,
@@ -18,15 +43,40 @@ export async function POST(req: NextRequest) {
       helpWith,
     } = body;
 
-    // Validate required fields
-    if (!firstName || !lastName || !practice || !phone) {
+    await connectToDatabase();
+
+    const queryConditions: any[] = [];
+    if (email && email.trim() !== "") {
+      queryConditions.push({ email });
+    }
+    if (phone && phone.trim() !== "") {
+      queryConditions.push({ phone });
+    }
+
+    const already = queryConditions.length > 0
+      ? await Callback.findOne({ $or: queryConditions })
+      : null;
+
+    if (already) {
       return NextResponse.json(
-        { error: "Missing required fields" },
+        { error: "Callback request already exists" },
         { status: 400 }
       );
     }
+    const callback = await Callback.create({
+      firstName,
+      lastName,
+      practice,
+      phone,
+      email,
+      state,
+      callTime,
+      notes,
+      helpWith,
+    })
 
-    const recipient = "info@synergy3d.net";
+    // const recipient = "info@synergy3d.net";
+    const recipient = "visheshpurkait23@gmail.com";
     const sender = process.env.EMAIL_FROM || "noreply@synergy3d.net";
     const helpOptionsText = Array.isArray(helpWith) && helpWith.length > 0
       ? helpWith.join(", ")
@@ -136,3 +186,28 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+async function isAuthorized() {
+  const session = await getServerSession(authOptions);
+  return !!session;
+}
+
+export async function GET() {
+  if (!(await isAuthorized())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    await connectToDatabase();
+    const callbacks = await Callback.find({}).sort({ createdAt: -1 }).lean();
+    return NextResponse.json(callbacks);
+  } catch (error: any) {
+    console.error("GET callbacks error:", error);
+    return NextResponse.json(
+      { error: error.message || "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+
+export const dynamic = "force-dynamic";
