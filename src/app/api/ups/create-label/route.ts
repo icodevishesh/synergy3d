@@ -105,8 +105,8 @@ export async function POST(req: NextRequest) {
             ],
           },
           Service: {
-            Code: "13", // UPS Next Day Air Saver
-            Description: "UPS Next Day Air Saver",
+            Code: "02", // UPS 2nd day air
+            Description: "UPS 2nd day air",
           },
           Package: [
             {
