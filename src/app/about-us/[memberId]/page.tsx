@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { TEAM } from '@/data/team';
 import JsonLd from "@/components/JsonLd";
+import { Metadata } from 'next';
+import { getMetadataForPath } from '@/data/seoData';
 import { ashley } from "@/lib/schema/about-us/ashley";
 import { davie } from "@/lib/schema/about-us/davie";
 import { enrico } from "@/lib/schema/about-us/enrico";
@@ -25,6 +27,11 @@ interface TeamPageProps {
   params: Promise<{
     memberId: string;
   }>;
+}
+
+export async function generateMetadata({ params }: TeamPageProps): Promise<Metadata> {
+  const { memberId } = await params;
+  return getMetadataForPath(`/about-us/${memberId}`);
 }
 
 export async function generateStaticParams() {

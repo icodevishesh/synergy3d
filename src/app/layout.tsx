@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils";
 import { GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
 
+import { getMetadataForPath } from '@/data/seoData';
+
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const dmSans = DM_Sans({
@@ -23,10 +25,7 @@ const playfair = Playfair_Display({
   variable: '--font-playfair',
 });
 
-export const metadata: Metadata = {
-  title: 'Synergy 3D — Digital Dental Lab',
-  description: 'Precision crowns and restorations — engineered with CAD/CAM, milled in-house, and delivered in five days flat.',
-};
+export const metadata: Metadata = getMetadataForPath('/');
 
 export default function RootLayout({
   children,

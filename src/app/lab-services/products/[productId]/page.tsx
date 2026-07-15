@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Image, { StaticImageData } from 'next/image';
 import { PRODUCTS } from '@/data/products';
 import JsonLd from "@/components/JsonLd";
+import { Metadata } from 'next';
+import { getMetadataForPath } from '@/data/seoData';
 
 import { acrylicDenture } from '@/lib/schema/product/acrylic-denture';
 import { allOnXHybridSchema } from '@/lib/schema/product/all-on-x-hybrid';
@@ -118,6 +120,11 @@ interface ProductPageProps {
   params: Promise<{
     productId: string;
   }>;
+}
+
+export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
+  const { productId } = await params;
+  return getMetadataForPath(`/lab-services/products/${productId}`);
 }
 
 export async function generateStaticParams() {
