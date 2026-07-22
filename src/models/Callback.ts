@@ -12,6 +12,7 @@ interface ICallback extends Document {
   callTime: string;
   notes: string;
   helpWith: string[];
+  zohoSynced?: boolean;
 }
 
 const callbackSchema: Schema = new Schema({
@@ -24,6 +25,7 @@ const callbackSchema: Schema = new Schema({
   callTime: { type: String },
   notes: { type: String },
   helpWith: { type: [String] },
+  zohoSynced: { type: Boolean, default: false },
 }, { timestamps: true });
 
 export default mongoose.models.Callback || mongoose.model<ICallback>("Callback", callbackSchema);

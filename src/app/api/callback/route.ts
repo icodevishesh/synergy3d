@@ -5,6 +5,7 @@ import Callback from "@/models/Callback";
 import { z } from "zod";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]/route";
+import { pushLeadToZoho } from "@/lib/zoho";
 
 
 
@@ -158,25 +159,48 @@ export async function POST(req: NextRequest) {
       </div>
     `;
 
-    const { data, error } = await resend.emails.send({
-      from: `Synergy 3D Notifications <${sender}>`,
-      to: recipient,
-      subject: `📞 Callback Request: ${firstName} ${lastName} — ${practice}`,
-      html,
-    });
+    // Fire Zoho + email in parallel — don't let either block or fail the response
+    const [zohoResult, emailResult] = await Promise.allSettled([
+      pushLeadToZoho({
+        firstName,
+        lastName,
+        practice,
+        phone,
+        email,
+        state,
+        callTime,
+        notes,
+        helpWith,
+      }),
+      resend.emails.send({
+        from: `Synergy 3D Notifications <${sender}>`,
+        to: recipient,
+        subject: `📞 Callback Request: ${firstName} ${lastName} — ${practice}`,
+        html,
+      }),
+    ]);
 
-    if (error) {
-      console.error("Resend callback email error:", error);
-      return NextResponse.json(
-        { error: `Failed to send email: ${error.message}` },
-        { status: 500 }
+    if (zohoResult.status === "fulfilled" && zohoResult.value?.success) {
+      await Callback.findByIdAndUpdate(callback._id, { zohoSynced: true }).catch((err) => {
+        console.error("Failed to update zohoSynced on callback:", err);
+      });
+    } else {
+      console.error(
+        "Zoho sync failed:",
+        zohoResult.status === "rejected" ? zohoResult.reason : zohoResult.value?.error
       );
+    }
+
+    if (emailResult.status === "rejected") {
+      console.error("Resend email failed:", emailResult.reason);
+    } else if (emailResult.status === "fulfilled" && emailResult.value?.error) {
+      console.error("Resend email failed:", emailResult.value.error);
     }
 
     return NextResponse.json({
       success: true,
-      message: "Callback request email sent successfully",
-      id: data?.id,
+      message: "Callback request processed successfully",
+      id: callback._id,
     });
   } catch (error: any) {
     console.error("Callback route error:", error);
