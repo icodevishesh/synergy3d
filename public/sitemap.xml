@@ -1,250 +1,287 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/css" href="https://www.xml-sitemaps.com/css/sitemap.css"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:fo="http://www.w3.org/1999/XSL/Format"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-
-<url>
-  <loc>https://synergy3d.net/</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/synergy_script.pdf</loc>
-  <lastmod>2026-06-24T07:53:14+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/zirconia-crowns</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/all-on-x-hybrids</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/e-max-restorations</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/pfm-crowns</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/surgical-guides</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/night-guards</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/printed-models-dies</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/talks</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/education</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/articles</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/webinars</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/customer-stories</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/about-us</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/customer-portal</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/contact-details</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/digital-workflow</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/zirconia-hybrid-custom-abutment</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/wax-up</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/titanium-custom-abutments</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/full-contour-zirconia</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/acrylic-denture</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/acrylic-partial</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/partial-metal-framework</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/temporaries</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/screw-retained-zirconia-bridge</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/screw-retained-pmma-bridge</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/process-implant-acrylic-denture</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/porcelain-fused-to-zirconia</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/millable-flexible-partials</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/screwmentable-crown-abutment-with-screw-channel-crown</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/zirconia-screw-retained-crown-with-ti-base</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/flexible-partials</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/zirconia-hybrid</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/screw-retained-bridge</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/temporary-bridge</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/lab-services/products/screwmentable</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/about-us/enrico</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/about-us/davie</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/about-us/gina</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/about-us/milos</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/about-us/erik</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/about-us/ashley</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/about-us/kelli</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://synergy3d.net/apply</loc>
-  <lastmod>2026-07-07T11:30:40+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-
+  <url>
+       <loc>https://synergy3d.net/</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>1.0000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/synergy_script.pdf</loc>
+       <lastmod>2026-06-24T07:53:14+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/zirconia-crowns</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/all-on-x-hybrids</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/e-max-restorations</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/pfm-crowns</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/surgical-guides</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/night-guards</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/printed-models-dies</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/talks</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/education</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/articles</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/webinars</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/customer-stories</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/about-us</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/customer-portal</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/contact-details</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/digital-workflow</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/zirconia-hybrid-custom-abutment</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/wax-up</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/titanium-custom-abutments</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/full-contour-zirconia</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/acrylic-denture</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/acrylic-partial</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/partial-metal-framework</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/temporaries</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/screw-retained-zirconia-bridge</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/screw-retained-pmma-bridge</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/process-implant-acrylic-denture</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/porcelain-fused-to-zirconia</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/millable-flexible-partials</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/screwmentable-crown-abutment-with-screw-channel-crown</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/zirconia-screw-retained-crown-with-ti-base</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/flexible-partials</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/zirconia-hybrid</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/screw-retained-bridge</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/temporary-bridge</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/lab-services/products/screwmentable</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/about-us/enrico</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/about-us/davie</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/about-us/gina</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/about-us/milos</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/about-us/erik</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/about-us/ashley</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/about-us/kelli</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
+  <url>
+       <loc>https://synergy3d.net/apply</loc>
+       <lastmod>2026-07-24T08:03:17+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.6400</priority>
+  </url>
 </urlset>

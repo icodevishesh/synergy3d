@@ -236,10 +236,14 @@ export const SEO_METADATA: Record<string, SEOData> = {
 
 export function getMetadataForPath(path: string): Metadata {
   const data = SEO_METADATA[path];
-  if (!data) return {};
+  const verification = {
+    google: 'CuIGz1f2JyqOkKOC_ZztdKz58shM3uJ23F3l0xbymv0',
+  };
+  if (!data) return { verification };
   return {
     title: data.title,
     description: data.description,
     keywords: data.keywords,
+    verification,
   };
 }

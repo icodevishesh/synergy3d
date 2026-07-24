@@ -6,6 +6,7 @@ import ArticleLead from '@/models/ArticleLead';
 import TalkUnlock from '@/models/TalkUnlock';
 import WebinarRegistration from '@/models/WebinarRegistration';
 import Webinar from '@/models/Webinar';
+import Callback from '@/models/Callback';
 
 async function isAuthorized() {
   const session = await getServerSession(authOptions);
@@ -80,6 +81,54 @@ export async function GET() {
   } catch (error: any) {
     console.error('Error fetching analytics details:', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request) {
+  if (!(await isAuthorized())) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    const body = await req.json();
+    const { items } = body;
+
+    if (!Array.isArray(items) || items.length === 0) {
+      return NextResponse.json({ error: 'No items provided for deletion' }, { status: 400 });
+    }
+
+    await connectToDatabase();
+
+    const grouped: Record<string, string[]> = {};
+    for (const item of items) {
+      if (!item?.id || !item?.type) continue;
+      if (!grouped[item.type]) {
+        grouped[item.type] = [];
+      }
+      grouped[item.type].push(item.id);
+    }
+
+    const deletePromises: Promise<any>[] = [];
+
+    if (grouped['Article Lead']?.length) {
+      deletePromises.push(ArticleLead.deleteMany({ _id: { $in: grouped['Article Lead'] } }));
+    }
+    if (grouped['Talk Unlock']?.length) {
+      deletePromises.push(TalkUnlock.deleteMany({ _id: { $in: grouped['Talk Unlock'] } }));
+    }
+    if (grouped['Webinar Registration']?.length) {
+      deletePromises.push(WebinarRegistration.deleteMany({ _id: { $in: grouped['Webinar Registration'] } }));
+    }
+    if (grouped['Contact Request']?.length) {
+      deletePromises.push(Callback.deleteMany({ _id: { $in: grouped['Contact Request'] } }));
+    }
+
+    await Promise.all(deletePromises);
+
+    return NextResponse.json({ success: true, deletedCount: items.length });
+  } catch (error: any) {
+    console.error('Error deleting analytics records:', error);
+    return NextResponse.json({ error: error.message || 'Failed to delete records' }, { status: 500 });
   }
 }
 
