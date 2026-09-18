@@ -38,6 +38,7 @@ export default function CallbackPage() {
     notes: '',
   });
   const [helpWith, setHelpWith] = useState<string[]>([]);
+  const [agreedToMarketing, setAgreedToMarketing] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -50,6 +51,10 @@ export default function CallbackPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!agreedToMarketing) {
+      toast.error('Please agree to receive marketing communications before submitting.');
+      return;
+    }
     setIsSubmitting(true);
     try {
       const res = await fetch('/api/callback', {
@@ -58,6 +63,7 @@ export default function CallbackPage() {
         body: JSON.stringify({
           ...form,
           helpWith,
+          marketingConsent: agreedToMarketing,
         }),
       });
 
@@ -252,11 +258,42 @@ export default function CallbackPage() {
                     />
                   </div>
 
+                  {/* Marketing Communications Consent */}
+                  <label className="flex items-start gap-2.5 cursor-pointer group select-none mt-1">
+                    <input
+                      type="checkbox"
+                      required
+                      checked={agreedToMarketing}
+                      onChange={e => setAgreedToMarketing(e.target.checked)}
+                      className="sr-only peer"
+                    />
+                    <div
+                      className={`w-4 h-4 mt-0.5 rounded border flex items-center justify-center shrink-0 transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-blue-default peer-focus-visible:ring-offset-1 ${
+                        agreedToMarketing
+                          ? 'bg-blue-default border-blue-default'
+                          : 'bg-white border-gray-300 group-hover:border-blue-300'
+                      }`}
+                    >
+                      {agreedToMarketing && (
+                        <svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                          <polyline points="2 6 5 9 10 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      )}
+                    </div>
+                    <span className="text-xs text-gray-600 leading-relaxed group-hover:text-gray-900 transition-colors">
+                      I agree to receive email and marketing communications from Synergy3D. I understand that I can unsubscribe at any time.
+                    </span>
+                  </label>
+
                   {/* Submit */}
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="bg-blue-default hover:bg-blue-bright disabled:bg-blue-default/60 text-white font-bold py-3.5 px-6 rounded-lg text-[0.95rem] transition-all hover:-translate-y-0.5 active:translate-y-0 w-full cursor-pointer border-none shadow-lg flex items-center justify-center gap-2 mt-1"
+                    disabled={isSubmitting || !agreedToMarketing}
+                    className={`text-white font-bold py-3.5 px-6 rounded-lg text-[0.95rem] transition-all w-full border-none flex items-center justify-center gap-2 mt-1 ${
+                      isSubmitting || !agreedToMarketing
+                        ? 'bg-blue-default/50 cursor-not-allowed opacity-60 shadow-none'
+                        : 'bg-blue-default hover:bg-blue-bright hover:-translate-y-0.5 active:translate-y-0 cursor-pointer shadow-lg'
+                    }`}
                   >
                     {isSubmitting ? (
                       <>
@@ -352,7 +389,7 @@ export default function CallbackPage() {
               {/* Prefer not to wait */}
               <div className="bg-blue-50 border border-blue-100 rounded-2xl py-8 px-6">
                 <span className="block text-xs font-extrabold tracking-wider uppercase text-blue-500 mb-2">Prefer Not to Wait?</span>
-                <p className="text-[0.82rem] text-gray-600 leading-relaxed mb-4">
+                <p className="text-[0.85rem] text-gray-600 leading-relaxed mb-4">
                   Send us a digital scan right now — our portal is open 24/7 and we begin processing same day.
                 </p>
                 <a

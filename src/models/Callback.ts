@@ -12,6 +12,7 @@ interface ICallback extends Document {
   callTime: string;
   notes: string;
   helpWith: string[];
+  marketingConsent?: boolean;
   zohoSynced?: boolean;
 }
 
@@ -25,6 +26,7 @@ const callbackSchema: Schema = new Schema({
   callTime: { type: String },
   notes: { type: String },
   helpWith: { type: [String] },
+  marketingConsent: { type: Boolean, default: false },
   zohoSynced: { type: Boolean, default: false },
 }, { timestamps: true });
 
