@@ -762,7 +762,7 @@ export default function Home() {
                 title: 'For Solo & Small Practices',
                 desc: 'Streamline your lab workflow, grow case output, and deliver more precise restorations without the overhead.',
                 linkText: 'Get started →',
-                linkUrl: '/callback',
+                linkUrl: '/contact-details',
                 icon: <HomeIcon className="w-5 h-5" />
               },
               {
@@ -778,7 +778,7 @@ export default function Home() {
                 title: 'For DSOs & Enterprise',
                 desc: 'Dedicated account management, consolidated invoicing, custom integrations, and scalable solutions at any size.',
                 linkText: 'Contact sales →',
-                linkUrl: '/callback',
+                linkUrl: '/contact-details',
                 icon: <Globe className="w-5 h-5" />
               }
             ].map((card, i) => (

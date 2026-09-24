@@ -97,17 +97,11 @@ export const Navbar: React.FC = () => {
             <Link href="/lab-services/products/e-max-restorations" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
               e.max Restorations
             </Link>
-            <Link href="/lab-services/products/pfm-crowns" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
-              PFM Crowns
-            </Link>
             <Link href="/lab-services/products/surgical-guides" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
               Surgical Guides
             </Link>
             <Link href="/lab-services/products/night-guards" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
               Night Guards
-            </Link>
-            <Link href="/lab-services/products/printed-models-dies" className="block px-5 py-2.5 text-[11px] text-[#374263] font-medium hover:bg-[#f0f5ff] hover:text-blue transition-colors">
-              Printed Models & Dies
             </Link>
           </div>
         </li>
@@ -265,17 +259,11 @@ export const Navbar: React.FC = () => {
                 <Link href="/lab-services/products/e-max-restorations" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
                   e.max Restorations
                 </Link>
-                <Link href="/lab-services/products/pfm-crowns" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
-                  PFM Crowns
-                </Link>
                 <Link href="/lab-services/products/surgical-guides" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
                   Surgical Guides
                 </Link>
                 <Link href="/lab-services/products/night-guards" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
                   Night Guards
-                </Link>
-                <Link href="/lab-services/products/printed-models-dies" className="block text-white/70 text-[13px] font-medium py-1 hover:text-white transition-colors">
-                  Printed Models & Dies
                 </Link>
               </div>
             )}

@@ -37,13 +37,14 @@ import imgTemporaryBridge from '@/app/assets/products/updated_temporary_bridge_p
 import imgScrewmentable from '@/app/assets/products/screwmentable-1.png-1.png';
 
 export default function ProductsPage() {
-  const [filter, setFilter] = useState<'all' | 'crowns' | 'implants' | 'appliances'>('all');
+  const [filter, setFilter] = useState<'all' | 'crowns' | 'implants' | 'appliances' | 'removables'>('all');
 
   const categories = [
     { id: 'all', label: 'All' },
     { id: 'crowns', label: 'Crown & Bridge' },
     { id: 'implants', label: 'Implant Solutions' },
-    { id: 'appliances', label: 'Appliances & Models' }
+    { id: 'appliances', label: 'Appliances & Models' },
+    { id: 'removables', label: 'Digital Removables' }
   ];
 
   const productCards = [
@@ -52,24 +53,24 @@ export default function ProductsPage() {
     { id: 'e-max-restorations', filterCat: 'crowns', label: 'Ceramics', desc: 'Lithium disilicate for unmatched translucency and strength in anterior and posterior cases.', img: imgEmax },
     { id: 'pfm-crowns', filterCat: 'crowns', label: 'Ceramics', desc: 'Porcelain-fused-to-metal crowns offering durable strength with excellent aesthetics.', img: imgPFM },
     { id: 'surgical-guides', filterCat: 'implants', label: 'Implant Solutions', desc: 'CBCT-based digitally planned implant surgical guides for precise, predictable placement.', img: imgSurgical },
-    { id: 'night-guards', filterCat: 'appliances', label: 'Appliances', desc: 'Custom-milled hard and soft night guards for bruxism and TMJ protection.', img: imgNightGuard },
+    { id: 'night-guards', filterCat: 'removables', label: 'Digital Removables', desc: 'Custom-milled hard and soft night guards for bruxism and TMJ protection.', img: imgNightGuard },
     { id: 'printed-models-dies', filterCat: 'appliances', label: 'Models & Dies', desc: 'High-accuracy 3D-printed study models and working dies for planning and fabrication.', img: imgModels },
     { id: 'zirconia-hybrid-custom-abutment', filterCat: 'implants', label: 'Implant Solutions', desc: 'Combine titanium strength with zirconia aesthetics for bespoke restorations.', img: imgZirconiaHybridCustomAbutment },
     { id: 'wax-up', filterCat: 'appliances', label: 'Models & Dies', desc: 'Preparatory models for fit, form, and aesthetic verification prior to fabrication.', img: imgWaxUp },
     { id: 'titanium-custom-abutments', filterCat: 'implants', label: 'Implant Solutions', desc: 'Custom-designed titanium abutments for a stable base and custom fit.', img: imgTitaniumCustomAbutments },
     { id: 'full-contour-zirconia', filterCat: 'crowns', label: 'Ceramics', desc: 'Highest strength ceramic restoration, ideal for bruxers and grinders.', img: imgFullContourZirconia },
-    { id: 'acrylic-denture', filterCat: 'appliances', label: 'Appliances', desc: 'Durable, moldable full dentures that adapt comfortably over time.', img: imgAcrylicDenture },
+    { id: 'acrylic-denture', filterCat: 'removables', label: 'Digital Removables', desc: 'Durable, moldable full dentures that adapt comfortably over time.', img: imgAcrylicDenture },
     { id: 'acrylic-partial', filterCat: 'appliances', label: 'Appliances', desc: 'Low-cost and practical partial denture solution for missing teeth.', img: imgAcrylicPartial },
-    { id: 'partial-metal-framework', filterCat: 'appliances', label: 'Appliances', desc: 'Detachable partial dentures on a solid base of high-quality alloys.', img: imgPartialMetalFramework },
+    { id: 'partial-metal-framework', filterCat: 'removables', label: 'Digital Removables', desc: 'Detachable partial dentures on a solid base of high-quality alloys.', img: imgPartialMetalFramework },
     { id: 'temporaries', filterCat: 'crowns', label: 'Crown & Bridge', desc: 'Interim crowns, bridges, and dentures for functional aesthetics.', img: imgTemporaries },
     { id: 'screw-retained-zirconia-bridge', filterCat: 'implants', label: 'Implant Solutions', desc: 'Full arch zirconia bridge combining exceptional strength and beauty.', img: imgScrewRetainedZirconiaBridge },
     { id: 'screw-retained-pmma-bridge', filterCat: 'implants', label: 'Implant Solutions', desc: 'Full-arch PMMA bridge, flexible and highly resistant to wear.', img: imgScrewRetainedPMMABridge },
     { id: 'process-implant-acrylic-denture', filterCat: 'implants', label: 'Implant Solutions', desc: 'Acrylic dentures with implant attachments for custom, stable fit.', img: imgProcessImplantAcrylicDenture },
     { id: 'porcelain-fused-to-zirconia', filterCat: 'crowns', label: 'Ceramics', desc: 'Combine zirconia durability with premium feldspathic porcelain aesthetics.', img: imgPorcelainFusedToZirconia },
-    { id: 'millable-flexible-partials', filterCat: 'appliances', label: 'Appliances', desc: 'Novel lightweight partial dentures combining flexibility and strength.', img: imgMillableFlexiblePartials },
+    { id: 'millable-flexible-partials', filterCat: 'removables', label: 'Digital Removables', desc: 'Novel lightweight partial dentures combining flexibility and strength.', img: imgMillableFlexiblePartials },
     { id: 'screwmentable-crown-abutment-with-screw-channel-crown', filterCat: 'implants', label: 'Implant Solutions', desc: 'Secure titanium abutments combined with retrievable screw channel crowns.', img: imgScrewmentableCrownAbutmentWithScrewChannelCrown },
     { id: 'zirconia-screw-retained-crown-with-ti-base', filterCat: 'implants', label: 'Implant Solutions', desc: 'Zirconia crown on a titanium base for stable, retrievable restorations.', img: imgZirconiaScrewRetainedCrownWithTiBase },
-    { id: 'flexible-partials', filterCat: 'appliances', label: 'Appliances', desc: 'Removable prosthetics flexing to fit without metal clasps.', img: imgFlexiblePartials },
+    { id: 'flexible-partials', filterCat: 'removables', label: 'Digital Removables', desc: 'Removable prosthetics flexing to fit without metal clasps.', img: imgFlexiblePartials },
     { id: 'zirconia-hybrid', filterCat: 'implants', label: 'Implant Solutions', desc: 'Full arch zirconia hybrid combining strength and beautiful aesthetics.', img: imgZirconiaHybrid },
     { id: 'screw-retained-bridge', filterCat: 'implants', label: 'Implant Solutions', desc: 'Milled bridge providing a secure, stable connection to the jawbone.', img: imgScrewRetainedBridge },
     { id: 'temporary-bridge', filterCat: 'crowns', label: 'Crown & Bridge', desc: 'Short-term solution matching natural tooth color during healing.', img: imgTemporaryBridge },
