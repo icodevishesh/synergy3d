@@ -22,6 +22,11 @@ export const SEO_METADATA: Record<string, SEOData> = {
     description: "Order high-strength, natural-looking zirconia crowns from Synergy 3D's digital dental lab. Sub-30µm fit accuracy, milled in-house, shipped in 5 days.",
     keywords: ["zirconia crown dental lab","full contour zirconia","zirconia dental lab","dental crown lab","CAD/CAM crowns","high-strength zirconia crowns"]
   },
+  '/lab-services/products/dental-implant-restoration': {
+    title: "Dental Implant Restoration | Dental Implant Lab in New York | Synergy 3D",
+    description: "Synergy 3D is a New York dental implant lab designing screw-retained and cement-retained implant crowns on Ti-base or custom abutments. Sub-30µm fit, delivered in 5 business days.",
+    keywords: ["dental implant restoration","implant crowns","dental implant lab in New York","screw retained implant crown","cement retained implant crown","custom abutment lab"]
+  },
   '/lab-services/products/all-on-x-hybrids': {
     title: "All-on-X Hybrids | Full Arch Restorations Lab | Synergy 3D",
     description: "Full-arch All-on-X hybrid restorations from a trusted implant dental lab. All-on-4, All-on-6 & custom frameworks milled in-house. Request a quote today.",

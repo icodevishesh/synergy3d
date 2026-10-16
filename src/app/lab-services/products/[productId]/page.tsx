@@ -30,8 +30,10 @@ import { zirconiaHybridCustomAbutment } from '@/lib/schema/product/zirconia-hybr
 import { zirconiaHybrid } from '@/lib/schema/product/zirconia-hybrid';
 import { zirconiaScrewRetainedCrownWithTiBase } from '@/lib/schema/product/zirconia-screw-retained-crown-with-ti-base';
 import { zicroniaCrownsSchema } from '@/lib/schema/product/zirconio-crowns';
+import { dentalImplantRestorationSchema } from '@/lib/schema/product/dental-implant-restoration';
 
 const productSchemas: Record<string, any> = {
+  'dental-implant-restoration': dentalImplantRestorationSchema,
   'acrylic-denture': acrylicDenture,
   'all-on-x-hybrids': allOnXHybridSchema,
   'e-max-restorations': eMaxRestorationSchema,
@@ -85,8 +87,10 @@ import imgZirconiaHybrid from '@/app/assets/products/zirconia_hybrid_poster.png'
 import imgScrewRetainedBridge from '@/app/assets/products/updated_screw_retained_bridge_poster.png';
 import imgTemporaryBridge from '@/app/assets/products/updated_temporary_bridge_poster.png';
 import imgScrewmentable from '@/app/assets/products/screwmentable-1.png-1.png';
+import imgDentalImplantRestoration from '@/app/assets/products/implant_crowns_from_our_dental_implant_lab.png';
 
 const PRODUCT_IMAGES: Record<string, StaticImageData> = {
+  'dental-implant-restoration': imgDentalImplantRestoration,
   'zirconia-crowns': imgZirconia,
   'all-on-x-hybrids': imgAllOnX,
   'e-max-restorations': imgEmax,

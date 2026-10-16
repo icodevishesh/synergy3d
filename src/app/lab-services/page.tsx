@@ -35,6 +35,7 @@ import imgZirconiaHybrid from '@/app/assets/products/zirconia_hybrid_poster.png'
 import imgScrewRetainedBridge from '@/app/assets/products/updated_screw_retained_bridge_poster.png';
 import imgTemporaryBridge from '@/app/assets/products/updated_temporary_bridge_poster.png';
 import imgScrewmentable from '@/app/assets/products/screwmentable-1.png-1.png';
+import imgDentalImplantRestoration from '@/app/assets/products/implant_crowns_from_our_dental_implant_lab.png';
 
 export default function ProductsPage() {
   const [filter, setFilter] = useState<'all' | 'crowns' | 'implants' | 'appliances' | 'removables'>('all');
@@ -49,6 +50,7 @@ export default function ProductsPage() {
 
   const productCards = [
     { id: 'zirconia-crowns', filterCat: 'crowns', label: 'Crown & Bridge', desc: 'High-strength zirconia crowns milled to sub-30µm precision. Delivered in 5 days.', img: imgZirconia },
+    { id: 'dental-implant-restoration', filterCat: 'implants', label: 'Implant Solutions', desc: 'Screw-retained and cement-retained implant crowns on Ti-base or custom abutments. Sub-30µm fit, delivered in 5 business days.', img: imgDentalImplantRestoration },
     { id: 'all-on-x-hybrids', filterCat: 'implants', label: 'Implant Solutions', desc: 'Full-arch implant restorations — All-on-4, All-on-6, and custom hybrid frameworks.', img: imgAllOnX },
     { id: 'e-max-restorations', filterCat: 'crowns', label: 'Ceramics', desc: 'Lithium disilicate for unmatched translucency and strength in anterior and posterior cases.', img: imgEmax },
     { id: 'pfm-crowns', filterCat: 'crowns', label: 'Ceramics', desc: 'Porcelain-fused-to-metal crowns offering durable strength with excellent aesthetics.', img: imgPFM },

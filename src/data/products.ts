@@ -24,6 +24,29 @@ export const PRODUCTS: Record<string, Product> = {
     related: ['all-on-x-hybrids', 'e-max-restorations', 'pfm-crowns'],
     svgId: 'svg-z'
   },
+  'dental-implant-restoration': {
+    id: 'dental-implant-restoration',
+    cat: 'Implant Solutions',
+    name: 'Implant Crowns from Our Dental Implant Lab',
+    tagline: 'Dental implant restorations that seat <em>right the first time.</em>',
+    lead: 'Synergy 3D is a New York dental implant lab that designs every single-unit implant crown around your patient’s implant. We plan the emergence profile, contacts and screw-channel position in CAD, then mill the crown and abutment in-house. Each dental implant restoration can be screw-retained or cement-retained, on a Ti-base or a fully custom abutment, and ships in 5 business days.',
+    specs: [
+      { label: 'Turnaround', value: '5 Business Days' },
+      { label: 'Fit Accuracy', value: 'Sub-30µm' },
+      { label: 'Material', value: 'Zirconia / Titanium / E.max' },
+      { label: 'Retention', value: 'Screw or Cement' }
+    ],
+    features: [
+      'Screw-retained, cement-retained and screwmentable designs',
+      'Titanium-base hybrid or fully custom milled abutment in titanium or zirconia',
+      'Emergence profile designed to the soft tissue captured in your scan',
+      'Zirconia screw-retained crown with a Ti base for both strength and aesthetics',
+      'FDA-cleared, biocompatible materials',
+      'Shade matching with stain characterization'
+    ],
+    related: ['all-on-x-hybrids', 'surgical-guides', 'zirconia-crowns'],
+    svgId: 'svg-a'
+  },
   'all-on-x-hybrids': {
     id: 'all-on-x-hybrids',
     cat: 'Implant Solutions',
