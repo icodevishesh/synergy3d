@@ -75,10 +75,11 @@ export const Footer: React.FC = () => {
           </ul>
         </div>
         <div className="flex flex-col">
-          <h4 className="text-[0.7rem] font-bold tracking-[0.12em] uppercase text-white mb-5">Resources</h4>
+          <h4 className="text-[0.7rem] font-bold tracking-[0.12em] uppercase text-white mb-5">Important Links</h4>
           <ul className="list-none flex flex-col gap-3">
             <li><Link href="/contact-details" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Contact details</Link></li>
             <li><a href="https://synergy.greatlab.io" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Customer Portal</a></li>
+            <li><Link href="/heartland-direct-lab" className="text-muted-dark hover:text-white text-[0.85rem] transition-colors cursor-pointer">Heartland Direct Lab</Link></li>
           </ul>
         </div>
       </div>
