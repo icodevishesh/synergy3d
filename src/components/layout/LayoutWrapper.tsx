@@ -13,9 +13,7 @@ interface LayoutWrapperProps {
 export function LayoutWrapper({ children }: LayoutWrapperProps) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith('/admin');
-  const isHeartlandDirectLab = pathname?.startsWith('/heartland-direct-lab');
-
-  if (isAdmin || isHeartlandDirectLab) {
+  if (isAdmin) {
     return <main className="min-h-screen">{children}</main>;
   }
 

@@ -267,7 +267,7 @@ export default function CallbackPage() {
         
         {/* ============ Left Side Banner ============ */}
         <aside 
-          className="relative lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden bg-[#07101f] text-white flex flex-col justify-between"
+          className="relative lg:sticky lg:top-[60px] lg:h-[calc(100vh-60px)] lg:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden bg-[#07101f] text-white flex flex-col justify-between"
           style={{
             background: 'radial-gradient(700px 420px at 10% 0%,#13245a 0%,transparent 60%), radial-gradient(600px 500px at 100% 100%,#0f2a6b 0%,transparent 55%), #07101f',
           }}
@@ -285,11 +285,7 @@ export default function CallbackPage() {
             aria-label="A milled ceramic crown held in tweezers in front of a milling machine"
           />
 
-          <div className="relative z-10 flex flex-col min-h-full px-6 sm:px-10 pt-8 lg:pt-10 pb-0">
-            {/* Logo */}
-            <Link href="/" className="font-extrabold text-2xl lg:text-[28px] tracking-[0.16em] leading-none whitespace-nowrap text-white">
-              SYNERGY <span className="text-[#3cc6f5]">3D</span>
-            </Link>
+          <div className="relative z-10 flex flex-col min-h-full px-6 sm:px-10 pt-20 lg:pt-28 pb-0">
             <div className="w-[62%] max-w-[330px] h-[1px] bg-gradient-to-r from-[#5b9aff]/60 to-transparent mt-3.5" />
 
             {/* WHY WAIT? */}
@@ -434,7 +430,7 @@ export default function CallbackPage() {
         </aside>
 
         {/* ============ Right Main Column ============ */}
-        <main className="relative px-6 sm:px-12 lg:px-16 py-10 lg:py-16 bg-white text-[#374263]">
+        <section className="relative px-6 sm:px-12 lg:px-16 pt-20 lg:pt-28 pb-10 lg:pb-16 bg-white text-[#374263]">
           
           {/* Top corner phone link */}
           <div className="flex justify-end mb-8">
@@ -1009,7 +1005,7 @@ export default function CallbackPage() {
             </section>
 
           </div>
-        </main>
+        </section>
       </div>
     </div>
   );
