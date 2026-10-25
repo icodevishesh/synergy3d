@@ -78,7 +78,7 @@ export const TEAM: Record<string, TeamMember> = {
       'Bill is passionate about empowering dental teams to elevate patient care and practice profitability through high-touch, consultative support and dedicated service.'
     ],
     skills: ['National Sales Strategy', 'Practice Growth Consulting', 'Client Relationship Management', 'DSO Partnerships', 'Sales Leadership'],
-    colleagues: ['enrico', 'gina', 'ashley']
+    colleagues: ['enrico', 'gina', 'davie']
   },
   milos: {
     id: 'milos',
@@ -92,7 +92,7 @@ export const TEAM: Record<string, TeamMember> = {
       'Milos is also a key resource for dental offices seeking training on digital scanning and CAD/CAM workflow integration, reflecting Synergy 3D\'s commitment to clinician education.'
     ],
     skills: ['CAD/CAM Design', 'Implant Prosthetics', 'All-on-X Hybrids', 'Surgical Guide Fabrication', 'Digital Workflow'],
-    colleagues: ['enrico', 'erik', 'ashley']
+    colleagues: ['enrico', 'erik', 'kelli']
   },
   erik: {
     id: 'erik',
@@ -134,6 +134,6 @@ export const TEAM: Record<string, TeamMember> = {
       'As team leader, Kelli mentors junior technicians and maintains the quality control standards that contribute to Synergy 3D\'s less than 1% remake rate on crown and bridge cases.'
     ],
     skills: ['Zirconia Restorations', 'e.max Ceramics', 'Shade Matching', 'Quality Control', 'Team Leadership'],
-    colleagues: ['enrico', 'erik', 'ashley']
+    colleagues: ['enrico', 'erik', 'milos']
   }
 };
