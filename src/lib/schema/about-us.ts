@@ -21,11 +21,13 @@ export const aboutUs={
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Enrico Romano", "item": "https://synergy3d.net/about-us/enrico" },
         { "@type": "ListItem", "position": 2, "name": "Davie Carino", "item": "https://synergy3d.net/about-us/davie" },
-        { "@type": "ListItem", "position": 3, "name": "Gina Romano", "item": "https://synergy3d.net/about-us/gina" },
-        { "@type": "ListItem", "position": 4, "name": "Milos Markovic", "item": "https://synergy3d.net/about-us/milos" },
-        { "@type": "ListItem", "position": 5, "name": "Erik Morales", "item": "https://synergy3d.net/about-us/erik" },
-        { "@type": "ListItem", "position": 6, "name": "Ashley Lezon", "item": "https://synergy3d.net/about-us/ashley" },
-        { "@type": "ListItem", "position": 7, "name": "Kelli Trainor", "item": "https://synergy3d.net/about-us/kelli" }
+        { "@type": "ListItem", "position": 3, "name": "Cathy Romano", "item": "https://synergy3d.net/about-us/cathy" },
+        { "@type": "ListItem", "position": 4, "name": "Gina Romano", "item": "https://synergy3d.net/about-us/gina" },
+        { "@type": "ListItem", "position": 5, "name": "Bill Hodges", "item": "https://synergy3d.net/about-us/bill" },
+        { "@type": "ListItem", "position": 6, "name": "Milos Markovic", "item": "https://synergy3d.net/about-us/milos" },
+        { "@type": "ListItem", "position": 7, "name": "Erik Morales", "item": "https://synergy3d.net/about-us/erik" },
+        { "@type": "ListItem", "position": 8, "name": "Ashley Lezon", "item": "https://synergy3d.net/about-us/ashley" },
+        { "@type": "ListItem", "position": 9, "name": "Kelli Trainor", "item": "https://synergy3d.net/about-us/kelli" }
       ]
     },
     {

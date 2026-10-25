@@ -222,15 +222,25 @@ export const SEO_METADATA: Record<string, SEOData> = {
     description: "Meet Erik of the Synergy 3D team in New York, contributing to the digital workflows and lab precision dentists rely on daily. Get to know our team.",
     keywords: ["Erik Synergy 3D","dental lab team","dental technicians","digital dental lab New York","Synergy 3D staff","meet the team"]
   },
-  '/about-us/ashley': {
-    title: "Ashley | Synergy 3D Digital Dental Lab Team, New York",
-    description: "Meet Ashley of Synergy 3D, helping dental practices nationwide with responsive support from our New York digital dental lab. Get to know our team.",
-    keywords: ["Ashley Synergy 3D","dental lab team","dental technicians","digital dental lab New York","Synergy 3D staff","meet the team"]
-  },
+  // '/about-us/ashley': {
+  //   title: "Ashley | Synergy 3D Digital Dental Lab Team, New York",
+  //   description: "Meet Ashley of Synergy 3D, helping dental practices nationwide with responsive support from our New York digital dental lab. Get to know our team.",
+  //   keywords: ["Ashley Synergy 3D","dental lab team","dental technicians","digital dental lab New York","Synergy 3D staff","meet the team"]
+  // },
   '/about-us/kelli': {
     title: "Kelli | Synergy 3D Digital Dental Lab Team, New York",
     description: "Meet Kelli of Synergy 3D's New York team, ensuring smooth case management and dependable service for our partner dentists nationwide. Get to know our team.",
     keywords: ["Kelli Synergy 3D","dental lab team","dental technicians","digital dental lab New York","Synergy 3D staff","meet the team"]
+  },
+  '/about-us/cathy': {
+    title: "Cathy | Synergy 3D Digital Dental Lab Team, New York",
+    description: "Meet Cathy Romano, CFO of Synergy 3D, driving financial performance, operational efficiency, and sustainable business expansion. Get to know our team.",
+    keywords: ["Cathy Romano Synergy 3D","CFO dental lab","dental lab team","Synergy 3D leadership","meet the team"]
+  },
+  '/about-us/bill': {
+    title: "Bill | Synergy 3D Digital Dental Lab Team, New York",
+    description: "Meet Bill Hodges, National Sales Director at Synergy 3D, leading nationwide business development and partnerships with dental practices. Get to know our team.",
+    keywords: ["Bill Hodges Synergy 3D","National Sales Director","dental lab sales","dental lab team","Synergy 3D leadership","meet the team"]
   },
   '/apply': {
     title: "Careers at Synergy 3D | Dental Lab Jobs in New York",

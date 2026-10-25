@@ -6,6 +6,8 @@ import JsonLd from "@/components/JsonLd";
 import { Metadata } from 'next';
 import { getMetadataForPath } from '@/data/seoData';
 import { ashley } from "@/lib/schema/about-us/ashley";
+import { bill } from "@/lib/schema/about-us/bill";
+import { cathy } from "@/lib/schema/about-us/cathy";
 import { davie } from "@/lib/schema/about-us/davie";
 import { enrico } from "@/lib/schema/about-us/enrico";
 import { erik } from "@/lib/schema/about-us/erik";
@@ -14,7 +16,9 @@ import { kelli } from "@/lib/schema/about-us/kelli";
 import { milos } from "@/lib/schema/about-us/milos";
 
 const memberSchemas: Record<string, any> = {
-  ashley,
+  //ashley,
+  bill,
+  cathy,
   davie,
   enrico,
   erik,

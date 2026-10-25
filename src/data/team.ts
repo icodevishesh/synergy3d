@@ -2,6 +2,8 @@ import { TeamMember } from '@/types';
 import enrico from '@/app/assets/Enrico-Romano-CEO-Owner-scaled.jpg';
 import davie from '@/app/assets/Davie-Carino-C.O.O-scaled.jpg';
 import gina from '@/app/assets/GIna-Romano-CMO-Owner-scaled.jpg';
+import cathy from '@/app/assets/Cathy-Romano-CFO-scaled.jpg';
+import bill from '@/app/assets/Bill-Hodges-National-Sales-Director-scaled.jpg';
 import milos from '@/app/assets/Milos-Markovic-VP-of-CADCAM-and-Implantology-scaled.jpg';
 import erik from '@/app/assets/Erik-Morales-VP-of-Removable-Prosthetics-scaled.jpg';
 import ashley from '@/app/assets/Ashley-Sgaramella-VP-of-Customer-Integration-scaled.jpg';
@@ -20,7 +22,7 @@ export const TEAM: Record<string, TeamMember> = {
       'Enrico is also the host of SynergyTalks, where he brings his clinical insights and industry experience to dentists and lab professionals across the country.'
     ],
     skills: ['Digital Workflow Strategy', 'Full-Arch Implantology', 'CAD/CAM Technology', 'Practice Development', 'Team Leadership'],
-    colleagues: ['davie', 'gina', 'milos']
+    colleagues: ['davie', 'cathy', 'gina']
   },
   davie: {
     id: 'davie',
@@ -34,7 +36,21 @@ export const TEAM: Record<string, TeamMember> = {
       'Davie works closely with the full technician team to continuously refine internal workflows, implement new digital technologies, and drive operational efficiencies that benefit both the lab and its dental partners.'
     ],
     skills: ['Operations Management', 'Production Workflow', 'Quality Control', 'Team Management', 'Digital Dentistry'],
-    colleagues: ['enrico', 'gina', 'milos']
+    colleagues: ['enrico', 'cathy', 'gina']
+  },
+  cathy: {
+    id: 'cathy',
+    name: 'Cathy Romano',
+    role: 'CFO',
+    image: cathy,
+    title: 'Chief Financial Officer',
+    bio: [
+      'With 37 years of experience directing financial advisors and 10 years as a corporate auditor with a Fortune 500 company, Cathy Romano brings extensive financial expertise, strategic insight, and strong financial oversight to Synergy 3D.',
+      'Since joining the company in July 2025, Cathy has helped drive 40% revenue growth, demonstrating a strong commitment to financial performance, operational efficiency, and sustainable business expansion.',
+      'This combination of financial leadership, analytical expertise, and strategic planning supports Synergy 3D’s continued growth and long-term value creation.'
+    ],
+    skills: ['Financial Strategy', 'Corporate Auditing', 'Operational Efficiency', 'Revenue Growth', 'Strategic Planning'],
+    colleagues: ['enrico', 'davie', 'gina']
   },
   gina: {
     id: 'gina',
@@ -48,7 +64,21 @@ export const TEAM: Record<string, TeamMember> = {
       'Beyond marketing, Gina is deeply involved in the company\'s cultural mission — building a team that is not only technically exceptional but also deeply committed to the success of every dental practice they serve.'
     ],
     skills: ['Brand Strategy', 'Customer Relations', 'Marketing Leadership', 'Business Development', 'Team Culture'],
-    colleagues: ['enrico', 'davie', 'milos']
+    colleagues: ['enrico', 'bill', 'davie']
+  },
+  bill: {
+    id: 'bill',
+    name: 'Bill Hodges',
+    role: 'National Sales Director',
+    image: bill,
+    title: 'National Sales Director',
+    bio: [
+      'Bill Hodges serves as the National Sales Director at Synergy 3D, leading nationwide business development and expanding strategic partnerships with dental practices, DSOs, and clinical networks across the country.',
+      'With extensive experience in sales leadership and client strategy, Bill connects clinicians and practice managers with Synergy 3D’s high-precision digital restorative workflows and predictable lab solutions.',
+      'Bill is passionate about empowering dental teams to elevate patient care and practice profitability through high-touch, consultative support and dedicated service.'
+    ],
+    skills: ['National Sales Strategy', 'Practice Growth Consulting', 'Client Relationship Management', 'DSO Partnerships', 'Sales Leadership'],
+    colleagues: ['enrico', 'gina', 'ashley']
   },
   milos: {
     id: 'milos',
@@ -78,20 +108,20 @@ export const TEAM: Record<string, TeamMember> = {
     skills: ['Removable Prosthetics', 'Digital Dentures', 'Partial Denture Design', 'Occlusion', 'Flexible Materials'],
     colleagues: ['enrico', 'milos', 'kelli']
   },
-  ashley: {
-    id: 'ashley',
-    name: 'Ashley Lezon',
-    role: 'VP of Customer Integration',
-    image: ashley,
-    title: 'VP of Customer Integration',
-    bio: [
-      'Ashley Lezon serves as VP of Customer Integration at Synergy 3D, serving as the primary bridge between the lab and its growing network of dental practice partners. She ensures that every practice has a seamless onboarding experience and the ongoing support they need to succeed.',
-      'Ashley and her team are responsible for scanner training, digital workflow integration, case submission support, and ongoing customer education. Her work directly supports Synergy 3D\'s mission of making digital dentistry accessible to every practitioner.',
-      'Her commitment to customer success has been a major driver of Synergy 3D\'s industry-leading satisfaction scores and the loyalty of over 500 partner practices nationwide.'
-    ],
-    skills: ['Customer Success', 'Practice Integration', 'Scanner Training', 'Workflow Consulting', 'Relationship Management'],
-    colleagues: ['enrico', 'milos', 'kelli']
-  },
+  // ashley: {
+  //   id: 'ashley',
+  //   name: 'Ashley Lezon',
+  //   role: 'VP of Customer Integration',
+  //   image: ashley,
+  //   title: 'VP of Customer Integration',
+  //   bio: [
+  //     'Ashley Lezon serves as VP of Customer Integration at Synergy 3D, serving as the primary bridge between the lab and its growing network of dental practice partners. She ensures that every practice has a seamless onboarding experience and the ongoing support they need to succeed.',
+  //     'Ashley and her team are responsible for scanner training, digital workflow integration, case submission support, and ongoing customer education. Her work directly supports Synergy 3D\'s mission of making digital dentistry accessible to every practitioner.',
+  //     'Her commitment to customer success has been a major driver of Synergy 3D\'s industry-leading satisfaction scores and the loyalty of over 500 partner practices nationwide.'
+  //   ],
+  //   skills: ['Customer Success', 'Practice Integration', 'Scanner Training', 'Workflow Consulting', 'Relationship Management'],
+  //   colleagues: ['enrico', 'milos', 'kelli']
+  // },
   kelli: {
     id: 'kelli',
     name: 'Kelli Trainor',
