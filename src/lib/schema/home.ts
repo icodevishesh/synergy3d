@@ -123,7 +123,7 @@ export const homeSchema = {
           "name": "How does Synergy 3D compare to other labs?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "We combine in-house milling, expert technicians, premium materials, and a fully digital workflow to deliver superior accuracy at competitive pricing — a 4.2-day average turnaround and a remake rate of less than 1%."
+            "text": "We combine in-house milling, expert technicians, premium materials, and a fully digital workflow to deliver superior accuracy at competitive pricing — a 5< day average turnaround and a remake rate of less than 1%."
           }
         }
       ]

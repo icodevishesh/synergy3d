@@ -309,7 +309,7 @@ export default function Home() {
             <div className="w-1 shrink-0 sm:hidden" />
             {[
               {
-                num: '4.2',
+                num: '<5',
                 suffix: 'd',
                 label: 'Avg. Turnaround',
                 desc: 'Fast, reliable delivery you can count on.',
@@ -884,7 +884,7 @@ export default function Home() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 w-full max-w-[800px]">
               {[
-                { n: '5-Days', l: 'Guaranteed delivery' },
+                { n: '<5-Days', l: 'Guaranteed delivery' },
                 { n: 'USA', l: 'Made in America' },
                 { n: '<1%', l: 'Remake Rate' },
                 { n: 'All 50', l: 'States Served' }
